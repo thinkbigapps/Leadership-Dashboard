@@ -241,7 +241,7 @@ namespace ExceptionDashboard
                                     //attempt to auto log in new user account
                                     Employee loginEmployee = _myEmployeeManager.FindEmployee(username);
                                     Session["loggedInUser"] = loginEmployee;
-                                    //set flag for agentview page to identify a new user was created
+                                    //set flag for agentview page to identify a new user was created.
                                     Session["newUser"] = "yes";
                                 }
                                 catch (Exception)
