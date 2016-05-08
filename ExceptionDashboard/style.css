@@ -1,0 +1,276 @@
+﻿/*main css*/
+body {
+	font-family: sans-serif;
+	background-color: #e4efc7;
+}
+
+input[type="submit"] {
+	background-color: #8cb529;
+	color: #fff;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	height: 30px;
+	outline: none;
+}
+
+#welcome {
+	margin-right: 10px;
+	text-align: right;
+	background-color: #8cb529;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	clear: both;
+}
+
+#lblWelcome {
+	padding-right: 10px;
+}
+
+#navmenu {
+	float: left;
+}
+
+.nav a {
+	line-height: 35px;
+	background-color: #000;
+	color: #fff;
+	height: 35px;
+	margin-right: 5px;
+	width: 175px;
+	text-align: center;
+	-moz-border-top-right-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	outline: none;
+	margin-top: 38px;
+}
+
+.nav a:hover {
+	background-color: #8cb529;
+}
+
+.navselected {
+	background-color: #8cb529;
+}
+
+.headertext {
+	font-size: 30px;
+	text-shadow: 1px 1px #000;
+	font-weight: bold;
+	margin-left: 3px;
+}
+
+#header {
+	clear: both;
+	background-color: #8cb529;
+	color: #fff;
+}
+
+#pagelogin {
+	float: right;
+	margin-top: 7px;
+}
+
+#wrapper {
+	height: 75px;
+	background-color: #e4efc7;
+}
+
+.grid a {
+	color: #fff!important;
+	text-decoration: none;
+}
+
+.grid {
+	min-width: 50%;
+	text-align: center;
+}
+
+.grid td {
+	
+	overflow: hidden;
+}
+
+.grid tr:hover:not(:first-child) {
+	background-color: #ef6c0f!important;
+	color: white;
+}
+
+#main_Table1 td {
+	padding: 3px;
+}
+
+#main_Table1 input[type="submit"] {
+	margin-right: 7px;
+}
+
+#editmain, #submitmain {
+	padding-top: 15px;
+	font-weight: bold;
+	background-color: #e4efc7;
+}
+
+#editmain td:not(.editbutton):not(:empty):not(.closebutton) {
+	border: 1px solid black;
+	padding: 5px;
+	margin: auto;
+}
+
+#submitmain td:not(.editbutton):not(:empty):not(.closebutton) {
+	padding: 5px;
+	margin: auto;
+}
+
+.closebutton input[type="submit"]{
+	display: block;
+	margin: auto;
+	padding: 0px 15px;
+}
+
+.closebutton, .editbutton {
+	padding-top: 10px;
+}
+
+.editbutton input[type="submit"] {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#mainpanel {
+	width: 400px;
+	margin: auto;
+	background-color: #e4efc7;
+}
+
+#edittable {
+	margin: auto;
+}
+
+/* #main_lblStatus {
+	margin-left: 66px;
+}
+
+#main_listStatus {
+	margin-left: 25px;
+} */
+
+#main_searchTable td {
+	vertical-align: -50px;
+	padding-right: 25px;
+	padding-bottom: 3px;
+}
+
+#submitmain {
+	border: 1px solid black;
+}
+
+#main_searchTable span {
+	font-size: 14px;
+	color: #6d7888;
+}
+
+#main_searchTable input[type="submit"] {
+	margin-right: 7px;
+}
+
+#main_btnViewReport {
+	margin-top: 20px;
+	padding: 0px 20px;
+}
+
+#searchFields {
+	background-color: #fff;
+}
+
+#main_searchTable {
+	margin-left: 10px;
+	padding-top: 10px;
+}
+
+#mainContent {
+	margin-left: 10px;
+	padding-bottom: 50px;
+}
+
+#main_listRepresentative, #main_listTopLevel, #main_listDepartment, #main_listStatus, #main_txtStartDate, #main_txtEndDate {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+/* #listActivity {
+	width: 96%;
+}
+
+#txtActivityNote {
+	width: 93%;
+}
+
+#txtEventDate {
+	width: 94%;
+}
+
+#startHour, #startMinute, #startAMPM, #endHour, #endMinute, #endAMPM {
+	width: 32%;
+	text-indent: 10px;
+}  */
+
+#createAccountMain {
+	width: 350px;
+	margin: auto;
+}
+
+#login {
+	width: 100%;
+}
+
+#login  input[type="submit"] {
+	display: block;
+	margin: auto;
+}	
+
+#login td {
+	padding: 5px;
+}
+
+#main_searchTable input[type="submit"] {
+	display:inline;
+	margin-right: 5px;
+}
+
+.lblWelcome {
+	float: right;
+	margin-top: 8px;
+}
+
+.newUser {
+	margin-right: 10px;
+}
+
+.btn {
+	background-color: #8cb529;
+	color: #fff;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	height: 30px;
+	outline: none;
+	margin: auto;
+	padding: 5px 10px;
+}
+
+.listRole {
+	width: 100%;
+}
+
+.lblAlert {
+	float: left;
+	padding-left: 10px;
+	font-weight: bold;
+}

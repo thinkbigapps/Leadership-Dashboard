@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ExEvent.master.cs" Inherits="ExceptionDashboard.ExEvent" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>C3 Exception Dashboard</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="jquery-ui.css" />
+    <script src="jquery-1.10.2.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".txtDate").datepicker({
+                buttonText: "Select date",
+                showAnim: "slideDown"
+            });
+        });
+    </script> 
+    <script type = "text/javascript">
+        function showSubmitPopUp() {
+            popUpPage = window.open("AgentSubmit.aspx",
+            "ModalPopUp",
+            "toolbar=no," +
+            "scrollbars=no," +
+            "location=no," +
+            "statusbar=no," +
+            "titlebar=no," +
+            "menubar=no," +
+            "resizable=0," +
+            "width=420," +
+            "left=20," +
+            "height=340,"
+            );
+            popUpPage.focus();
+            LoadModalDiv();
+        }
+    </script>
+</head>
+<body>
+    <div id="header">
+        <asp:Label runat="server" CssClass="headertext" Text="C3 Exception Dashboard"></asp:Label>
+        <asp:Label ID="lblWelcome" CssClass="lblWelcome" runat="server" Text="Welcome "></asp:Label>
+    </div>
+    <form id="login" runat="server">
+        <div id="wrapper">
+            <div id="navmenu">
+                <asp:Menu ID="Menu1" CssClass="nav" runat="server" Orientation="Horizontal" OnMenuItemClick="Menu1_MenuItemClick">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/AgentView.aspx" Text="View Exceptions" value="btnViewExceptions"/>
+                        <asp:MenuItem Text="Request New Exception" Value="btnRequestNewException"/>
+                        <%--<asp:MenuItem Text="Manage Employees" Value="btnManageEmployees" NavigateUrl="~/ManageEmployees.aspx"/>--%>
+                    </Items>
+                </asp:Menu>
+            </div>
+            <div id="pagelogin" runat="server">
+                <asp:Table runat="server">
+                    <asp:TableRow>
+                        <asp:TableCell>
+                            <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+                        </asp:TableCell>
+                    </asp:TableRow>
+
+                    <asp:TableRow>
+                        <asp:TableCell>
+                            <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                        </asp:TableCell>
+                    </asp:TableRow>
+                </asp:Table>
+            </div>
+        </div>
+        <div id="welcome" runat="server">
+            <asp:Label ID="lblAlert" runat="server" Text="  ALERT: IE or Chrome Only. Log in is set to time out after 5 mins of inactivity. THIS TOOL DOES NOT SUBMIT TO WEBSTATION" CssClass="lblAlert"></asp:Label>
+            <asp:Label runat="server" ID="lblNewUser" CssClass="newUser">
+                <a href="./CreateAccount.aspx">Create Account</a>
+            </asp:Label>
+            <asp:Label runat="server" ID="lblReset" CssClass="newUser">
+                <a href="./ResetPassword.aspx">Reset Password</a>
+            </asp:Label>
+        </div>
+
+        <asp:ContentPlaceHolder ID="main" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
