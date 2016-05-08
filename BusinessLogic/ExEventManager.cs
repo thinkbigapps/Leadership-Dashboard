@@ -22,6 +22,18 @@ namespace BusinessLogic
             }
         }
 
+        public List<ManagerExEvent> FetchManagerEvent(string dept)
+        {
+            try
+            {
+                return ExEventAccessor.SelectManagerEvents(dept);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<ExEvent> FetchEventsByAgent(int employeeID, string statusName, DateTime startDate, DateTime endDate)
         {
             try

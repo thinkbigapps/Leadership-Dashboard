@@ -41,7 +41,7 @@ namespace ExceptionDashboard
                     //if user's role is agent, disable manage employees button and add request new exception button
                     var menu = Page.Master.FindControl("Menu1") as Menu;
 
-                    if (loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+                    if (loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead" || loggedInEmployee.RoleName == "Manager")
                     {
                         if (menu.FindItem("btnRequestNewException") != null)
                         {

@@ -160,7 +160,16 @@ namespace ExceptionDashboard
                             throw;
                         }
                         System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('User Created Successfully.');", true);
-                        Response.Redirect("AgentView.aspx");
+                        Employee checkRedirect = (Employee)Session["loggedInUser"];
+
+                        if (checkRedirect.RoleName == "Manager")
+                        {
+                            Response.Redirect("ManagerView.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("AgentView.aspx");
+                        }
                     }
                     else
                     {
@@ -262,7 +271,16 @@ namespace ExceptionDashboard
 
                         //Employee redirectCheck = Employee(Session["loggedInUser"]);
 
-                        Response.Redirect("AgentView.aspx");
+                        Employee checkRedirect = (Employee)Session["loggedInUser"];
+
+                        if (checkRedirect.RoleName == "Manager")
+                        {
+                            Response.Redirect("ManagerView.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("AgentView.aspx");
+                        }
                     }
                     else
                     {

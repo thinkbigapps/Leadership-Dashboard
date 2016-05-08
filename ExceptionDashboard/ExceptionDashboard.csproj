@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,6 +97,7 @@
     <Content Include="jquery-1.10.2.js" />
     <Content Include="jquery-ui.css" />
     <Content Include="jquery-ui.js" />
+    <Content Include="ManagerView.aspx" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\dev.domainmason.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dev2.pubxml" />
@@ -152,6 +154,13 @@
     </Compile>
     <Compile Include="ExEvent.Master.designer.cs">
       <DependentUpon>ExEvent.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerView.aspx.cs">
+      <DependentUpon>ManagerView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerView.aspx.designer.cs">
+      <DependentUpon>ManagerView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetPassword.aspx.cs">
