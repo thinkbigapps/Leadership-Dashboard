@@ -11,6 +11,61 @@ namespace DataAccess
 {
     public class ExEventAccessor
     {
+        public static List<ManagerExEvent> SelectManagerEvents(string dept)
+        {
+            var myList = new List<ManagerExEvent>();
+
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = "SELECT event_id, ex_event.employee_id, employee.department_name, employee.employee_id, event_date, submission_date, activity_name, start_time, end_time, status_name, activity_note, employee.supervisor_lname, event_date, employee.first_name, employee.last_name FROM ex_event, employee WHERE ex_event.employee_id = employee.employee_id AND employee.department_name = @department AND status_name = 'Pending' AND event_date < DATEADD(day,-4,GETDATE())";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@department", dept);
+
+            
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No events found!");
+                }
+
+                while (reader.Read())
+                {
+                    ManagerExEvent myMgrExEvent = new ManagerExEvent();
+                                        
+                    myMgrExEvent.eventID = reader.GetInt32(0);
+                    myMgrExEvent.employeeID = reader.GetInt32(1);
+                    myMgrExEvent.department = reader.GetString(2);
+                    myMgrExEvent.eventDate = reader.GetDateTime(4);
+                    myMgrExEvent.submissionDate = reader.GetDateTime(5);
+                    myMgrExEvent.activityName = reader.GetString(6);
+                    myMgrExEvent.startTime = reader.GetString(7);
+                    myMgrExEvent.endTime = reader.GetString(8);
+                    myMgrExEvent.statusName = reader.GetString(9);
+                    myMgrExEvent.activityNote = reader.GetString(10);
+                    myMgrExEvent.supLastName = reader.GetString(11);
+                    myMgrExEvent.agentName = reader.GetString(14) + ", " + reader.GetString(13);
+                    myList.Add(myMgrExEvent);
+                }
+                
+
+            }
+            catch 
+            {
+                
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return myList;
+        }
+
+
         public static List<ExEvent> SelectCompletedEvents()
         {
             var myList = new List<ExEvent>();
@@ -345,7 +400,7 @@ namespace DataAccess
 
         public static List<Activity> SelectActivityList()
         {
-           var activityList = new List<Activity>();
+            var activityList = new List<Activity>();
 
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT activity_name FROM activity";
@@ -360,9 +415,9 @@ namespace DataAccess
                     while (reader.Read())
                     {
                         var newactivity = new Activity();
-                        
+
                         newactivity.activityName = reader.GetString(0);
-                        
+
                         activityList.Add(newactivity);
                     }
                 }
@@ -401,7 +456,7 @@ namespace DataAccess
                     while (reader.Read())
                     {
                         var newStatus = new Status();
-                        
+
                         newStatus.statusName = reader.GetString(0);
 
                         StatusList.Add(newStatus);

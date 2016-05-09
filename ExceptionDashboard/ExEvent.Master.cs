@@ -1,6 +1,6 @@
 ﻿//Exception Dashboard
 //Created by Mason A.
-//Updated 2/18/16
+//Updated 5/8/16
 
 using System;
 using System.Collections.Generic;
@@ -41,11 +41,26 @@ namespace ExceptionDashboard
                     //if user's role is agent, disable manage employees button and add request new exception button
                     var menu = Page.Master.FindControl("Menu1") as Menu;
 
-                    if (loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+                    if (loggedInEmployee.RoleName == "Manager")
                     {
                         if (menu.FindItem("btnRequestNewException") != null)
                         {
                             menu.Items.Remove(menu.FindItem("btnRequestNewException"));
+                        }
+                        if (menu.FindItem("btnViewExceptions") != null)
+                        {
+                            menu.Items.Remove(menu.FindItem("btnViewExceptions"));
+                        }
+                    }
+                    else if (loggedInEmployee.RoleName == "Supervisor")
+                    {
+                        if (menu.FindItem("btnRequestNewException") != null)
+                        {
+                            menu.Items.Remove(menu.FindItem("btnRequestNewException"));
+                        }
+                        if (menu.FindItem("btnManagerView") != null)
+                        {
+                            menu.Items.Remove(menu.FindItem("btnManagerView"));
                         }
                     }
                     else if (loggedInEmployee.RoleName == "Agent")
@@ -53,6 +68,10 @@ namespace ExceptionDashboard
                         if (menu.FindItem("btnManageEmployees") != null)
                         {
                             menu.Items.Remove(menu.FindItem("btnManageEmployees"));
+                        }
+                        if (menu.FindItem("btnManagerView") != null)
+                        {
+                            menu.Items.Remove(menu.FindItem("btnManagerView"));
                         }
                     }
                 }
@@ -92,7 +111,15 @@ namespace ExceptionDashboard
                     if (_myEmployeeManager.VerifyHashPassword(password, loginEmployee.Password))
                     {
                         Session["loggedInUser"] = loginEmployee;
-                        Response.Redirect("AgentView.aspx");
+                        if (loginEmployee.RoleName == "Manager") 
+                        {
+                            Response.Redirect("ManagerView.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("AgentView.aspx");
+                        }
+                        
                     }
                     else
                     {

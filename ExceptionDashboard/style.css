@@ -274,3 +274,8 @@ input[type="submit"] {
 	padding-left: 10px;
 	font-weight: bold;
 }
+
+th {
+    padding-right: 5px;
+    padding-left: 5px;
+}
