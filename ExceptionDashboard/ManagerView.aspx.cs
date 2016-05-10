@@ -21,7 +21,6 @@ namespace ExceptionDashboard
         List<BusinessObjects.ExEvent> _completeSupEventList = new List<BusinessObjects.ExEvent>();
         List<BusinessObjects.ExEvent> _completeLeadEventList = new List<BusinessObjects.ExEvent>();
         List<BusinessObjects.ExEvent> _completeAgentEventList = new List<BusinessObjects.ExEvent>();
-        List<BusinessObjects.ExEvent> _myExEventList;
 
         protected void Page_Load(object sender, EventArgs e)
         {

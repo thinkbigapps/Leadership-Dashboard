@@ -239,7 +239,7 @@ namespace DataAccess
                         newEmployee.Password = reader.GetString(8);
                         newEmployee.EmailAddress = reader.GetString(9);
                         newEmployee.FullName = reader.GetString(6) + ", " + reader.GetString(5);
-
+                        newEmployee.FullSupName = newEmployee.SupervisorLastName + ", " + newEmployee.SupervisorFirstName;
                         LeadReportList.Add(newEmployee);
                     }
                 }

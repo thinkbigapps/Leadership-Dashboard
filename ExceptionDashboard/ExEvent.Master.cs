@@ -52,7 +52,7 @@ namespace ExceptionDashboard
                             menu.Items.Remove(menu.FindItem("btnViewExceptions"));
                         }
                     }
-                    else if (loggedInEmployee.RoleName == "Supervisor")
+                    else if (loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
                     {
                         if (menu.FindItem("btnRequestNewException") != null)
                         {

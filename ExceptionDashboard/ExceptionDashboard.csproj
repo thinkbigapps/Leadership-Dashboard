@@ -97,6 +97,7 @@
     <Content Include="jquery-1.10.2.js" />
     <Content Include="jquery-ui.css" />
     <Content Include="jquery-ui.js" />
+    <Content Include="ManageEmployees.aspx" />
     <Content Include="ManagerView.aspx" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\dev.domainmason.com - Web Deploy.pubxml" />
@@ -154,6 +155,13 @@
     </Compile>
     <Compile Include="ExEvent.Master.designer.cs">
       <DependentUpon>ExEvent.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEmployees.aspx.cs">
+      <DependentUpon>ManageEmployees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEmployees.aspx.designer.cs">
+      <DependentUpon>ManageEmployees.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManagerView.aspx.cs">
       <DependentUpon>ManagerView.aspx</DependentUpon>

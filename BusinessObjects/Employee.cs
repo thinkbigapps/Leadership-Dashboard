@@ -21,5 +21,6 @@ namespace BusinessObjects
         public string FullName { get; set; }
         public DateTime NewPassExpire { get; set; }
         public string NewPassID { get; set; }
+        public string FullSupName { get; set; }
     }
 }
