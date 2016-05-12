@@ -47,10 +47,10 @@ namespace ExceptionDashboard
                         {
                             menu.Items.Remove(menu.FindItem("btnRequestNewException"));
                         }
-                        if (menu.FindItem("btnViewExceptions") != null)
-                        {
-                            menu.Items.Remove(menu.FindItem("btnViewExceptions"));
-                        }
+                        //if (menu.FindItem("btnViewExceptions") != null)
+                        //{
+                        //    menu.Items.Remove(menu.FindItem("btnViewExceptions"));
+                        //}
                     }
                     else if (loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
                     {
@@ -114,6 +114,7 @@ namespace ExceptionDashboard
                         if (loginEmployee.RoleName == "Manager") 
                         {
                             Response.Redirect("ManagerView.aspx");
+                            
                         }
                         else
                         {

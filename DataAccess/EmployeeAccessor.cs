@@ -243,16 +243,16 @@ namespace DataAccess
                         LeadReportList.Add(newEmployee);
                     }
                 }
-                else
-                {
-                    var ax = new ApplicationException("No employee records were found");
-                    throw ax;
-                }
+                //else
+                //{
+                //    var ax = new ApplicationException("No employee records were found");
+                //    throw ax;
+                //}
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
             finally
             {
                 conn.Close();

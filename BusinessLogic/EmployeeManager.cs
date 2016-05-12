@@ -81,9 +81,9 @@ namespace BusinessLogic
             {
                 return EmployeeAccessor.SelectDirectReports(supFirstName, supLastName);
             }
-            catch (Exception)
+            finally
             {
-                throw;
+
             }
         }
 

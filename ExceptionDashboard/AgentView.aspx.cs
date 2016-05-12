@@ -45,7 +45,7 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    Response.Redirect("AgentView.aspx");
+                    //Response.Redirect("AgentView.aspx");
                 }
                 
                 //Check to see if edit/submit pages were interacted with and refresh view page to reflect changes
@@ -121,6 +121,41 @@ namespace ExceptionDashboard
                     listStatus.DataSource = currentStatuses;
                     listStatus.DataBind();
                 }
+                else if (loggedInEmployee.RoleName == "Manager")
+                {
+                    //populate top level list with sup/lead/agent
+                    List<Role> currentRoles = _myEmployeeManager.FetchRoleList();
+                    listTopLevel.DataTextField = "roleName";
+                    listTopLevel.DataValueField = "roleName";
+                    listTopLevel.DataSource = currentRoles;
+                    listTopLevel.DataBind();
+
+                    //populate department list with all departments
+                    List<Department> currentDepartments = _myEmployeeManager.FetchDepartmentList();
+                    listDepartment.DataTextField = "departmentName";
+                    listDepartment.DataValueField = "departmentName";
+                    listDepartment.DataSource = currentDepartments;
+                    listDepartment.DataBind();
+
+                    //populate sup list will all employees that have role of sup in employee's department
+                    List<Employee> currentSups = _myEmployeeManager.FindEmployeesToList("Supervisor", loggedInEmployee.DepartmentName);
+
+                    listRepresentative.DataTextField = "FullName";
+                    listRepresentative.DataValueField = "employeeID";
+                    listRepresentative.DataSource = currentSups;
+                    listRepresentative.DataBind();
+
+                    //populate status list with all statuses
+                    List<Status> currentStatuses = _myExEventManager.FetchStatusList();
+                    listStatus.DataTextField = "statusName";
+                    listStatus.DataValueField = "statusName";
+                    listStatus.DataSource = currentStatuses;
+                    listStatus.DataBind();
+
+                    listTopLevel.SelectedValue = "Supervisor";
+                    listDepartment.SelectedValue = loggedInEmployee.DepartmentName;
+                }
+
                 else if (loggedInEmployee.RoleName == "Agent")
                 {
                     //populate top level list with agent
@@ -153,7 +188,7 @@ namespace ExceptionDashboard
                 listStatus.SelectedValue = "Pending";
 
                 //verify page load is not from submit/edit pages
-                if (Session["resetToken"] == null)
+                if (Session["resetToken"] == null && loggedInEmployee.RoleName != "Manager")
                 {
                     //select previously selected top level to bind employee drop down with list of employees with that role
                     if (Session["selectedTopLevel"] != null)
@@ -172,7 +207,7 @@ namespace ExceptionDashboard
                     
                 }
                 //if selectedTopLevel session var is set, select that top level from drop down, otherwise page is from submit/edit page - grab top level from query string
-                else
+                else if (loggedInEmployee.RoleName != "Manager")
                 {
                     if (Session["selectedTopLevel"] != null)
                     {
@@ -187,6 +222,7 @@ namespace ExceptionDashboard
                         listTopLevel.SelectedValue = Request.QueryString["topLevel"].Replace("\"", "");
                     }
                 }
+
                 listDepartment.SelectedValue = loggedInEmployee.DepartmentName;
  
             }
@@ -252,12 +288,12 @@ namespace ExceptionDashboard
                     //statement added to page load that checks for edit/submit interaction causes gridview to duplicate events due to addl page load from view report button click event firing
                     //***will address logic bug later***
                     //for now, capture duplicate listings and filter
-                    var distinctItems = _completeSupEventList.GroupBy(x => x.eventID).Select(y => y.First());
+                    //var distinctItems = _completeSupEventList.GroupBy(x => x.eventID).Select(y => y.First());
                     lblNoData.Visible = false;
                     gvExEvent.Visible = true;
-                    Session["currentEventList"] = distinctItems;
+                    Session["currentEventList"] = _completeSupEventList;
                     Session["SortDirection"] = "ASC";
-                    gvExEvent.DataSource = distinctItems.OrderBy(o => o.agentName).ToList();
+                    gvExEvent.DataSource = _completeSupEventList.OrderBy(o => o.agentName).ToList();
                     gvExEvent.DataBind();
                 }
                 //if event list is empty, hide gridview and display 'no records' message
@@ -366,12 +402,12 @@ namespace ExceptionDashboard
             //detect if event status is completed
             //if so, remove button to complete event
             //clear session variable for edit/submit changes for next page load
-            //LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
+            LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
 
-            //if(e.Row.Cells[5].Text=="Completed")
-            //{
-            //    lbComplete.Visible = false;
-            //}
+            if(e.Row.Cells[5].Text=="Completed")
+            {
+                lbComplete.Visible = false;
+            }
         }
 
         protected void gvExEvent_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -392,27 +428,27 @@ namespace ExceptionDashboard
 
             ////insert edit and complete buttons into each row
             ////***ADDING 'Edit' button as some users were reporting that they weren't aware they could click the row to edit***
-            //LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
-            //LinkButton lbEdit = (LinkButton)e.Row.Cells[6].FindControl("lbEdit");
+            LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
+            LinkButton lbEdit = (LinkButton)e.Row.Cells[6].FindControl("lbEdit");
 
-            ////check to see if event is already completed or rejected, change edit button text to 'View'
-            //if(e.Row.Cells[5].Text=="Completed" || e.Row.Cells[5].Text=="Rejected")
-            //{
-            //    lbComplete.Visible = false;
-            //    lbEdit.Text = "View";
-            //}
+            //check to see if event is already completed or rejected, change edit button text to 'View'
+            if (e.Row.Cells[5].Text == "Completed" || e.Row.Cells[5].Text == "Rejected")
+            {
+                lbComplete.Visible = false;
+                lbEdit.Text = "View";
+            }
 
-            //Employee loggedInAgent = (Employee)Session["loggedInUser"];
-            
-            ////check to see if the logged in user is an agent, remove ability to complete events
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    if (loggedInAgent.RoleName == "Agent")
-            //    {
-            //        LinkButton lbComplete2 = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
-            //        lbComplete2.Visible = false;
-            //    }
-            //}
+            Employee loggedInAgent = (Employee)Session["loggedInUser"];
+
+            //check to see if the logged in user is an agent, remove ability to complete events
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (loggedInAgent.RoleName == "Agent")
+                {
+                    LinkButton lbComplete2 = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
+                    lbComplete2.Visible = false;
+                }
+            }
         }
 
         protected void gvExEvent_SelectedIndexChanged(object sender, EventArgs e)
@@ -560,7 +596,7 @@ namespace ExceptionDashboard
         protected void gvExEvent_Sorting(object sender, GridViewSortEventArgs e)
         {
             //***gridview column sort method not working after 
-            List<ExEvent> myGridResults = (List<ExEvent>)Session["currentEventList"];
+            List<ExceptionDashboard.ExEvent> myGridResults = (List<ExceptionDashboard.ExEvent>)Session["currentEventList"];
 
             var param = Expression.Parameter(typeof(ExEvent), e.SortExpression);
             var sortExpression = Expression.Lambda<Func<ExEvent, object>>(

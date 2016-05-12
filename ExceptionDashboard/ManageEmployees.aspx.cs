@@ -143,17 +143,16 @@ namespace ExceptionDashboard
 
             if (listTopLevel.SelectedValue == "Supervisor")
             {
-                string fullSupName = listRepresentative.DataTextField.ToString();
-                lblTopLevel.Text = fullSupName;
-                //string[] splitSupName = fullSupName.Split(',');
-                //for (int i = 0; i < splitSupName.Length; i++)
-                //{
-                //    splitSupName[i] = splitSupName[i].Trim();
-                //}
-                //string supLastName = splitSupName[0].ToString();
-                //string supFirstName = splitSupName[1].ToString();
+                string fullSupName = listRepresentative.SelectedItem.Text;
+                string[] splitSupName = fullSupName.Split(',');
+                for (int i = 0; i < splitSupName.Length; i++)
+                {
+                    splitSupName[i] = splitSupName[i].Trim();
+                }
+                string supLastName = splitSupName[0].ToString();
+                string supFirstName = splitSupName[1].ToString();
 
-                //_employeeList = _myEmployeeManager.FindLeadReports(supFirstName, supLastName);
+                _employeeList = _myEmployeeManager.FindLeadReports(supFirstName, supLastName);
             }
 
             if (_employeeList.Count() != 0)
