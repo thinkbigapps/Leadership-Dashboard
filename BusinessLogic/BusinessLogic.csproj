@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultationCardManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="ExEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

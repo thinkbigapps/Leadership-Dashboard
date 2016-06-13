@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultationAccessor.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="EmployeeAccessor.cs" />
     <Compile Include="ExEventAccessor.cs" />
