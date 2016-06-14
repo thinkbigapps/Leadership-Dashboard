@@ -28,5 +28,17 @@ namespace BusinessLogic
                 throw new ApplicationException("There was a problem accessing the database.", ex);
             }
         }
+
+        public void UpdateConsultationCard(ConsultationCard oldC, ConsultationCard newC)
+        {
+            try
+            {
+                ConsultationAccessor.UpdateConsultationCard(oldC, newC);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

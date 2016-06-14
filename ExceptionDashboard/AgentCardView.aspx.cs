@@ -22,6 +22,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"]; 
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             ConsultationCard currentConsultantCard = _myConsultationCardManager.FindCard(consultantID);
 
@@ -29,7 +30,7 @@ namespace ExceptionDashboard
 
             if(!IsPostBack)
             {
-                lblConsultantName.Text += currentConsultant.FirstName + " " + currentConsultant.LastName;
+                lblConsultantName.Text += (currentConsultant.FirstName + " " + currentConsultant.LastName);
             }
             
             TableRow tRow1 = new TableRow();
@@ -61,78 +62,143 @@ namespace ExceptionDashboard
 
 
             Button communicationButton = new Button();
-            if(currentConsultantCard.Communication == 0)
-            {
-                communicationButton.Text = "Add";
-            }
-            else
-            {
-                communicationButton.Text = "Remove";
-            }
-
+            communicationButton.Click += new EventHandler(communicationButton_Click);
+            string btnText = checkPropertyValue(currentConsultantCard.Communication, loggedInEmployee.RoleName);
+            communicationButton.Text = btnText;
             TableCell communicationButtonCell = new TableCell();
             communicationButtonCell.Controls.Add(communicationButton);
+
+            Button communicationRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Communication == 0) 
+                {
+                    communicationRequestButton.Text = "Request";
+                    communicationButtonCell.Controls.Add(communicationRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Communication == 2)
+                {
+                    communicationRequestButton.Text = "Reject";
+                    communicationButtonCell.Controls.Add(communicationRequestButton);
+                }
+            }
+            
+
             tRow1b.Controls.Add(communicationButtonCell);
 
 
 
             Button competitorsButton = new Button();
-            if (currentConsultantCard.Competitors == 0)
-            {
-                competitorsButton.Text = "Add";
-            }
-            else
-            {
-                competitorsButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Competitors, loggedInEmployee.RoleName);
+            competitorsButton.Text = btnText;
             TableCell competitorsButtonCell = new TableCell();
             competitorsButtonCell.Controls.Add(competitorsButton);
+
+            Button competitorsRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Competitors == 0) 
+                {
+                    competitorsRequestButton.Text = "Request";
+                    competitorsButtonCell.Controls.Add(competitorsRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Competitors == 2)
+                {
+                    competitorsRequestButton.Text = "Reject";
+                    competitorsButtonCell.Controls.Add(competitorsRequestButton);
+                }
+            }
+            
+
             tRow1b.Controls.Add(competitorsButtonCell);
 
-
             Button goalsButton = new Button();
-            if (currentConsultantCard.Goals == 0)
-            {
-                goalsButton.Text = "Add";
-            }
-            else
-            {
-                goalsButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Goals, loggedInEmployee.RoleName);
+            goalsButton.Text = btnText;
             TableCell goalsButtonCell = new TableCell();
             goalsButtonCell.Controls.Add(goalsButton);
+
+            Button goalsRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Goals == 0)
+                {
+                    goalsRequestButton.Text = "Request";
+                    goalsButtonCell.Controls.Add(goalsRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Goals == 2)
+                {
+                    goalsRequestButton.Text = "Reject";
+                    goalsButtonCell.Controls.Add(goalsRequestButton);
+                }
+            }
+            
+
             tRow1b.Controls.Add(goalsButtonCell);
 
 
             Button growthButton = new Button();
-            if (currentConsultantCard.Growth == 0)
-            {
-                growthButton.Text = "Add";
-            }
-            else
-            {
-                growthButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Growth, loggedInEmployee.RoleName);
+            growthButton.Text = btnText;
             TableCell growthButtonCell = new TableCell();
             growthButtonCell.Controls.Add(growthButton);
+
+            Button growthRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Growth == 0)
+                {
+                    growthRequestButton.Text = "Request";
+                    growthButtonCell.Controls.Add(growthRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Growth == 2)
+                {
+                    growthRequestButton.Text = "Reject";
+                    growthButtonCell.Controls.Add(growthRequestButton);
+                }
+            }
+            
+
             tRow1b.Controls.Add(growthButtonCell);
 
 
             Button headcountButton = new Button();
-            if (currentConsultantCard.Headcount == 0)
-            {
-                headcountButton.Text = "Add";
-            }
-            else
-            {
-                headcountButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Headcount, loggedInEmployee.RoleName);
+            headcountButton.Text = btnText;
             TableCell headcountButtonCell = new TableCell();
             headcountButtonCell.Controls.Add(headcountButton);
+
+            Button headcountRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Headcount == 0)
+                {
+                    headcountRequestButton.Text = "Request";
+                    headcountButtonCell.Controls.Add(headcountRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Headcount == 2)
+                {
+                    headcountRequestButton.Text = "Reject";
+                    headcountButtonCell.Controls.Add(headcountRequestButton);
+                }
+            }
+            
+
             tRow1b.Controls.Add(headcountButtonCell);
 
 
@@ -164,79 +230,233 @@ namespace ExceptionDashboard
             agentCardViewTable.Rows.Add(tRow2b);
 
             Button marketButton = new Button();
-            if (currentConsultantCard.Market == 0)
-            {
-                marketButton.Text = "Add";
-            }
-            else
-            {
-                marketButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Market, loggedInEmployee.RoleName);
+            marketButton.Text = btnText;
             TableCell marketButtonCell = new TableCell();
             marketButtonCell.Controls.Add(marketButton);
+
+            Button marketRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Market == 0) 
+                {
+                    marketRequestButton.Text = "Request";
+                    marketButtonCell.Controls.Add(marketRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Market == 2)
+                {
+                    marketRequestButton.Text = "Reject";
+                    marketButtonCell.Controls.Add(marketRequestButton);
+                }
+            }
+
+
             tRow2b.Controls.Add(marketButtonCell);
 
 
 
             Button rapportButton = new Button();
-            if (currentConsultantCard.Rapport == 0)
-            {
-                rapportButton.Text = "Add";
-            }
-            else
-            {
-                rapportButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Rapport, loggedInEmployee.RoleName);
+            rapportButton.Text = btnText;
             TableCell rapportButtonCell = new TableCell();
             rapportButtonCell.Controls.Add(rapportButton);
+
+            Button rapportRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Rapport == 0) 
+                {
+                    rapportRequestButton.Text = "Request";
+                    rapportButtonCell.Controls.Add(rapportRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Rapport == 2)
+                {
+                    rapportRequestButton.Text = "Reject";
+                    rapportButtonCell.Controls.Add(rapportRequestButton);
+                }
+            }
+
+
             tRow2b.Controls.Add(rapportButtonCell);
 
 
             Button recommendedButton = new Button();
-            if (currentConsultantCard.Recommended == 0)
-            {
-                recommendedButton.Text = "Add";
-            }
-            else
-            {
-                recommendedButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Recommended, loggedInEmployee.RoleName);
+            recommendedButton.Text = btnText;
             TableCell recommendedButtonCell = new TableCell();
             recommendedButtonCell.Controls.Add(recommendedButton);
+
+            Button recommendedRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Recommended == 0)
+                {
+                    recommendedRequestButton.Text = "Request";
+                    recommendedButtonCell.Controls.Add(recommendedRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Recommended == 2)
+                {
+                    recommendedRequestButton.Text = "Reject";
+                    recommendedButtonCell.Controls.Add(recommendedRequestButton);
+                }
+            }
+
+
             tRow2b.Controls.Add(recommendedButtonCell);
 
 
             Button termButton = new Button();
-            if (currentConsultantCard.Term == 0)
-            {
-                termButton.Text = "Add";
-            }
-            else
-            {
-                termButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Term, loggedInEmployee.RoleName);
+            termButton.Text = btnText;
             TableCell termButtonCell = new TableCell();
             termButtonCell.Controls.Add(termButton);
+
+            Button termRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Term == 0)
+                {
+                    termRequestButton.Text = "Request";
+                    termButtonCell.Controls.Add(termRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Term == 2)
+                {
+                    termRequestButton.Text = "Reject";
+                    termButtonCell.Controls.Add(termRequestButton);
+                }
+            }
+
+
             tRow2b.Controls.Add(termButtonCell);
 
 
             Button websiteButton = new Button();
-            if (currentConsultantCard.Website == 0)
-            {
-                websiteButton.Text = "Add";
-            }
-            else
-            {
-                websiteButton.Text = "Remove";
-            }
-
+            btnText = checkPropertyValue(currentConsultantCard.Website, loggedInEmployee.RoleName);
+            websiteButton.Text = btnText;
             TableCell websiteButtonCell = new TableCell();
             websiteButtonCell.Controls.Add(websiteButton);
+
+            Button websiteRequestButton = new Button();
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.Website == 0)
+                {
+                    websiteRequestButton.Text = "Request";
+                    websiteButtonCell.Controls.Add(websiteRequestButton);
+                }
+            }
+            else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+            {
+                if (currentConsultantCard.Website == 2)
+                {
+                    websiteRequestButton.Text = "Reject";
+                    websiteButtonCell.Controls.Add(websiteRequestButton);
+                }
+            }
+
+
             tRow2b.Controls.Add(websiteButtonCell);
         }
+
+        public string checkPropertyValue(int inProp, string RoleName)
+        {
+            string returnProp = "";
+
+            if (RoleName == "Manager" || RoleName == "Supervisor" || RoleName == "Lead")
+            {
+                if (inProp == 0 || inProp == 2)
+                {
+                    returnProp = "Add";
+                }
+                else if (inProp == 1)
+                {
+                    returnProp = "Remove";
+                }
+            }
+
+            if (RoleName == "Agent")
+            {
+                if (inProp == 0)
+                {
+                    returnProp = "Request";
+                }
+            }
+
+            return returnProp;
+        }
+        protected void communicationButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Communication";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        public void updateCard(string a, string c, int empID)
+        {
+            ConsultationCard oldCard = _myConsultationCardManager.FindCard(empID);
+            ConsultationCard updatedCard = oldCard;
+            
+            if (a == "Add")
+            {
+                switch (c)
+                {
+                    case "Communication":
+                        updatedCard.Communication = 1;
+                        break;
+                    case "Competitors":
+                        updatedCard.Competitors = 1;
+                        break;
+                    case "Goals":
+                        updatedCard.Goals = 1;
+                        break;
+                    case "Growth":
+                        updatedCard.Growth = 1;
+                        break;
+                    case "Headcount":
+                        updatedCard.Headcount = 1;
+                        break;
+                    case "Market":
+                        updatedCard.Market = 1;
+                        break;
+                    case "Rapport":
+                        updatedCard.Rapport = 1;
+                        break;
+                    case "Recommended":
+                        updatedCard.Recommended = 1;
+                        break;
+                    case "Term":
+                        updatedCard.Term = 1;
+                        break;
+                    case "Website":
+                        updatedCard.Website = 1;
+                        break;
+                }
+                _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                Response.Redirect(Request.RawUrl);
+            }
+            else if (a == "Remove")
+            {
+
+            }
+            else if (a == "Request")
+            {
+
+            }
+        }
+
     }
 }

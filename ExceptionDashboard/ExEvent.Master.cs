@@ -19,6 +19,7 @@ namespace ExceptionDashboard
         private EmployeeManager _myEmployeeManager = new EmployeeManager();
         protected void Page_Load(object sender, EventArgs e)
         {
+
             //check to see if user is logged in
             if (Session["loggedInUser"] != null)
             {
@@ -147,7 +148,7 @@ namespace ExceptionDashboard
                 btnLogin.Text = "Login";
                 lblNewUser.Visible = true;
                 lblReset.Visible = true;
-                Response.Redirect(Request.RawUrl);
+                Response.Redirect("./AgentView.aspx");
             }
         }
 

@@ -52,6 +52,7 @@
                         <asp:MenuItem NavigateUrl="~/ManagerView.aspx" Text="Manager Report" Value="btnManagerView" />
                         <asp:MenuItem NavigateUrl="~/AgentView.aspx" Text="View Exceptions" value="btnViewExceptions"/>
                         <asp:MenuItem Text="Request New Exception" Value="btnRequestNewException"/>
+                        <asp:MenuItem NavigateUrl="~/ConsultationView.aspx" Text="Consultation Cards" Value="btnConsultationView" />
                         <%--<asp:MenuItem Text="Manage Employees" Value="btnManageEmployees" NavigateUrl="~/ManageEmployees.aspx"/>--%>
                         
                     </Items>
@@ -83,7 +84,7 @@
             </div>
         </div>
         <div id="welcome" runat="server">
-            <asp:Label ID="lblAlert" runat="server" Text="  ALERT: IE or Chrome Only. Log in is set to time out after 5 mins of inactivity. THIS TOOL DOES NOT SUBMIT TO WEBSTATION" CssClass="lblAlert"></asp:Label>
+            <asp:Label ID="lblAlert" runat="server" Text="  ALERT: IE or Chrome Only. Log in is set to time out after 5 mins of inactivity. THIS TOOL DOES NOT SUBMIT TO WEBSTATION  |  Send feedback to mgallen@godaddy.com" CssClass="lblAlert"></asp:Label>
             <asp:Label runat="server" ID="lblNewUser" CssClass="newUser">
                 <a href="./CreateAccount.aspx">Create Account</a>
             </asp:Label>

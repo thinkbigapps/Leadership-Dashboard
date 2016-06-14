@@ -230,7 +230,7 @@ input[type="submit"] {
 	width: 100%;
 }
 
-#login  input[type="submit"] {
+#pagelogin  input[type="submit"] {
 	display: block;
 	margin: auto;
 }	
@@ -278,4 +278,48 @@ input[type="submit"] {
 th {
     padding-right: 5px;
     padding-left: 5px;
+}
+#main_consultTable tr:nth-child(even) {
+    background-color: #e4efc7;
+}
+
+#mainConsultContent {
+    width: 100%;
+}
+
+#main_lblConsultantName {
+    font-size: 35px;
+    font-weight: bold;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 0px auto;
+    float: none;
+    display: table;
+    text-align: center;
+}
+
+#main_agentCardViewTable {
+    margin: 0px auto;
+    float: none;
+    display: table;
+}
+
+#main_agentCardViewTable td{
+    text-align: center;
+}
+
+#main_agentCardViewTable button{
+    display: inline-block;
+}
+
+#main_communicationButton {
+    display: inline;
+}
+
+#main_communicationRequestButton {
+    display: inline;
+}
+
+#main_communicationButtonCell {
+    text-align: center;
 }
