@@ -69,6 +69,7 @@ namespace ExceptionDashboard
             communicationButtonCell.Controls.Add(communicationButton);
 
             Button communicationRequestButton = new Button();
+            communicationRequestButton.Click += new EventHandler(communicationButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Communication == 1 || currentConsultantCard.Communication == 2) 
@@ -98,6 +99,7 @@ namespace ExceptionDashboard
             competitorsButtonCell.Controls.Add(competitorsButton);
 
             Button competitorsRequestButton = new Button();
+            competitorsRequestButton.Click += new EventHandler(competitorsButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Competitors == 1 || currentConsultantCard.Competitors == 2) 
@@ -125,6 +127,7 @@ namespace ExceptionDashboard
             goalsButtonCell.Controls.Add(goalsButton);
 
             Button goalsRequestButton = new Button();
+            goalsRequestButton.Click += new EventHandler(goalsButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Goals == 1 || currentConsultantCard.Goals == 2)
@@ -153,6 +156,7 @@ namespace ExceptionDashboard
             growthButtonCell.Controls.Add(growthButton);
 
             Button growthRequestButton = new Button();
+            growthRequestButton.Click += new EventHandler(growthButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Growth == 1 || currentConsultantCard.Growth == 2)
@@ -181,6 +185,7 @@ namespace ExceptionDashboard
             headcountButtonCell.Controls.Add(headcountButton);
 
             Button headcountRequestButton = new Button();
+            headcountRequestButton.Click += new EventHandler(headcountButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Headcount == 1 || currentConsultantCard.Headcount == 2)
@@ -236,6 +241,7 @@ namespace ExceptionDashboard
             marketButtonCell.Controls.Add(marketButton);
 
             Button marketRequestButton = new Button();
+            marketRequestButton.Click += new EventHandler(marketButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Market == 1 || currentConsultantCard.Market == 2) 
@@ -265,6 +271,7 @@ namespace ExceptionDashboard
             rapportButtonCell.Controls.Add(rapportButton);
 
             Button rapportRequestButton = new Button();
+            rapportRequestButton.Click += new EventHandler(rapportButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Rapport == 1 || currentConsultantCard.Rapport == 2) 
@@ -293,6 +300,7 @@ namespace ExceptionDashboard
             recommendedButtonCell.Controls.Add(recommendedButton);
 
             Button recommendedRequestButton = new Button();
+            recommendedRequestButton.Click += new EventHandler(recommendedButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Recommended == 1 || currentConsultantCard.Recommended == 2)
@@ -321,6 +329,7 @@ namespace ExceptionDashboard
             termButtonCell.Controls.Add(termButton);
 
             Button termRequestButton = new Button();
+            termRequestButton.Click += new EventHandler(termButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Term == 1 || currentConsultantCard.Term == 2)
@@ -349,6 +358,7 @@ namespace ExceptionDashboard
             websiteButtonCell.Controls.Add(websiteButton);
 
             Button websiteRequestButton = new Button();
+            websiteRequestButton.Click += new EventHandler(websiteButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
                 if (currentConsultantCard.Website == 1 || currentConsultantCard.Website == 2)
@@ -486,6 +496,57 @@ namespace ExceptionDashboard
             updateCard(s, card, empID);
         }
 
+        protected void communicationRequestButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void competitorsRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void goalsRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void growthRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void headcountRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void marketRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void rapportRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void recommendedRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void termRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void websiteRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         public void updateCard(string a, string c, int empID)
         {
             ConsultationCard oldCard = _myConsultationCardManager.FindCard(empID);
@@ -529,7 +590,7 @@ namespace ExceptionDashboard
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
                 Response.Redirect(Request.RawUrl);
             }
-            else if (a == "Remove")
+            else if (a == "Remove" || a == "Reject")
             {
                 switch (c)
                 {
