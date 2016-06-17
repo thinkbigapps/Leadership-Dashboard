@@ -71,10 +71,9 @@ namespace ExceptionDashboard
             Button communicationRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Communication == 0) 
+                if (currentConsultantCard.Communication == 1 || currentConsultantCard.Communication == 2) 
                 {
-                    communicationRequestButton.Text = "Request";
-                    communicationButtonCell.Controls.Add(communicationRequestButton);
+                    communicationButtonCell.Controls.Remove(communicationButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -92,6 +91,7 @@ namespace ExceptionDashboard
 
 
             Button competitorsButton = new Button();
+            competitorsButton.Click += new EventHandler(competitorsButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Competitors, loggedInEmployee.RoleName);
             competitorsButton.Text = btnText;
             TableCell competitorsButtonCell = new TableCell();
@@ -100,10 +100,9 @@ namespace ExceptionDashboard
             Button competitorsRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Competitors == 0) 
+                if (currentConsultantCard.Competitors == 1 || currentConsultantCard.Competitors == 2) 
                 {
-                    competitorsRequestButton.Text = "Request";
-                    competitorsButtonCell.Controls.Add(competitorsRequestButton);
+                    competitorsButtonCell.Controls.Remove(competitorsButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -119,6 +118,7 @@ namespace ExceptionDashboard
             tRow1b.Controls.Add(competitorsButtonCell);
 
             Button goalsButton = new Button();
+            goalsButton.Click += new EventHandler(goalsButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Goals, loggedInEmployee.RoleName);
             goalsButton.Text = btnText;
             TableCell goalsButtonCell = new TableCell();
@@ -127,10 +127,9 @@ namespace ExceptionDashboard
             Button goalsRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Goals == 0)
+                if (currentConsultantCard.Goals == 1 || currentConsultantCard.Goals == 2)
                 {
-                    goalsRequestButton.Text = "Request";
-                    goalsButtonCell.Controls.Add(goalsRequestButton);
+                    goalsButtonCell.Controls.Remove(goalsButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -147,6 +146,7 @@ namespace ExceptionDashboard
 
 
             Button growthButton = new Button();
+            growthButton.Click += new EventHandler(growthButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Growth, loggedInEmployee.RoleName);
             growthButton.Text = btnText;
             TableCell growthButtonCell = new TableCell();
@@ -155,10 +155,9 @@ namespace ExceptionDashboard
             Button growthRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Growth == 0)
+                if (currentConsultantCard.Growth == 1 || currentConsultantCard.Growth == 2)
                 {
-                    growthRequestButton.Text = "Request";
-                    growthButtonCell.Controls.Add(growthRequestButton);
+                    growthButtonCell.Controls.Remove(growthButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -175,6 +174,7 @@ namespace ExceptionDashboard
 
 
             Button headcountButton = new Button();
+            headcountButton.Click += new EventHandler(headcountButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Headcount, loggedInEmployee.RoleName);
             headcountButton.Text = btnText;
             TableCell headcountButtonCell = new TableCell();
@@ -183,10 +183,9 @@ namespace ExceptionDashboard
             Button headcountRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Headcount == 0)
+                if (currentConsultantCard.Headcount == 1 || currentConsultantCard.Headcount == 2)
                 {
-                    headcountRequestButton.Text = "Request";
-                    headcountButtonCell.Controls.Add(headcountRequestButton);
+                    headcountButtonCell.Controls.Remove(headcountButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -230,6 +229,7 @@ namespace ExceptionDashboard
             agentCardViewTable.Rows.Add(tRow2b);
 
             Button marketButton = new Button();
+            marketButton.Click += new EventHandler(marketButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Market, loggedInEmployee.RoleName);
             marketButton.Text = btnText;
             TableCell marketButtonCell = new TableCell();
@@ -238,10 +238,9 @@ namespace ExceptionDashboard
             Button marketRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Market == 0) 
+                if (currentConsultantCard.Market == 1 || currentConsultantCard.Market == 2) 
                 {
-                    marketRequestButton.Text = "Request";
-                    marketButtonCell.Controls.Add(marketRequestButton);
+                    marketButtonCell.Controls.Remove(marketButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -259,6 +258,7 @@ namespace ExceptionDashboard
 
 
             Button rapportButton = new Button();
+            rapportButton.Click += new EventHandler(rapportButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Rapport, loggedInEmployee.RoleName);
             rapportButton.Text = btnText;
             TableCell rapportButtonCell = new TableCell();
@@ -267,10 +267,9 @@ namespace ExceptionDashboard
             Button rapportRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Rapport == 0) 
+                if (currentConsultantCard.Rapport == 1 || currentConsultantCard.Rapport == 2) 
                 {
-                    rapportRequestButton.Text = "Request";
-                    rapportButtonCell.Controls.Add(rapportRequestButton);
+                    rapportButtonCell.Controls.Remove(rapportButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -287,6 +286,7 @@ namespace ExceptionDashboard
 
 
             Button recommendedButton = new Button();
+            recommendedButton.Click += new EventHandler(recommendedButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Recommended, loggedInEmployee.RoleName);
             recommendedButton.Text = btnText;
             TableCell recommendedButtonCell = new TableCell();
@@ -295,10 +295,9 @@ namespace ExceptionDashboard
             Button recommendedRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Recommended == 0)
+                if (currentConsultantCard.Recommended == 1 || currentConsultantCard.Recommended == 2)
                 {
-                    recommendedRequestButton.Text = "Request";
-                    recommendedButtonCell.Controls.Add(recommendedRequestButton);
+                    recommendedButtonCell.Controls.Remove(recommendedButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -315,6 +314,7 @@ namespace ExceptionDashboard
 
 
             Button termButton = new Button();
+            termButton.Click += new EventHandler(termButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Term, loggedInEmployee.RoleName);
             termButton.Text = btnText;
             TableCell termButtonCell = new TableCell();
@@ -323,10 +323,9 @@ namespace ExceptionDashboard
             Button termRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Term == 0)
+                if (currentConsultantCard.Term == 1 || currentConsultantCard.Term == 2)
                 {
-                    termRequestButton.Text = "Request";
-                    termButtonCell.Controls.Add(termRequestButton);
+                    termButtonCell.Controls.Remove(termButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -343,6 +342,7 @@ namespace ExceptionDashboard
 
 
             Button websiteButton = new Button();
+            websiteButton.Click += new EventHandler(websiteButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Website, loggedInEmployee.RoleName);
             websiteButton.Text = btnText;
             TableCell websiteButtonCell = new TableCell();
@@ -351,10 +351,9 @@ namespace ExceptionDashboard
             Button websiteRequestButton = new Button();
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Website == 0)
+                if (currentConsultantCard.Website == 1 || currentConsultantCard.Website == 2)
                 {
-                    websiteRequestButton.Text = "Request";
-                    websiteButtonCell.Controls.Add(websiteRequestButton);
+                    websiteButtonCell.Controls.Remove(websiteButton);
                 }
             }
             else if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
@@ -396,11 +395,93 @@ namespace ExceptionDashboard
 
             return returnProp;
         }
+
         protected void communicationButton_Click(object sender, EventArgs e)
         {
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Communication";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void competitorsButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Competitors";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void goalsButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Goals";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void growthButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Growth";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void headcountButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Headcount";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void marketButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Market";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void rapportButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Rapport";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void recommendedButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Recommended";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void termButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Term";
+            string s = (sender as Button).Text;
+            updateCard(s, card, empID);
+        }
+
+        protected void websiteButton_Click(object sender, EventArgs e)
+        {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            int empID = Convert.ToInt32(Request.QueryString["agent"]);
+            string card = "Website";
             string s = (sender as Button).Text;
             updateCard(s, card, empID);
         }
@@ -450,11 +531,79 @@ namespace ExceptionDashboard
             }
             else if (a == "Remove")
             {
-
+                switch (c)
+                {
+                    case "Communication":
+                        updatedCard.Communication = 0;
+                        break;
+                    case "Competitors":
+                        updatedCard.Competitors = 0;
+                        break;
+                    case "Goals":
+                        updatedCard.Goals = 0;
+                        break;
+                    case "Growth":
+                        updatedCard.Growth = 0;
+                        break;
+                    case "Headcount":
+                        updatedCard.Headcount = 0;
+                        break;
+                    case "Market":
+                        updatedCard.Market = 0;
+                        break;
+                    case "Rapport":
+                        updatedCard.Rapport = 0;
+                        break;
+                    case "Recommended":
+                        updatedCard.Recommended = 0;
+                        break;
+                    case "Term":
+                        updatedCard.Term = 0;
+                        break;
+                    case "Website":
+                        updatedCard.Website = 0;
+                        break;
+                }
+                _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                Response.Redirect(Request.RawUrl);
             }
             else if (a == "Request")
             {
-
+                switch (c)
+                {
+                    case "Communication":
+                        updatedCard.Communication = 2;
+                        break;
+                    case "Competitors":
+                        updatedCard.Competitors = 2;
+                        break;
+                    case "Goals":
+                        updatedCard.Goals = 2;
+                        break;
+                    case "Growth":
+                        updatedCard.Growth = 2;
+                        break;
+                    case "Headcount":
+                        updatedCard.Headcount = 2;
+                        break;
+                    case "Market":
+                        updatedCard.Market = 2;
+                        break;
+                    case "Rapport":
+                        updatedCard.Rapport = 2;
+                        break;
+                    case "Recommended":
+                        updatedCard.Recommended = 2;
+                        break;
+                    case "Term":
+                        updatedCard.Term = 2;
+                        break;
+                    case "Website":
+                        updatedCard.Website = 2;
+                        break;
+                }
+                _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                Response.Redirect(Request.RawUrl);
             }
         }
 

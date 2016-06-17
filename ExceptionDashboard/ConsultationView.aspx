@@ -57,7 +57,7 @@
                         <asp:Label runat="server" Text="Dept Rank"></asp:Label>
                     </asp:TableHeaderCell>--%>
                     <asp:TableHeaderCell>
-                        <asp:Label runat="server" Text="Edit Cards"></asp:Label>
+                        <%--<asp:Label runat="server" Text="Edit Cards"></asp:Label>--%>
                     </asp:TableHeaderCell>
                 </asp:TableHeaderRow>
             </asp:Table>

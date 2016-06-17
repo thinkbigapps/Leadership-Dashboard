@@ -63,6 +63,58 @@ namespace DataAccess
             }
         }
 
+        public static Employee SelectSingleEmployeeByName(string fname, string lname)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT employee_id, role_name, department_name, supervisor_fname, supervisor_lname, first_name, last_name, username, password, email_address, new_passwd_expire, new_passwd_id FROM employee WHERE first_name = @first_name AND last_name = @last_name";
+            var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@first_name", fname);
+            cmd.Parameters.AddWithValue("@last_name", lname);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Employee not found.");
+                }
+
+                var newEmployee = new Employee();
+                reader.Read();
+                newEmployee.EmployeeID = reader.GetInt32(0);
+                newEmployee.RoleName = reader.GetString(1);
+                newEmployee.DepartmentName = reader.GetString(2);
+                newEmployee.SupervisorFirstName = reader.GetString(3);
+                newEmployee.SupervisorLastName = reader.GetString(4);
+                newEmployee.FirstName = reader.GetString(5);
+                newEmployee.LastName = reader.GetString(6);
+                newEmployee.Username = reader.GetString(7);
+                newEmployee.Password = reader.GetString(8);
+                newEmployee.EmailAddress = reader.GetString(9);
+                newEmployee.FullName = reader.GetString(6) + ", " + reader.GetString(5);
+
+                if (!reader.IsDBNull(10))
+                {
+                    newEmployee.NewPassExpire = reader.GetDateTime(10);
+                }
+                if (!reader.IsDBNull(11))
+                {
+                    newEmployee.NewPassID = reader.GetString(11);
+                }
+
+                return newEmployee;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public static Employee SelectEmployeeByResetID(string resetID)
         {
             var conn = DatabaseConnection.GetExEventDatabaseConnection();

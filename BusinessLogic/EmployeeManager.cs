@@ -29,6 +29,23 @@ namespace BusinessLogic
             }
         }
 
+        public Employee FindSingleEmployeeByName(string fname, string lname)
+        {
+            try
+            {
+                var employeeToFind = EmployeeAccessor.SelectSingleEmployeeByName(fname, lname);
+                return employeeToFind;
+            }
+            catch (ApplicationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("There was a problem accessing the database.", ex);
+            }
+        }
+
         public Employee FindEmployeeByResetID(string resetID)
         {
             try

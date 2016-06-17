@@ -42,7 +42,7 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    Response.Redirect("AgentView.aspx");
+                    //Response.Redirect("AgentView.aspx");
                 }
             }
 
@@ -89,44 +89,106 @@ namespace ExceptionDashboard
                     listRepresentative.DataSource = currentSups;
                     listRepresentative.DataBind();
                 }
+                else if (loggedInEmployee.RoleName == "Manager")
+                {
+                    //populate top level list with sup/lead/agent
+                    List<Role> currentRoles = _myEmployeeManager.FetchRoleList();
+                    listTopLevel.DataTextField = "roleName";
+                    listTopLevel.DataValueField = "roleName";
+                    listTopLevel.DataSource = currentRoles;
+                    listTopLevel.DataBind();
+
+                    //populate department list with all departments
+                    List<Department> currentDepartments = _myEmployeeManager.FetchDepartmentList();
+                    listDepartment.DataTextField = "departmentName";
+                    listDepartment.DataValueField = "departmentName";
+                    listDepartment.DataSource = currentDepartments;
+                    listDepartment.DataBind();
+
+                    //populate sup list will all employees that have role of sup in employee's department
+                    List<Employee> currentSups = _myEmployeeManager.FindEmployeesToList("Supervisor", loggedInEmployee.DepartmentName);
+
+                    listRepresentative.DataTextField = "FullName";
+                    listRepresentative.DataValueField = "employeeID";
+                    listRepresentative.DataSource = currentSups;
+                    listRepresentative.DataBind();
+
+                    listTopLevel.SelectedValue = "Supervisor";
+                    listDepartment.SelectedValue = loggedInEmployee.DepartmentName;
+                }
+
+                else if (loggedInEmployee.RoleName == "Agent")
+                {
+                    Employee sup = _myEmployeeManager.FindSingleEmployeeByName(loggedInEmployee.SupervisorFirstName, loggedInEmployee.SupervisorLastName);
+                    //populate top level list with sup/lead/agent
+                    List<Role> currentRoles = _myEmployeeManager.FetchRoleList();
+                    listTopLevel.DataTextField = "roleName";
+                    listTopLevel.DataValueField = "roleName";
+                    listTopLevel.DataSource = currentRoles;
+                    listTopLevel.DataBind();
+
+                    //populate department list with all departments
+                    List<Department> currentDepartments = _myEmployeeManager.FetchDepartmentList();
+                    listDepartment.DataTextField = "departmentName";
+                    listDepartment.DataValueField = "departmentName";
+                    listDepartment.DataSource = currentDepartments;
+                    listDepartment.DataBind();
+
+                    //populate sup list will all employees that have role of sup in employee's department
+                    List<Employee> currentSups = _myEmployeeManager.FindEmployeesToList(sup.RoleName, sup.DepartmentName).OrderBy(o => o.FullName).ToList();
+
+                    listRepresentative.DataTextField = "FullName";
+                    listRepresentative.DataValueField = "employeeID";
+                    listRepresentative.DataSource = currentSups;
+                    listRepresentative.DataBind();
+
+                    
+                    listTopLevel.SelectedValue = sup.RoleName;
+                    listDepartment.SelectedValue = sup.DepartmentName;
+                    listRepresentative.SelectedValue = sup.EmployeeID.ToString();
+                    
+                }
 
                 //verify page load is not from submit/edit pages
-                if (Session["resetToken"] == null)
+                if (loggedInEmployee.RoleName != "Agent")
                 {
-                    //select previously selected top level to bind employee drop down with list of employees with that role
-                    if (Session["selectedTopLevel"] != null)
+
+                    if (Session["resetToken"] == null)
                     {
-                        listTopLevel.SelectedValue = Session["selectedTopLevel"].ToString();
+                        //select previously selected top level to bind employee drop down with list of employees with that role
+                        if (Session["selectedTopLevel"] != null)
+                        {
+                            listTopLevel.SelectedValue = Session["selectedTopLevel"].ToString();
+                        }
+                        if (Session["selectedDepartment"] != null)
+                        {
+                            listDepartment.SelectedValue = Session["selectedDepartment"].ToString();
+                        }
+                        else
+                        {
+                            listTopLevel.SelectedValue = loggedInEmployee.RoleName;
+                            listRepresentative.SelectedValue = loggedInEmployee.EmployeeID.ToString();
+                        }
+
                     }
-                    if (Session["selectedDepartment"] != null)
-                    {
-                        listDepartment.SelectedValue = Session["selectedDepartment"].ToString();
-                    }
+                    //if selectedTopLevel session var is set, select that top level from drop down, otherwise page is from submit/edit page - grab top level from query string
                     else
                     {
-                        listTopLevel.SelectedValue = loggedInEmployee.RoleName;
-                        listRepresentative.SelectedValue = loggedInEmployee.EmployeeID.ToString();
+                        if (Session["selectedTopLevel"] != null)
+                        {
+                            listTopLevel.SelectedValue = Session["selectedTopLevel"].ToString();
+                        }
+                        if (Session["selectedDepartment"] != null)
+                        {
+                            listDepartment.SelectedValue = Session["selectedDepartment"].ToString();
+                        }
+                        else
+                        {
+                            listTopLevel.SelectedValue = Request.QueryString["topLevel"].Replace("\"", "");
+                        }
                     }
-
+                    listDepartment.SelectedValue = loggedInEmployee.DepartmentName;
                 }
-                //if selectedTopLevel session var is set, select that top level from drop down, otherwise page is from submit/edit page - grab top level from query string
-                else
-                {
-                    if (Session["selectedTopLevel"] != null)
-                    {
-                        listTopLevel.SelectedValue = Session["selectedTopLevel"].ToString();
-                    }
-                    if (Session["selectedDepartment"] != null)
-                    {
-                        listDepartment.SelectedValue = Session["selectedDepartment"].ToString();
-                    }
-                    else
-                    {
-                        listTopLevel.SelectedValue = Request.QueryString["topLevel"].Replace("\"", "");
-                    }
-                }
-                listDepartment.SelectedValue = loggedInEmployee.DepartmentName;
-
             }
         }
 
@@ -141,7 +203,7 @@ namespace ExceptionDashboard
                 Response.Redirect("AgentView.aspx");
             }
 
-            if (listTopLevel.SelectedValue == "Supervisor")
+            if (listTopLevel.SelectedValue == "Supervisor" || listTopLevel.SelectedValue == "Lead")
             {
                 string fullSupName = listRepresentative.SelectedItem.Text;
                 string[] splitSupName = fullSupName.Split(',');
@@ -153,61 +215,123 @@ namespace ExceptionDashboard
                 string supFirstName = splitSupName[1].ToString();
 
                 _employeeList = _myEmployeeManager.FindLeadReports(supFirstName, supLastName);
-            }
+            
 
-            if (_employeeList.Count() != 0)
-            {
-                Session["currentEmployeeList"] = _employeeList;
-                Session["SortDirection"] = "ASC";
-                for(int x=0; x<_employeeList.Count; x++)
+                if (_employeeList.Count() != 0)
                 {
-                    ConsultationCard currentCard = _myConsultationCardManager.FindCard(_employeeList[x].EmployeeID);
-                    TableRow tRow = new TableRow();
-                    consultTable.Rows.Add(tRow);
-
-                    TableCell agent = new TableCell();
-                    agent.Text = _employeeList[x].FullName;
-                    tRow.Cells.Add(agent);
-
-                    TableCell cards = new TableCell();
-                    cards.Text = string.Format(
-                          "<img src='./images/communication" + currentCard.Communication.ToString() + ".png' title='Ask about TYPE OF COMMUNICATION they use in their business' />" + "&nbsp;"
-                        + "<img src='./images/competitors" + currentCard.Competitors.ToString() + ".png' title='Ask about COMPETITORS in their market' />" + "&nbsp;"
-                        + "<img src='./images/goals" + currentCard.Goals.ToString() + ".png' title='Ask about PRESENT AND FUTURE GOALS of their business' />" + "&nbsp;"
-                        + "<img src='./images/growth" + currentCard.Growth.ToString() + ".png' title='Gauge GROWTH of the business' />" + "&nbsp;"
-                        + "<img src='./images/headcount" + currentCard.Headcount.ToString() + ".png' title='Gauge HEADCOUNT for their business' />" + "&nbsp;"
-                        + "<img src='./images/market" + currentCard.Market.ToString() + ".png' title='Gauge HOW THEY MARKET' />" + "&nbsp;"
-                        + "<img src='./images/rapport" + currentCard.Rapport.ToString() + ".png' title='Ask RAPPORT BUILDING questions' />" + "&nbsp;"
-                        + "<img src='./images/recommended" + currentCard.Recommended.ToString() + ".png' title='RECOMMEND the right products' />" + "&nbsp;"
-                        + "<img src='./images/term" + currentCard.Term.ToString() + ".png' title='Gauge TERM of the business' />" + "&nbsp;"
-                        + "<img src='./images/website" + currentCard.Website.ToString() + ".png' title='ASK ABOUT THEIR WEBSITE for their business' />" + "&nbsp;"
-                    );
-                    tRow.Cells.Add(cards);
-
-                    TableCell numEarned = new TableCell();
-                    numEarned.Text = (currentCard.Communication + currentCard.Competitors + currentCard.Goals + currentCard.Growth + currentCard.Headcount + currentCard.Market + currentCard.Rapport + currentCard.Recommended + currentCard.Term + currentCard.Website).ToString() + " / 10";
-                    tRow.Cells.Add(numEarned);
-
-                    TableCell entries = new TableCell();
-                    entries.Text = currentCard.TotalEntries.ToString();
-                    tRow.Cells.Add(entries);
-
-                    Employee loggedInEmployee = (Employee)Session["loggedInUser"];
-                    if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+                    Session["currentEmployeeList"] = _employeeList;
+                    Session["SortDirection"] = "ASC";
+                    for(int x=0; x<_employeeList.Count; x++)
                     {
-                        Button editCardsButton = new Button();
-                        editCardsButton.Text = "Edit Cards";
-                        editCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
-                        TableCell editCards = new TableCell();
-                        editCards.Controls.Add(editCardsButton);
-                        tRow.Controls.Add(editCards);
+                        ConsultationCard currentCard = _myConsultationCardManager.FindCard(_employeeList[x].EmployeeID);
+                        TableRow tRow = new TableRow();
+                        consultTable.Rows.Add(tRow);
+
+                        TableCell agent = new TableCell();
+                        agent.Text = _employeeList[x].FullName;
+                        tRow.Cells.Add(agent);
+
+                        TableCell cards = new TableCell();
+                        cards.Text = string.Format(
+                              "<img src='./images/communication" + currentCard.Communication.ToString() + ".png' title='Ask about TYPE OF COMMUNICATION they use in their business' />" + "&nbsp;"
+                            + "<img src='./images/competitors" + currentCard.Competitors.ToString() + ".png' title='Ask about COMPETITORS in their market' />" + "&nbsp;"
+                            + "<img src='./images/goals" + currentCard.Goals.ToString() + ".png' title='Ask about PRESENT AND FUTURE GOALS of their business' />" + "&nbsp;"
+                            + "<img src='./images/growth" + currentCard.Growth.ToString() + ".png' title='Gauge GROWTH of the business' />" + "&nbsp;"
+                            + "<img src='./images/headcount" + currentCard.Headcount.ToString() + ".png' title='Gauge HEADCOUNT for their business' />" + "&nbsp;"
+                            + "<img src='./images/market" + currentCard.Market.ToString() + ".png' title='Gauge HOW THEY MARKET' />" + "&nbsp;"
+                            + "<img src='./images/rapport" + currentCard.Rapport.ToString() + ".png' title='Ask RAPPORT BUILDING questions' />" + "&nbsp;"
+                            + "<img src='./images/recommended" + currentCard.Recommended.ToString() + ".png' title='RECOMMEND the right products' />" + "&nbsp;"
+                            + "<img src='./images/term" + currentCard.Term.ToString() + ".png' title='Gauge TERM of the business' />" + "&nbsp;"
+                            + "<img src='./images/website" + currentCard.Website.ToString() + ".png' title='ASK ABOUT THEIR WEBSITE for their business' />" + "&nbsp;"
+                        );
+                        tRow.Cells.Add(cards);
+
+                        TableCell numEarned = new TableCell();
+                        numEarned.Text = (currentCard.Communication + currentCard.Competitors + currentCard.Goals + currentCard.Growth + currentCard.Headcount + currentCard.Market + currentCard.Rapport + currentCard.Recommended + currentCard.Term + currentCard.Website).ToString() + " / 10";
+                        tRow.Cells.Add(numEarned);
+
+                        TableCell entries = new TableCell();
+                        entries.Text = currentCard.TotalEntries.ToString();
+                        tRow.Cells.Add(entries);
+
+                        Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+                        if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+                        {
+                            Button editCardsButton = new Button();
+                            editCardsButton.Text = "Edit Cards";
+                            editCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                            TableCell editCards = new TableCell();
+                            editCards.Controls.Add(editCardsButton);
+                            tRow.Controls.Add(editCards);
+                        }
+                        else if (loggedInEmployee.RoleName == "Agent")
+                        {
+                            Button viewCardsButton = new Button();
+                            viewCardsButton.Text = "View Cards";
+                            viewCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                            TableCell viewCards = new TableCell();
+                            viewCards.Controls.Add(viewCardsButton);
+                            tRow.Controls.Add(viewCards);
+                        }
                     }
-                }
                 
+                }
             }
             //if event list is empty, hide gridview and display 'no records' message
-            else
+            else if (listTopLevel.SelectedValue == "Agent")
             {
+                int representative = Convert.ToInt32(listRepresentative.SelectedItem.Value);
+                Employee employee = _myEmployeeManager.FindSingleEmployee(representative);
+                ConsultationCard currentCard = _myConsultationCardManager.FindCard(employee.EmployeeID);
+                TableRow tRow = new TableRow();
+                consultTable.Rows.Add(tRow);
+
+                TableCell agent = new TableCell();
+                agent.Text = employee.FullName;
+                tRow.Cells.Add(agent);
+
+                TableCell cards = new TableCell();
+                cards.Text = string.Format(
+                      "<img src='./images/communication" + currentCard.Communication.ToString() + ".png' title='Ask about TYPE OF COMMUNICATION they use in their business' />" + "&nbsp;"
+                    + "<img src='./images/competitors" + currentCard.Competitors.ToString() + ".png' title='Ask about COMPETITORS in their market' />" + "&nbsp;"
+                    + "<img src='./images/goals" + currentCard.Goals.ToString() + ".png' title='Ask about PRESENT AND FUTURE GOALS of their business' />" + "&nbsp;"
+                    + "<img src='./images/growth" + currentCard.Growth.ToString() + ".png' title='Gauge GROWTH of the business' />" + "&nbsp;"
+                    + "<img src='./images/headcount" + currentCard.Headcount.ToString() + ".png' title='Gauge HEADCOUNT for their business' />" + "&nbsp;"
+                    + "<img src='./images/market" + currentCard.Market.ToString() + ".png' title='Gauge HOW THEY MARKET' />" + "&nbsp;"
+                    + "<img src='./images/rapport" + currentCard.Rapport.ToString() + ".png' title='Ask RAPPORT BUILDING questions' />" + "&nbsp;"
+                    + "<img src='./images/recommended" + currentCard.Recommended.ToString() + ".png' title='RECOMMEND the right products' />" + "&nbsp;"
+                    + "<img src='./images/term" + currentCard.Term.ToString() + ".png' title='Gauge TERM of the business' />" + "&nbsp;"
+                    + "<img src='./images/website" + currentCard.Website.ToString() + ".png' title='ASK ABOUT THEIR WEBSITE for their business' />" + "&nbsp;"
+                );
+                tRow.Cells.Add(cards);
+
+                TableCell numEarned = new TableCell();
+                numEarned.Text = (currentCard.Communication + currentCard.Competitors + currentCard.Goals + currentCard.Growth + currentCard.Headcount + currentCard.Market + currentCard.Rapport + currentCard.Recommended + currentCard.Term + currentCard.Website).ToString() + " / 10";
+                tRow.Cells.Add(numEarned);
+
+                TableCell entries = new TableCell();
+                entries.Text = currentCard.TotalEntries.ToString();
+                tRow.Cells.Add(entries);
+
+                Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+                if (loggedInEmployee.RoleName == "Manager" || loggedInEmployee.RoleName == "Supervisor" || loggedInEmployee.RoleName == "Lead")
+                {
+                    Button editCardsButton = new Button();
+                    editCardsButton.Text = "Edit Cards";
+                    editCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                    TableCell editCards = new TableCell();
+                    editCards.Controls.Add(editCardsButton);
+                    tRow.Controls.Add(editCards);
+                }
+                else if (loggedInEmployee.RoleName == "Agent")
+                {
+                    Button viewCardsButton = new Button();
+                    viewCardsButton.Text = "View Cards";
+                    viewCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                    TableCell viewCards = new TableCell();
+                    viewCards.Controls.Add(viewCardsButton);
+                    tRow.Controls.Add(viewCards);
+                }
             }
         }
 
@@ -272,6 +396,11 @@ namespace ExceptionDashboard
         }
 
         protected void ddlSupervisor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void viewCardsButton_Click(object sender, EventArgs e)
         {
 
         }
