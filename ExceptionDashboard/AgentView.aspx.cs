@@ -25,6 +25,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //btnViewReport.Click += new EventHandler(this.btnViewReport_Click);
             if (!IsPostBack)
             {
                 //Populate start and end date
@@ -640,7 +641,7 @@ namespace ExceptionDashboard
 
         protected void listRepresentative_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void ddlActivity_SelectedIndexChanged(object sender, EventArgs e)

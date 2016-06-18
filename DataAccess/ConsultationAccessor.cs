@@ -14,7 +14,7 @@ namespace DataAccess
         public static ConsultationCard SelectCard(int employeeID)
         {
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
-            var query = @"SELECT employee_id, communication, competitors, goals, growth, headcount, market, rapport, recommended, term, website, total_entries, lifetime_entries FROM consultation WHERE employee_id = @employeeID";
+            var query = @"SELECT employee_id, communication, competitors, goals, growth, headcount, market, rapport, recommended, term, website, total_entries, lifetime_entries, request_date FROM consultation WHERE employee_id = @employeeID";
             var cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@employeeID", employeeID);
 
@@ -42,6 +42,7 @@ namespace DataAccess
                 retrievedCard.Website = reader.GetInt32(10);
                 retrievedCard.TotalEntries = reader.GetInt32(11);
                 retrievedCard.LifetimeEntries = reader.GetInt32(12);
+                retrievedCard.RequestDate = reader.GetDateTime(13);
 
                 return retrievedCard;
             }
@@ -77,6 +78,7 @@ namespace DataAccess
             cmd.Parameters.AddWithValue("@website", newC.Website);
             cmd.Parameters.AddWithValue("@total_entries", newC.TotalEntries);
             cmd.Parameters.AddWithValue("@lifetime_entries", newC.LifetimeEntries);
+            cmd.Parameters.AddWithValue("@request_date", newC.RequestDate);
 
             cmd.Parameters.AddWithValue("@original_employee_id", oldC.EmployeeID);
             cmd.Parameters.AddWithValue("@original_communication", oldC.Communication);
@@ -91,7 +93,7 @@ namespace DataAccess
             cmd.Parameters.AddWithValue("@original_website", oldC.Website);
             cmd.Parameters.AddWithValue("@original_total_entries", oldC.TotalEntries);
             cmd.Parameters.AddWithValue("@original_lifetime_entries", oldC.LifetimeEntries);
-
+            cmd.Parameters.AddWithValue("@original_request_date", oldC.LifetimeEntries);
 
             try
             {
@@ -101,7 +103,7 @@ namespace DataAccess
 
                 if (rowsAffected == 0)
                 {
-                    throw new ApplicationException("Concurrency Exception:\\nYour record has been changed by another user.\nPlease refresh and try again.");
+                    throw new ApplicationException("Concurrency Exception:Your record has been changed by another user. Please refresh and try again.");
                 }
 
             }
