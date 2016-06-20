@@ -488,6 +488,17 @@ namespace ExceptionDashboard
                 websiteRequestDate.Text = "";
             }
             tRow2c.Controls.Add(websiteRequestDate);
+
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (currentConsultantCard.EmployeeID != consultantID)
+                {
+                    agentCardViewTable.Controls.Remove(tRow1b);
+                    agentCardViewTable.Controls.Remove(tRow2b);
+                    agentCardViewTable.Controls.Remove(tRow1c);
+                    agentCardViewTable.Controls.Remove(tRow2c);
+                }
+            }
         }
 
         public string checkPropertyValue(int inProp, string RoleName)
@@ -698,8 +709,14 @@ namespace ExceptionDashboard
                         updatedCard.Website = 1;
                         break;
                 }
+
                 //updatedCard.RequestDate = "1/1/1900 12:00:00";
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                if (updatedCard.Communication == 1 && updatedCard.Competitors == 1 && updatedCard.Goals == 1 && updatedCard.Growth == 1 && updatedCard.Headcount == 1 && updatedCard.Market == 1 && updatedCard.Rapport == 1 && updatedCard.Recommended == 1 && updatedCard.Term == 1 && updatedCard.Website == 1)
+                {
+                    int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
+                    addEntry(consultantID);
+                }
                 Response.Redirect(Request.RawUrl);
             }
             else if (a == "Remove" || a == "Reject")
@@ -798,6 +815,26 @@ namespace ExceptionDashboard
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
                 Response.Redirect(Request.RawUrl);
             }
+        }
+        public void addEntry(int empID)
+        {
+            ConsultationCard currentCard = _myConsultationCardManager.FindCard(empID);
+            ConsultationCard newCard = currentCard;
+
+            newCard.TotalEntries += 1;
+            newCard.LifetimeEntries += 1;
+            newCard.Communication = 0;
+            newCard.Competitors = 0;
+            newCard.Goals = 0;
+            newCard.Growth = 0;
+            newCard.Headcount = 0;
+            newCard.Market = 0;
+            newCard.Rapport = 0;
+            newCard.Recommended = 0;
+            newCard.Term = 0;
+            newCard.Website = 0;
+
+            _myConsultationCardManager.UpdateConsultationCard(currentCard, newCard);
         }
 
     }

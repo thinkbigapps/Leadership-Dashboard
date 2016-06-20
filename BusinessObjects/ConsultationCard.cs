@@ -31,5 +31,6 @@ namespace BusinessObjects
         public string RecommendedRequestDate { get; set; }
         public string TermRequestDate { get; set; }
         public string WebsiteRequestDate { get; set; }
+        public int NumEarned { get; set; }
     }
 }

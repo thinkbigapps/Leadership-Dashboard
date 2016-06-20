@@ -54,6 +54,54 @@ namespace DataAccess
                 retrievedCard.TermRequestDate = reader.GetSqlDateTime(21).ToString();
                 retrievedCard.WebsiteRequestDate = reader.GetSqlDateTime(22).ToString();
 
+                int numCards = 0;
+
+                if (retrievedCard.Communication == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Competitors == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Goals == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Growth == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Headcount == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Market == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Rapport == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Recommended == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Term == 1)
+                {
+                    numCards += 1;
+                }
+                if (retrievedCard.Website == 1)
+                {
+                    numCards += 1;
+                }
+
+                int entryTotal = retrievedCard.TotalEntries * 10;
+                int totalPoints = entryTotal + numCards;
+
+                retrievedCard.NumEarned = totalPoints;
+
                 return retrievedCard;
             }
             catch (Exception)
@@ -122,6 +170,43 @@ namespace DataAccess
             cmd.Parameters.AddWithValue("@original_recommended_request_date", oldC.RecommendedRequestDate);
             cmd.Parameters.AddWithValue("@original_term_request_date", oldC.TermRequestDate);
             cmd.Parameters.AddWithValue("@original_website_request_date", oldC.WebsiteRequestDate);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Concurrency Exception:Your record has been changed by another user. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
+
+        public static int UpdateConsultationEntries(ConsultationCard oldC, ConsultationCard newC)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spUpdateEntries";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@employee_id", newC.EmployeeID);
+            cmd.Parameters.AddWithValue("@total_entries", newC.TotalEntries);
+            cmd.Parameters.AddWithValue("@lifetime_entries", newC.LifetimeEntries);
+
+            cmd.Parameters.AddWithValue("@original_employee_id", oldC.EmployeeID);
+            cmd.Parameters.AddWithValue("@original_total_entries", oldC.TotalEntries);
+            cmd.Parameters.AddWithValue("@original_lifetime_entries", oldC.LifetimeEntries);
 
             try
             {

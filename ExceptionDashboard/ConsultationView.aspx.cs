@@ -216,43 +216,94 @@ namespace ExceptionDashboard
                 string supFirstName = splitSupName[1].ToString();
 
                 _employeeList = _myEmployeeManager.FindLeadReports(supFirstName, supLastName);
-            
+                List<ConsultationCard> empList = new List<ConsultationCard>();
 
                 if (_employeeList.Count() != 0)
                 {
                     Session["currentEmployeeList"] = _employeeList;
                     Session["SortDirection"] = "ASC";
-                    for(int x=0; x<_employeeList.Count; x++)
+                    for (int x = 0; x < _employeeList.Count; x++)
                     {
                         ConsultationCard currentCard = _myConsultationCardManager.FindCard(_employeeList[x].EmployeeID);
+                        empList.Add(currentCard);
+                    }
+                    List<ConsultationCard> SortedList = empList.OrderBy(o => o.NumEarned).Reverse().ToList();
+                    for (int x=0; x< SortedList.Count; x++)
+                    {
+                        
                         TableRow tRow = new TableRow();
                         consultTable.Rows.Add(tRow);
 
                         TableCell agent = new TableCell();
-                        agent.Text = _employeeList[x].FullName;
+                        agent.Text = (_myEmployeeManager.FindSingleEmployee(SortedList[x].EmployeeID)).FullName;
                         tRow.Cells.Add(agent);
 
                         TableCell cards = new TableCell();
                         cards.Text = string.Format(
-                              "<img src='./images/communication" + currentCard.Communication.ToString() + ".png' title='Ask about TYPE OF COMMUNICATION they use in their business' />" + "&nbsp;"
-                            + "<img src='./images/competitors" + currentCard.Competitors.ToString() + ".png' title='Ask about COMPETITORS in their market' />" + "&nbsp;"
-                            + "<img src='./images/goals" + currentCard.Goals.ToString() + ".png' title='Ask about PRESENT AND FUTURE GOALS of their business' />" + "&nbsp;"
-                            + "<img src='./images/growth" + currentCard.Growth.ToString() + ".png' title='Gauge GROWTH of the business' />" + "&nbsp;"
-                            + "<img src='./images/headcount" + currentCard.Headcount.ToString() + ".png' title='Gauge HEADCOUNT for their business' />" + "&nbsp;"
-                            + "<img src='./images/market" + currentCard.Market.ToString() + ".png' title='Gauge HOW THEY MARKET' />" + "&nbsp;"
-                            + "<img src='./images/rapport" + currentCard.Rapport.ToString() + ".png' title='Ask RAPPORT BUILDING questions' />" + "&nbsp;"
-                            + "<img src='./images/recommended" + currentCard.Recommended.ToString() + ".png' title='RECOMMEND the right products' />" + "&nbsp;"
-                            + "<img src='./images/term" + currentCard.Term.ToString() + ".png' title='Gauge TERM of the business' />" + "&nbsp;"
-                            + "<img src='./images/website" + currentCard.Website.ToString() + ".png' title='ASK ABOUT THEIR WEBSITE for their business' />" + "&nbsp;"
+                              "<img src='./images/communication" + SortedList[x].Communication.ToString() + ".png' title='Ask about TYPE OF COMMUNICATION they use in their business' />" + "&nbsp;"
+                            + "<img src='./images/competitors" + SortedList[x].Competitors.ToString() + ".png' title='Ask about COMPETITORS in their market' />" + "&nbsp;"
+                            + "<img src='./images/goals" + SortedList[x].Goals.ToString() + ".png' title='Ask about PRESENT AND FUTURE GOALS of their business' />" + "&nbsp;"
+                            + "<img src='./images/growth" + SortedList[x].Growth.ToString() + ".png' title='Gauge GROWTH of the business' />" + "&nbsp;"
+                            + "<img src='./images/headcount" + SortedList[x].Headcount.ToString() + ".png' title='Gauge HEADCOUNT for their business' />" + "&nbsp;"
+                            + "<img src='./images/market" + SortedList[x].Market.ToString() + ".png' title='Gauge HOW THEY MARKET' />" + "&nbsp;"
+                            + "<img src='./images/rapport" + SortedList[x].Rapport.ToString() + ".png' title='Ask RAPPORT BUILDING questions' />" + "&nbsp;"
+                            + "<img src='./images/recommended" + SortedList[x].Recommended.ToString() + ".png' title='RECOMMEND the right products' />" + "&nbsp;"
+                            + "<img src='./images/term" + SortedList[x].Term.ToString() + ".png' title='Gauge TERM of the business' />" + "&nbsp;"
+                            + "<img src='./images/website" + SortedList[x].Website.ToString() + ".png' title='ASK ABOUT THEIR WEBSITE for their business' />" + "&nbsp;"
                         );
                         tRow.Cells.Add(cards);
 
                         TableCell numEarned = new TableCell();
-                        numEarned.Text = (currentCard.Communication + currentCard.Competitors + currentCard.Goals + currentCard.Growth + currentCard.Headcount + currentCard.Market + currentCard.Rapport + currentCard.Recommended + currentCard.Term + currentCard.Website).ToString() + " / 10";
+
+                        int numCards = 0;
+
+                        if (SortedList[x].Communication == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Competitors == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Goals == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Growth == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Headcount == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Market == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Rapport == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Recommended == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Term == 1)
+                        {
+                            numCards += 1;
+                        }
+                        if (SortedList[x].Website == 1)
+                        {
+                            numCards += 1;
+                        }
+
+                        numEarned.Text = numCards + " / 10";
+                        
                         tRow.Cells.Add(numEarned);
 
                         TableCell entries = new TableCell();
-                        entries.Text = currentCard.TotalEntries.ToString();
+                        entries.Text = SortedList[x].TotalEntries.ToString();
                         tRow.Cells.Add(entries);
 
                         Employee loggedInEmployee = (Employee)Session["loggedInUser"];
@@ -260,7 +311,7 @@ namespace ExceptionDashboard
                         {
                             Button editCardsButton = new Button();
                             editCardsButton.Text = "Edit Cards";
-                            editCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                            editCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + SortedList[x].EmployeeID);
                             TableCell editCards = new TableCell();
                             editCards.Controls.Add(editCardsButton);
                             tRow.Controls.Add(editCards);
@@ -269,7 +320,7 @@ namespace ExceptionDashboard
                         {
                             Button viewCardsButton = new Button();
                             viewCardsButton.Text = "View Cards";
-                            viewCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + currentCard.EmployeeID);
+                            viewCardsButton.PostBackUrl = ("./AgentCardView.aspx?agent=" + SortedList[x].EmployeeID);
                             TableCell viewCards = new TableCell();
                             viewCards.Controls.Add(viewCardsButton);
                             tRow.Controls.Add(viewCards);
@@ -307,7 +358,51 @@ namespace ExceptionDashboard
                 tRow.Cells.Add(cards);
 
                 TableCell numEarned = new TableCell();
-                numEarned.Text = (currentCard.Communication + currentCard.Competitors + currentCard.Goals + currentCard.Growth + currentCard.Headcount + currentCard.Market + currentCard.Rapport + currentCard.Recommended + currentCard.Term + currentCard.Website).ToString() + " / 10";
+
+                int numCards = 0;
+
+                if (currentCard.Communication == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Competitors == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Goals == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Growth == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Headcount == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Market == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Rapport == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Recommended == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Term == 1)
+                {
+                    numCards += 1;
+                }
+                if (currentCard.Website == 1)
+                {
+                    numCards += 1;
+                }
+
+                numEarned.Text = numCards + " / 10";
                 tRow.Cells.Add(numEarned);
 
                 TableCell entries = new TableCell();
