@@ -290,8 +290,8 @@ th {
 #main_lblConsultantName {
     font-size: 35px;
     font-weight: bold;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     margin: 0px auto;
     float: none;
     display: table;
@@ -322,4 +322,11 @@ th {
 
 #main_communicationButtonCell {
     text-align: center;
+}
+
+#main_btnBack {
+    text-align: center;
+    margin: auto;
+    display: table;
+    margin-bottom: 20px;
 }

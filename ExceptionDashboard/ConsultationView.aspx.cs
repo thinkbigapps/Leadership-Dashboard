@@ -24,10 +24,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                btnViewReport_Click(sender, null);
-            }
+            
 
             //Check to see if user is logged in
             if (Session["loggedInUser"] != null)
@@ -54,6 +51,10 @@ namespace ExceptionDashboard
                 listDepartment.Items.Clear();
                 listRepresentative.Items.Clear();
                 searchTable.Visible = false;
+            }
+            if (!IsPostBack)
+            {
+                btnViewReport_Click(sender, null);
             }
         }
 
