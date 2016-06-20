@@ -377,6 +377,14 @@ namespace ExceptionDashboard
 
 
             tRow2b.Controls.Add(websiteButtonCell);
+            if (loggedInEmployee.RoleName == "Agent")
+            {
+                if (loggedInEmployee.EmployeeID != consultantID)
+                {
+                    tRow1b.Visible = false;
+                    tRow2b.Visible = false;
+                }
+            }
         }
 
         public string checkPropertyValue(int inProp, string RoleName)
