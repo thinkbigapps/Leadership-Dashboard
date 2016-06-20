@@ -22,17 +22,17 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Employee loggedInEmployee = (Employee)Session["loggedInUser"]; 
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             ConsultationCard currentConsultantCard = _myConsultationCardManager.FindCard(consultantID);
 
             Employee currentConsultant = _myEmployeeManager.FindSingleEmployee(consultantID);
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 lblConsultantName.Text += (currentConsultant.FirstName + " " + currentConsultant.LastName);
             }
-            
+
             TableRow tRow1 = new TableRow();
             agentCardViewTable.Rows.Add(tRow1);
 
@@ -73,7 +73,7 @@ namespace ExceptionDashboard
             communicationRequestButton.Click += new EventHandler(communicationButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Communication == 1 || currentConsultantCard.Communication == 2) 
+                if (currentConsultantCard.Communication == 1 || currentConsultantCard.Communication == 2)
                 {
                     communicationButtonCell.Controls.Remove(communicationButton);
                 }
@@ -86,7 +86,7 @@ namespace ExceptionDashboard
                     communicationButtonCell.Controls.Add(communicationRequestButton);
                 }
             }
-            
+
 
             tRow1b.Controls.Add(communicationButtonCell);
 
@@ -112,7 +112,7 @@ namespace ExceptionDashboard
             competitorsRequestButton.Click += new EventHandler(competitorsButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Competitors == 1 || currentConsultantCard.Competitors == 2) 
+                if (currentConsultantCard.Competitors == 1 || currentConsultantCard.Competitors == 2)
                 {
                     competitorsButtonCell.Controls.Remove(competitorsButton);
                 }
@@ -125,7 +125,7 @@ namespace ExceptionDashboard
                     competitorsButtonCell.Controls.Add(competitorsRequestButton);
                 }
             }
-            
+
 
             tRow1b.Controls.Add(competitorsButtonCell);
 
@@ -165,7 +165,7 @@ namespace ExceptionDashboard
                     goalsButtonCell.Controls.Add(goalsRequestButton);
                 }
             }
-            
+
 
             tRow1b.Controls.Add(goalsButtonCell);
 
@@ -205,7 +205,7 @@ namespace ExceptionDashboard
                     growthButtonCell.Controls.Add(growthRequestButton);
                 }
             }
-            
+
 
             tRow1b.Controls.Add(growthButtonCell);
 
@@ -245,7 +245,7 @@ namespace ExceptionDashboard
                     headcountButtonCell.Controls.Add(headcountRequestButton);
                 }
             }
-            
+
 
             tRow1b.Controls.Add(headcountButtonCell);
 
@@ -301,7 +301,7 @@ namespace ExceptionDashboard
             marketRequestButton.Click += new EventHandler(marketButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Market == 1 || currentConsultantCard.Market == 2) 
+                if (currentConsultantCard.Market == 1 || currentConsultantCard.Market == 2)
                 {
                     marketButtonCell.Controls.Remove(marketButton);
                 }
@@ -341,7 +341,7 @@ namespace ExceptionDashboard
             rapportRequestButton.Click += new EventHandler(rapportButton_Click);
             if (loggedInEmployee.RoleName == "Agent")
             {
-                if (currentConsultantCard.Rapport == 1 || currentConsultantCard.Rapport == 2) 
+                if (currentConsultantCard.Rapport == 1 || currentConsultantCard.Rapport == 2)
                 {
                     rapportButtonCell.Controls.Remove(rapportButton);
                 }
@@ -489,7 +489,6 @@ namespace ExceptionDashboard
             }
             tRow2c.Controls.Add(websiteRequestDate);
         }
-
         public string checkPropertyValue(int inProp, string RoleName)
         {
             string returnProp = "";
