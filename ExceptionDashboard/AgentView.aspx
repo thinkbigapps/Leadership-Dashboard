@@ -122,7 +122,7 @@
 
             <asp:TableRow>
                 <asp:TableCell>
-                    <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClick="btnViewReport_Click"  OnClientClick="btnViewReport_Click"/>
+                    <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClick="btnViewReport_Click" OnClientClick="btnViewReport_Click"/>
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>

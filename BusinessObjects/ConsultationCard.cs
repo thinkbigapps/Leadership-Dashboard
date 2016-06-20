@@ -21,5 +21,6 @@ namespace BusinessObjects
         public int Website { get; set; }
         public int TotalEntries { get; set; }
         public int LifetimeEntries { get; set; }
+        public DateTime RequestDate { get; set; }
     }
 }
