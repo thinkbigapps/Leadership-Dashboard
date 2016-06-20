@@ -40,5 +40,17 @@ namespace BusinessLogic
                 throw;
             }
         }
+
+        public void UpdateConsultationEntries(ConsultationCard oldC, ConsultationCard newC)
+        {
+            try
+            {
+                ConsultationAccessor.UpdateConsultationEntries(oldC, newC);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
