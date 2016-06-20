@@ -26,7 +26,7 @@ namespace ExceptionDashboard
         {
             if (!IsPostBack)
             {
-
+                btnViewReport_Click(sender, null);
             }
 
             //Check to see if user is logged in

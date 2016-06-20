@@ -21,6 +21,15 @@ namespace BusinessObjects
         public int Website { get; set; }
         public int TotalEntries { get; set; }
         public int LifetimeEntries { get; set; }
-        public DateTime RequestDate { get; set; }
+        public string CommunicationRequestDate { get; set; }
+        public string CompetitorsRequestDate { get; set; }
+        public string GoalsRequestDate { get; set; }
+        public string GrowthRequestDate { get; set; }
+        public string HeadcountRequestDate { get; set; }
+        public string MarketRequestDate { get; set; }
+        public string RapportRequestDate { get; set; }
+        public string RecommendedRequestDate { get; set; }
+        public string TermRequestDate { get; set; }
+        public string WebsiteRequestDate { get; set; }
     }
 }

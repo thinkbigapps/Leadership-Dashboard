@@ -14,7 +14,7 @@ namespace DataAccess
         public static ConsultationCard SelectCard(int employeeID)
         {
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
-            var query = @"SELECT employee_id, communication, competitors, goals, growth, headcount, market, rapport, recommended, term, website, total_entries, lifetime_entries, request_date FROM consultation WHERE employee_id = @employeeID";
+            var query = @"SELECT employee_id, communication, competitors, goals, growth, headcount, market, rapport, recommended, term, website, total_entries, lifetime_entries, communication_request_date, competitors_request_date, goals_request_date, growth_request_date, headcount_request_date, market_request_date, rapport_request_date, recommended_request_date, term_request_date, website_request_date FROM consultation WHERE employee_id = @employeeID";
             var cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@employeeID", employeeID);
 
@@ -42,7 +42,17 @@ namespace DataAccess
                 retrievedCard.Website = reader.GetInt32(10);
                 retrievedCard.TotalEntries = reader.GetInt32(11);
                 retrievedCard.LifetimeEntries = reader.GetInt32(12);
-                retrievedCard.RequestDate = reader.GetDateTime(13);
+
+                retrievedCard.CommunicationRequestDate = reader.GetSqlDateTime(13).ToString();
+                retrievedCard.CompetitorsRequestDate = reader.GetSqlDateTime(14).ToString();
+                retrievedCard.GoalsRequestDate = reader.GetSqlDateTime(15).ToString();
+                retrievedCard.GrowthRequestDate = reader.GetSqlDateTime(16).ToString();
+                retrievedCard.HeadcountRequestDate = reader.GetSqlDateTime(17).ToString();
+                retrievedCard.MarketRequestDate = reader.GetSqlDateTime(18).ToString();
+                retrievedCard.RapportRequestDate = reader.GetSqlDateTime(19).ToString();
+                retrievedCard.RecommendedRequestDate = reader.GetSqlDateTime(20).ToString();
+                retrievedCard.TermRequestDate = reader.GetSqlDateTime(21).ToString();
+                retrievedCard.WebsiteRequestDate = reader.GetSqlDateTime(22).ToString();
 
                 return retrievedCard;
             }
@@ -78,7 +88,16 @@ namespace DataAccess
             cmd.Parameters.AddWithValue("@website", newC.Website);
             cmd.Parameters.AddWithValue("@total_entries", newC.TotalEntries);
             cmd.Parameters.AddWithValue("@lifetime_entries", newC.LifetimeEntries);
-            cmd.Parameters.AddWithValue("@request_date", newC.RequestDate);
+            cmd.Parameters.AddWithValue("@communication_request_date", newC.CommunicationRequestDate);
+            cmd.Parameters.AddWithValue("@competitors_request_date", newC.CompetitorsRequestDate);
+            cmd.Parameters.AddWithValue("@goals_request_date", newC.GoalsRequestDate);
+            cmd.Parameters.AddWithValue("@growth_request_date", newC.GrowthRequestDate);
+            cmd.Parameters.AddWithValue("@headcount_request_date", newC.HeadcountRequestDate);
+            cmd.Parameters.AddWithValue("@market_request_date", newC.MarketRequestDate);
+            cmd.Parameters.AddWithValue("@rapport_request_date", newC.RapportRequestDate);
+            cmd.Parameters.AddWithValue("@recommended_request_date", newC.RecommendedRequestDate);
+            cmd.Parameters.AddWithValue("@term_request_date", newC.TermRequestDate);
+            cmd.Parameters.AddWithValue("@website_request_date", newC.WebsiteRequestDate);
 
             cmd.Parameters.AddWithValue("@original_employee_id", oldC.EmployeeID);
             cmd.Parameters.AddWithValue("@original_communication", oldC.Communication);
@@ -93,7 +112,16 @@ namespace DataAccess
             cmd.Parameters.AddWithValue("@original_website", oldC.Website);
             cmd.Parameters.AddWithValue("@original_total_entries", oldC.TotalEntries);
             cmd.Parameters.AddWithValue("@original_lifetime_entries", oldC.LifetimeEntries);
-            cmd.Parameters.AddWithValue("@original_request_date", oldC.LifetimeEntries);
+            cmd.Parameters.AddWithValue("@original_communication_request_date", oldC.CommunicationRequestDate);
+            cmd.Parameters.AddWithValue("@original_competitors_request_date", oldC.CompetitorsRequestDate);
+            cmd.Parameters.AddWithValue("@original_goals_request_date", oldC.GoalsRequestDate);
+            cmd.Parameters.AddWithValue("@original_growth_request_date", oldC.GrowthRequestDate);
+            cmd.Parameters.AddWithValue("@original_headcount_request_date", oldC.HeadcountRequestDate);
+            cmd.Parameters.AddWithValue("@original_market_request_date", oldC.MarketRequestDate);
+            cmd.Parameters.AddWithValue("@original_rapport_request_date", oldC.RapportRequestDate);
+            cmd.Parameters.AddWithValue("@original_recommended_request_date", oldC.RecommendedRequestDate);
+            cmd.Parameters.AddWithValue("@original_term_request_date", oldC.TermRequestDate);
+            cmd.Parameters.AddWithValue("@original_website_request_date", oldC.WebsiteRequestDate);
 
             try
             {

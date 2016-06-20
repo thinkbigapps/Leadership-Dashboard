@@ -56,10 +56,11 @@ namespace ExceptionDashboard
             headcount.Text = string.Format("<img src=./images/full-headcount" + currentConsultantCard.Headcount + ".png />");
             tRow1.Controls.Add(headcount);
 
+            TableRow tRow1c = new TableRow();
+            agentCardViewTable.Rows.Add(tRow1c);
+
             TableRow tRow1b = new TableRow();
             agentCardViewTable.Rows.Add(tRow1b);
-
-
 
             Button communicationButton = new Button();
             communicationButton.Click += new EventHandler(communicationButton_Click);
@@ -89,7 +90,16 @@ namespace ExceptionDashboard
 
             tRow1b.Controls.Add(communicationButtonCell);
 
-
+            TableCell communicationRequestDate = new TableCell();
+            if (currentConsultantCard.Communication == 2)
+            {
+                communicationRequestDate.Text = currentConsultantCard.CommunicationRequestDate;
+            }
+            else
+            {
+                communicationRequestDate.Text = "";
+            }
+            tRow1c.Controls.Add(communicationRequestDate);
 
             Button competitorsButton = new Button();
             competitorsButton.Click += new EventHandler(competitorsButton_Click);
@@ -119,6 +129,18 @@ namespace ExceptionDashboard
 
             tRow1b.Controls.Add(competitorsButtonCell);
 
+            TableCell competitorsRequestDate = new TableCell();
+            if (currentConsultantCard.Competitors == 2)
+            {
+                competitorsRequestDate.Text = currentConsultantCard.CompetitorsRequestDate;
+            }
+            else
+            {
+                competitorsRequestDate.Text = "";
+            }
+            tRow1c.Controls.Add(competitorsRequestDate);
+
+
             Button goalsButton = new Button();
             goalsButton.Click += new EventHandler(goalsButton_Click);
             btnText = checkPropertyValue(currentConsultantCard.Goals, loggedInEmployee.RoleName);
@@ -146,6 +168,17 @@ namespace ExceptionDashboard
             
 
             tRow1b.Controls.Add(goalsButtonCell);
+
+            TableCell goalsRequestDate = new TableCell();
+            if (currentConsultantCard.Goals == 2)
+            {
+                goalsRequestDate.Text = currentConsultantCard.GoalsRequestDate;
+            }
+            else
+            {
+                goalsRequestDate.Text = "";
+            }
+            tRow1c.Controls.Add(goalsRequestDate);
 
 
             Button growthButton = new Button();
@@ -176,6 +209,17 @@ namespace ExceptionDashboard
 
             tRow1b.Controls.Add(growthButtonCell);
 
+            TableCell growthRequestDate = new TableCell();
+            if (currentConsultantCard.Growth == 2)
+            {
+                growthRequestDate.Text = currentConsultantCard.GrowthRequestDate;
+            }
+            else
+            {
+                growthRequestDate.Text = "";
+            }
+            tRow1c.Controls.Add(growthRequestDate);
+
 
             Button headcountButton = new Button();
             headcountButton.Click += new EventHandler(headcountButton_Click);
@@ -205,6 +249,16 @@ namespace ExceptionDashboard
 
             tRow1b.Controls.Add(headcountButtonCell);
 
+            TableCell headcountRequestDate = new TableCell();
+            if (currentConsultantCard.Headcount == 2)
+            {
+                headcountRequestDate.Text = currentConsultantCard.HeadcountRequestDate;
+            }
+            else
+            {
+                headcountRequestDate.Text = "";
+            }
+            tRow1c.Controls.Add(headcountRequestDate);
 
 
             TableRow tRow2 = new TableRow();
@@ -229,6 +283,9 @@ namespace ExceptionDashboard
             TableCell website = new TableCell();
             website.Text = string.Format("<img src=./images/full-website" + currentConsultantCard.Website + ".png />");
             tRow2.Controls.Add(website);
+
+            TableRow tRow2c = new TableRow();
+            agentCardViewTable.Rows.Add(tRow2c);
 
             TableRow tRow2b = new TableRow();
             agentCardViewTable.Rows.Add(tRow2b);
@@ -261,6 +318,16 @@ namespace ExceptionDashboard
 
             tRow2b.Controls.Add(marketButtonCell);
 
+            TableCell marketRequestDate = new TableCell();
+            if (currentConsultantCard.Market == 2)
+            {
+                marketRequestDate.Text = currentConsultantCard.MarketRequestDate;
+            }
+            else
+            {
+                marketRequestDate.Text = "";
+            }
+            tRow2c.Controls.Add(marketRequestDate);
 
 
             Button rapportButton = new Button();
@@ -291,6 +358,17 @@ namespace ExceptionDashboard
 
             tRow2b.Controls.Add(rapportButtonCell);
 
+            TableCell rapportRequestDate = new TableCell();
+            if (currentConsultantCard.Rapport == 2)
+            {
+                rapportRequestDate.Text = currentConsultantCard.RapportRequestDate;
+            }
+            else
+            {
+                rapportRequestDate.Text = "";
+            }
+            tRow2c.Controls.Add(rapportRequestDate);
+
 
             Button recommendedButton = new Button();
             recommendedButton.Click += new EventHandler(recommendedButton_Click);
@@ -319,6 +397,17 @@ namespace ExceptionDashboard
 
 
             tRow2b.Controls.Add(recommendedButtonCell);
+
+            TableCell recommendedRequestDate = new TableCell();
+            if (currentConsultantCard.Recommended == 2)
+            {
+                recommendedRequestDate.Text = currentConsultantCard.RecommendedRequestDate;
+            }
+            else
+            {
+                recommendedRequestDate.Text = "";
+            }
+            tRow2c.Controls.Add(recommendedRequestDate);
 
 
             Button termButton = new Button();
@@ -349,6 +438,17 @@ namespace ExceptionDashboard
 
             tRow2b.Controls.Add(termButtonCell);
 
+            TableCell termRequestDate = new TableCell();
+            if (currentConsultantCard.Term == 2)
+            {
+                termRequestDate.Text = currentConsultantCard.TermRequestDate;
+            }
+            else
+            {
+                termRequestDate.Text = "";
+            }
+            tRow2c.Controls.Add(termRequestDate);
+
 
             Button websiteButton = new Button();
             websiteButton.Click += new EventHandler(websiteButton_Click);
@@ -377,6 +477,17 @@ namespace ExceptionDashboard
 
 
             tRow2b.Controls.Add(websiteButtonCell);
+
+            TableCell websiteRequestDate = new TableCell();
+            if (currentConsultantCard.Website == 2)
+            {
+                websiteRequestDate.Text = currentConsultantCard.WebsiteRequestDate;
+            }
+            else
+            {
+                websiteRequestDate.Text = "";
+            }
+            tRow2c.Controls.Add(websiteRequestDate);
         }
 
         public string checkPropertyValue(int inProp, string RoleName)
@@ -587,6 +698,7 @@ namespace ExceptionDashboard
                         updatedCard.Website = 1;
                         break;
                 }
+                //updatedCard.RequestDate = "1/1/1900 12:00:00";
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
                 Response.Redirect(Request.RawUrl);
             }
@@ -596,33 +708,43 @@ namespace ExceptionDashboard
                 {
                     case "Communication":
                         updatedCard.Communication = 0;
+                        updatedCard.CommunicationRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Competitors":
                         updatedCard.Competitors = 0;
+                        updatedCard.CompetitorsRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Goals":
                         updatedCard.Goals = 0;
+                        updatedCard.GoalsRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Growth":
                         updatedCard.Growth = 0;
+                        updatedCard.GrowthRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Headcount":
                         updatedCard.Headcount = 0;
+                        updatedCard.HeadcountRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Market":
                         updatedCard.Market = 0;
+                        updatedCard.MarketRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Rapport":
                         updatedCard.Rapport = 0;
+                        updatedCard.RapportRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Recommended":
                         updatedCard.Recommended = 0;
+                        updatedCard.RecommendedRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Term":
                         updatedCard.Term = 0;
+                        updatedCard.TermRequestDate = "1/1/1900 12:00:00";
                         break;
                     case "Website":
                         updatedCard.Website = 0;
+                        updatedCard.WebsiteRequestDate = "1/1/1900 12:00:00";
                         break;
                 }
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
@@ -634,33 +756,43 @@ namespace ExceptionDashboard
                 {
                     case "Communication":
                         updatedCard.Communication = 2;
+                        updatedCard.CommunicationRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Competitors":
                         updatedCard.Competitors = 2;
+                        updatedCard.CompetitorsRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Goals":
                         updatedCard.Goals = 2;
+                        updatedCard.GoalsRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Growth":
                         updatedCard.Growth = 2;
+                        updatedCard.GrowthRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Headcount":
                         updatedCard.Headcount = 2;
+                        updatedCard.HeadcountRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Market":
                         updatedCard.Market = 2;
+                        updatedCard.MarketRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Rapport":
                         updatedCard.Rapport = 2;
+                        updatedCard.RapportRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Recommended":
                         updatedCard.Recommended = 2;
+                        updatedCard.RecommendedRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Term":
                         updatedCard.Term = 2;
+                        updatedCard.TermRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                     case "Website":
                         updatedCard.Website = 2;
+                        updatedCard.WebsiteRequestDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         break;
                 }
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
