@@ -227,5 +227,47 @@ namespace DataAccess
 
             return rowsAffected;
         }
+
+        public static int CreateConsultationCard(ConsultationCard newC)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spCreateConsultationCard";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@employee_id", newC.EmployeeID);
+            cmd.Parameters.AddWithValue("@communication_request_date", newC.CommunicationRequestDate);
+            cmd.Parameters.AddWithValue("@competitors_request_date", newC.CompetitorsRequestDate);
+            cmd.Parameters.AddWithValue("@goals_request_date", newC.GoalsRequestDate);
+            cmd.Parameters.AddWithValue("@growth_request_date", newC.GrowthRequestDate);
+            cmd.Parameters.AddWithValue("@headcount_request_date", newC.HeadcountRequestDate);
+            cmd.Parameters.AddWithValue("@market_request_date", newC.MarketRequestDate);
+            cmd.Parameters.AddWithValue("@rapport_request_date", newC.RapportRequestDate);
+            cmd.Parameters.AddWithValue("@recommended_request_date", newC.RecommendedRequestDate);
+            cmd.Parameters.AddWithValue("@term_request_date", newC.TermRequestDate);
+            cmd.Parameters.AddWithValue("@website_request_date", newC.WebsiteRequestDate);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Concurrency Exception:Your record has been changed by another user. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
     }
 }
+

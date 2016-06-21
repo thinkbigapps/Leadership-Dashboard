@@ -14,6 +14,7 @@ namespace ExceptionDashboard
     {
         private ExEventManager _myExEventManager = new ExEventManager();
         private EmployeeManager _myEmployeeManager = new EmployeeManager();
+        private ConsultationCardManager _myConsultationCardManager = new ConsultationCardManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -245,6 +246,21 @@ namespace ExceptionDashboard
                             {
                                 //add new employee to db
                                 _myEmployeeManager.AddNewEmployee(newEmployee);
+                                Employee newEmp = _myEmployeeManager.FindEmployee(newEmployee.Username);
+                                    ConsultationCard newCard = new ConsultationCard();
+                                    newCard.EmployeeID = newEmp.EmployeeID;
+                                    newCard.CommunicationRequestDate = "1/1/1900 12:00:00";
+                                    newCard.CompetitorsRequestDate = "1/1/1900 12:00:00";
+                                    newCard.GoalsRequestDate = "1/1/1900 12:00:00";
+                                    newCard.GrowthRequestDate = "1/1/1900 12:00:00";
+                                    newCard.HeadcountRequestDate = "1/1/1900 12:00:00";
+                                    newCard.MarketRequestDate = "1/1/1900 12:00:00";
+                                    newCard.RapportRequestDate = "1/1/1900 12:00:00";
+                                    newCard.RecommendedRequestDate = "1/1/1900 12:00:00";
+                                    newCard.TermRequestDate = "1/1/1900 12:00:00";
+                                    newCard.WebsiteRequestDate = "1/1/1900 12:00:00";
+                                    _myConsultationCardManager.CreateConsultationCard(newCard);
+
                                 try
                                 {
                                     //attempt to auto log in new user account
