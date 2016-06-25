@@ -112,5 +112,18 @@ namespace BusinessLogic
                 throw;
             }
         }
+
+        public List<CardMethod> SelectCardMethods()
+        {
+            try
+            {
+                List<CardMethod> currentMethods = ConsultationAccessor.SelectCardMethods();
+                return currentMethods;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

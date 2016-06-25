@@ -406,6 +406,42 @@ namespace DataAccess
 
             return rowsAffected;
         }
+
+        public static List<CardMethod> SelectCardMethods()
+        {
+            var myList = new List<CardMethod>();
+
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = "SELECT method_name FROM award_method";
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No methods found!");
+                }
+                while (reader.Read())
+                {
+                    var item = new CardMethod();
+
+                    item.methodName = reader.GetString(0);
+                    myList.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return myList;
+        }
     }
 }
 

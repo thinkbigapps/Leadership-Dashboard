@@ -92,6 +92,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddCard.aspx" />
     <Content Include="AgentCardView.aspx" />
     <Content Include="ConsultationView.aspx" />
     <Content Include="CreateAccount.aspx" />
@@ -123,6 +124,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCard.aspx.cs">
+      <DependentUpon>AddCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddCard.aspx.designer.cs">
+      <DependentUpon>AddCard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AgentCardView.aspx.cs">
       <DependentUpon>AgentCardView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

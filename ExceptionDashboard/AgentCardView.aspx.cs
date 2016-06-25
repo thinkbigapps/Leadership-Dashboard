@@ -696,51 +696,20 @@ namespace ExceptionDashboard
             
             if (a == "Add")
             {
-                switch (c)
-                {
-                    case "Communication":
-                        updatedCard.Communication = 1;
-                        break;
-                    case "Competitors":
-                        updatedCard.Competitors = 1;
-                        break;
-                    case "Goals":
-                        updatedCard.Goals = 1;
-                        break;
-                    case "Growth":
-                        updatedCard.Growth = 1;
-                        break;
-                    case "Headcount":
-                        updatedCard.Headcount = 1;
-                        break;
-                    case "Market":
-                        updatedCard.Market = 1;
-                        break;
-                    case "Rapport":
-                        updatedCard.Rapport = 1;
-                        break;
-                    case "Recommended":
-                        updatedCard.Recommended = 1;
-                        break;
-                    case "Term":
-                        updatedCard.Term = 1;
-                        break;
-                    case "Website":
-                        updatedCard.Website = 1;
-                        break;
-                }
-
+                lblCard.Text = c;
+                lblAgent.Text = empID.ToString();
                 //updatedCard.RequestDate = "1/1/1900 12:00:00";
-                _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
-                Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);
-                SendMail(currentEmp.FirstName, c, currentEmp.EmailAddress);
-                if (updatedCard.Communication == 1 && updatedCard.Competitors == 1 && updatedCard.Goals == 1 && updatedCard.Growth == 1 && updatedCard.Headcount == 1 && updatedCard.Market == 1 && updatedCard.Rapport == 1 && updatedCard.Recommended == 1 && updatedCard.Term == 1 && updatedCard.Website == 1)
-                {
-                    int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
-                    addEntry(consultantID);
-                    SendEntryMail(currentEmp.FirstName, currentEmp.EmailAddress);
-                }
-                Response.Redirect(Request.RawUrl);
+                //_myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                //Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);
+                //SendMail(currentEmp.FirstName, c, currentEmp.EmailAddress);
+                //if (updatedCard.Communication == 1 && updatedCard.Competitors == 1 && updatedCard.Goals == 1 && updatedCard.Growth == 1 && updatedCard.Headcount == 1 && updatedCard.Market == 1 && updatedCard.Rapport == 1 && updatedCard.Recommended == 1 && updatedCard.Term == 1 && updatedCard.Website == 1)
+                //{
+                //   int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
+                //    addEntry(consultantID);
+                //    SendEntryMail(currentEmp.FirstName, currentEmp.EmailAddress);
+
+                //Response.Redirect(Request.RawUrl);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModalPopUp", "showModalPopUp();", true);
             }
             else if (a == "Remove" || a == "Reject")
             {

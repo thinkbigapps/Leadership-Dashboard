@@ -10,60 +10,87 @@
 namespace ExceptionDashboard {
     
     
-    public partial class AgentCardView {
+    public partial class AddCard {
         
         /// <summary>
-        /// lblAgent control.
+        /// formAddCard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAgent;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formAddCard;
         
         /// <summary>
-        /// lblCard control.
+        /// ddlMethod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCard;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMethod;
         
         /// <summary>
-        /// lblConsultantName control.
+        /// emailNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConsultantName;
+        protected global::System.Web.UI.WebControls.CheckBox emailNote;
         
         /// <summary>
-        /// btnBack control.
+        /// txtNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBack;
+        protected global::System.Web.UI.WebControls.TextBox txtNote;
         
         /// <summary>
-        /// agentCardViewTable control.
+        /// btnAddCard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table agentCardViewTable;
+        protected global::System.Web.UI.WebControls.Button btnAddCard;
         
         /// <summary>
-        /// btnClear control.
+        /// lblCongrats control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
+        protected global::System.Web.UI.WebControls.Label lblCongrats;
+        
+        /// <summary>
+        /// lblAwarded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAwarded;
+        
+        /// <summary>
+        /// imgCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label imgCard;
+        
+        /// <summary>
+        /// lblNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNote;
     }
 }
