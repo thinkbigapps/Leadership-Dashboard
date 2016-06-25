@@ -24,6 +24,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            checkLogin();
             //Check to see if user is logged in
             if (Session["loggedInUser"] != null)
             {
@@ -74,6 +75,7 @@ namespace ExceptionDashboard
         //populate fields based on user login
         private void populateLoggedIn(string role, string departmentID)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             List<Employee> currentAgent = new List<Employee>();
             currentAgent.Add(loggedInEmployee);
@@ -107,6 +109,7 @@ namespace ExceptionDashboard
 
         protected void btnViewReport_Click(object sender, EventArgs e)
         {
+            checkLogin();
             try
             {
                 Employee loggedInEmployee = (Employee)Session["loggedInUser"];
@@ -200,6 +203,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkLogin();
             //determine the event id of the row selected
             //create session variable to hold event id between pages
             //bring up edit popup window
@@ -210,6 +214,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            checkLogin();
             //determine which button was selected, either bring up edit window or complete the event selected
             Session.Remove("resetToken");
             if (e.CommandName == "EditEvent")
@@ -234,6 +239,7 @@ namespace ExceptionDashboard
 
         public void updateEvent(string status)
         {
+            checkLogin();
             //retrieve logged in user info
             //create new event
             //update new event to reflect submitted changes
@@ -273,12 +279,14 @@ namespace ExceptionDashboard
 
         protected void listDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkLogin();
             var selectedDepartment = listDepartment.SelectedValue;
             Session["selectedDepartment"] = selectedDepartment;
         }
 
         protected void gvExEvent_Sorting(object sender, GridViewSortEventArgs e)
         {
+            checkLogin();
             //***gridview column sort method not working after 
             List<ExEvent> myGridResults = (List<ExEvent>)Session["currentEventList"];
 
@@ -327,8 +335,17 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            checkLogin();
             gvExEvent.EditIndex = e.NewEditIndex;
             gvExEvent.DataBind();
+        }
+
+        public void checkLogin()
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                Response.Redirect("AgentView.aspx");
+            }
         }
     }
 }

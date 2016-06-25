@@ -17,6 +17,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            checkLogin();
             //retrieve current activity list from db
             //bind activity list to drop down list
             List<Activity> activitiesToList = _myExEventManager.FetchActivityList();
@@ -38,6 +39,7 @@ namespace ExceptionDashboard
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //capture form fields
             DateTime eventDate = Convert.ToDateTime(txtEventDate.Text);
             int EmployeeID = loggedInEmployee.EmployeeID;
@@ -69,6 +71,14 @@ namespace ExceptionDashboard
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public void checkLogin()
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                Response.Redirect("AgentView.aspx");
             }
         }
     }

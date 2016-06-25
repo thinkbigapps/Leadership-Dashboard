@@ -12,6 +12,8 @@ using System.Collections.Specialized;
 using System.Web.Util;
 using System.Web.UI.HtmlControls;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.IO;
 
 namespace ExceptionDashboard
 {
@@ -506,7 +508,7 @@ namespace ExceptionDashboard
             }
             else
             {
-                Response.Redirect("test.asp");
+                Response.Redirect("AgentView.aspx");
             }
         }
         public string checkPropertyValue(int inProp, string RoleName)
@@ -538,6 +540,7 @@ namespace ExceptionDashboard
 
         protected void communicationButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Communication";
@@ -547,6 +550,7 @@ namespace ExceptionDashboard
 
         protected void competitorsButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Competitors";
@@ -556,6 +560,7 @@ namespace ExceptionDashboard
 
         protected void goalsButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Goals";
@@ -565,6 +570,7 @@ namespace ExceptionDashboard
 
         protected void growthButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Growth";
@@ -574,6 +580,7 @@ namespace ExceptionDashboard
 
         protected void headcountButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Headcount";
@@ -583,6 +590,7 @@ namespace ExceptionDashboard
 
         protected void marketButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Market";
@@ -592,6 +600,7 @@ namespace ExceptionDashboard
 
         protected void rapportButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Rapport";
@@ -601,6 +610,7 @@ namespace ExceptionDashboard
 
         protected void recommendedButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Recommended";
@@ -610,6 +620,7 @@ namespace ExceptionDashboard
 
         protected void termButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Term";
@@ -619,6 +630,7 @@ namespace ExceptionDashboard
 
         protected void websiteButton_Click(object sender, EventArgs e)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             int empID = Convert.ToInt32(Request.QueryString["agent"]);
             string card = "Website";
@@ -851,16 +863,27 @@ namespace ExceptionDashboard
         protected void SendMail(string fname, string card, string email)
         {
             MailMessage mailMessage = new MailMessage();
-
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
+            mailMessage.IsBodyHtml = true;
             mailMessage.From = new MailAddress("donotreply@dev.domainmason.com");
             mailMessage.To.Add(email);
             mailMessage.Subject = "You have been awarded a new consultation card!";
+            string imageCard = card.ToLower();
+            string fileName = "full-" + imageCard + "1.png";
+            string path = "~/images/full-" + imageCard + "1.png";
+            string sImage = System.Web.HttpContext.Current.Server.MapPath(path);
+            
+            //AlternateView htmlView = AlternateView.CreateAlternateViewFromString(
+            //     "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
+            //     + "You have just been awarded a consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".<br /><br />" + @"<img src='cid:" + inline.ContentId + @"'/>" + " />"
+            //     + "<br /><br />"
+            //     + "This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />Keep up the great work!</body></html>", null, MediaTypeNames.Text.Html);
+            mailMessage.AlternateViews.Add(getEmbeddedImage(sImage, fname, loggedInEmployee));
 
-            mailMessage.Body = "Hey " + fname + "!" + "<br/><br/>"
-                 + "Congratulations!<br/>"
-                 + "You have just been awarded a new consultation card for " + card + "<br /><br />"
-                 + "This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />Keep up the great work!";
-            mailMessage.IsBodyHtml = true;
+            //FileStream fileToStream = new FileStream(System.Web.HttpContext.Current.Server.MapPath(path), FileMode.Open, FileAccess.Read);
+            //Attachment att = new Attachment(fileToStream, fileName, MediaTypeNames.Image.Jpeg);
+            //att.ContentDisposition.Inline = true;
+            //mailMessage.Attachments.Add(att);
 
             SmtpClient smtpClient = new SmtpClient("relay-hosting.secureserver.net", 25);
             smtpClient.Send(mailMessage);
@@ -906,11 +929,24 @@ namespace ExceptionDashboard
 
         public void checkLogin()
         {
-            Employee loggedInEmployee = Session["loggedInUser"] as Employee;
-            if (string.IsNullOrEmpty(loggedInEmployee.FirstName))
+            if (Session["loggedInUser"] == null)
             {
-                Response.Redirect("test.asp");
+                Response.Redirect("AgentView.aspx");
             }
+        }
+
+        private AlternateView getEmbeddedImage(String filePath, string fname, Employee loggedInEmployee)
+        {
+            LinkedResource inline = new LinkedResource(filePath);
+            inline.ContentId = Guid.NewGuid().ToString();
+            //string htmlBody = @"<img src='cid:" + inline.ContentId + @"'/>";
+            string htmlBody = "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
+                 + "You have just been awarded a consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".<br /><br />" + @"<img src='cid:" + inline.ContentId + @"'/>" 
+                 + "<br /><br />"
+                 + "This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />Keep up the great work!</body></html>";
+            AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+            alternateView.LinkedResources.Add(inline);
+            return alternateView;
         }
     }
 }

@@ -86,6 +86,7 @@ namespace ExceptionDashboard
         //populate fields based on user login
         private void populateLoggedIn(string role, string departmentID)
         {
+            checkLogin();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             List<Employee> currentAgent = new List<Employee>();
             currentAgent.Add(loggedInEmployee);
@@ -231,6 +232,7 @@ namespace ExceptionDashboard
 
         protected void btnViewReport_Click(object sender, EventArgs e)
         {
+            checkLogin();
             try
             {
                 Employee loggedInEmployee = (Employee)Session["loggedInUser"];
@@ -400,6 +402,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            checkLogin();
             //detect if event status is completed
             //if so, remove button to complete event
             //clear session variable for edit/submit changes for next page load
@@ -413,7 +416,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-
+            checkLogin();
             ///**Start Test Code**/
             var ddl = e.Row.FindControl("ddlActivity") as DropDownList;
             if (ddl != null)
@@ -454,6 +457,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkLogin();
             //determine the event id of the row selected
             //create session variable to hold event id between pages
             //bring up edit popup window
@@ -464,6 +468,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            checkLogin();
             //determine which button was selected, either bring up edit window or complete the event selected
             Session.Remove("resetToken");
             if (e.CommandName == "EditEvent")
@@ -488,6 +493,7 @@ namespace ExceptionDashboard
 
         public void updateEvent(string status)
         {
+            checkLogin();
             //retrieve logged in user info
             //create new event
             //update new event to reflect submitted changes
@@ -526,6 +532,7 @@ namespace ExceptionDashboard
 
         protected void listTopLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkLogin();
             //when selected top level is changed, determine what was selected and rebind 
             var selectedTopLevel = listTopLevel.SelectedValue;
             Session["selectedTopLevel"] = selectedTopLevel;
@@ -535,6 +542,7 @@ namespace ExceptionDashboard
 
         public void populateRepList()
         {
+            checkLogin();
             List<BusinessObjects.Employee> repList = new List<BusinessObjects.Employee>();
             string toplevel = listTopLevel.SelectedItem.Value;
             string department = listDepartment.SelectedItem.Value;
@@ -556,6 +564,7 @@ namespace ExceptionDashboard
 
         protected void listDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkLogin();
             var selectedDepartment = listDepartment.SelectedValue;
             Session["selectedDepartment"] = selectedDepartment;
             populateRepList();
@@ -563,6 +572,7 @@ namespace ExceptionDashboard
 
         protected void btnMonthToDate_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //database dates are for 12:00AM, set end date to 1 day later to pull through 11:59PM that night
             DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             txtStartDate.Text = firstDayOfMonth.ToShortDateString();
@@ -571,6 +581,7 @@ namespace ExceptionDashboard
 
         protected void btnLastMonth_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //populate date fields for start/end last month
             DateTime firstDayOfLastMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime firstDay = firstDayOfLastMonth.AddMonths(-1);
@@ -581,6 +592,7 @@ namespace ExceptionDashboard
 
         protected void btnBPToDate_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //previous issues with bptodate not pulling correct start date
             //***updated button to be <72 hours, since that is the threshold where supervisors/leads are able to enter exceptions***
             txtStartDate.Text = DateTime.Today.AddDays(-3).ToShortDateString();
@@ -589,6 +601,7 @@ namespace ExceptionDashboard
 
         protected void btnPriorBP_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //***disabled bptodate function, updated button to "ALL" to pull all exceptions***
             txtStartDate.Text = "1/1/2000";
             txtEndDate.Text = DateTime.Today.AddDays(-3).ToShortDateString();
@@ -596,6 +609,7 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_Sorting(object sender, GridViewSortEventArgs e)
         {
+            checkLogin();
             //***gridview column sort method not working after 
             List<ExceptionDashboard.ExEvent> myGridResults = (List<ExceptionDashboard.ExEvent>)Session["currentEventList"];
 
@@ -629,6 +643,7 @@ namespace ExceptionDashboard
 
         protected void btnBPToDate_Click1(object sender, EventArgs e)
         {
+            checkLogin();
             //***disabled bptodate function, updated button to >72 hours to show exceptions that would require manager approval past 72 hours
             txtStartDate.Text = "1/1/2000";
             txtEndDate.Text = DateTime.Today.AddDays(1).ToShortDateString();
@@ -651,8 +666,25 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            checkLogin();
             gvExEvent.EditIndex = e.NewEditIndex;
             gvExEvent.DataBind();
+        }
+
+        public void checkLogin()
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                btnViewReport.Visible = false;
+                listTopLevel.Items.Clear();
+                listDepartment.Items.Clear();
+                listRepresentative.Items.Clear();
+                listStatus.Items.Clear();
+                lblNoData.Text = "Your log in has expired. Please log in to continue";
+                searchTable.Visible = false;
+                gvExEvent.Visible = false;
+                Response.Redirect("AgentView.aspx");
+            }
         }
     }
 }

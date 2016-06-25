@@ -4,8 +4,8 @@
     <div id="mainConsultContent">
         <asp:Label ID="lblConsultantName" runat="server" Text=""></asp:Label>
         <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/ConsultationView.aspx" CssClass="btnBack"/>
-        <asp:Button ID="btnClear" runat="server" Text="Reset All" OnClick="btnClear_Click" />
         <asp:Table runat="server" ID="agentCardViewTable"></asp:Table>
+        <asp:Button ID="btnClear" runat="server" Text="Reset All" OnClick="btnClear_Click" />
     </div>
 </asp:Content>
 

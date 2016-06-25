@@ -330,3 +330,10 @@ th {
     display: table;
     margin-bottom: 20px;
 }
+
+#main_btnClear {
+    text-align: center;
+    margin: auto;
+    display: table;
+    margin-top: 50px;
+}

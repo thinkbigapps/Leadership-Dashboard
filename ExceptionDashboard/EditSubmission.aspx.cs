@@ -16,6 +16,7 @@ namespace ExceptionDashboard
         char[] delimiterChars = { ' ', ':' };
         protected void Page_Load(object sender, EventArgs e)
         {
+            checkLogin();
             if (!IsPostBack)
             {
                 //find current list of activities and bind to activity drop down list
@@ -130,6 +131,7 @@ namespace ExceptionDashboard
 
         protected void btnMarkCompleted_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //when marking the event as complete on the popup edit screen, create session variable to let the other pages know that a submission was made to resubmit the gridview on the parent page to reflect changes
             var reset = "reset";
             Session["resetToken"] = reset;
@@ -141,6 +143,7 @@ namespace ExceptionDashboard
 
         protected void btnMarkRejected_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //create session variable to indicate a change was made on child page
             var reset = "reset";
             Session["resetToken"] = reset;
@@ -152,6 +155,7 @@ namespace ExceptionDashboard
 
         protected void btnMarkPending_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //create session variable to indicate a change was made on child page
             var reset = "reset";
             Session["resetToken"] = reset;
@@ -203,6 +207,7 @@ namespace ExceptionDashboard
 
         protected void btnPurgeEvent_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //create session variable to indicate a change was made on child page
             var reset = "reset";
             Session["resetToken"] = reset;
@@ -275,6 +280,7 @@ namespace ExceptionDashboard
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            checkLogin();
             //create session variable to indicate a change was made on child page
             var reset = "reset";
             Session["resetToken"] = reset;
@@ -290,6 +296,14 @@ namespace ExceptionDashboard
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public void checkLogin()
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                Response.Redirect("AgentView.aspx");
             }
         }
     }
