@@ -64,5 +64,53 @@ namespace BusinessLogic
                 throw;
             }
         }
+
+        public void CreateNewCardSheet(int EmployeeID)
+        {
+            try
+            {
+                ConsultationAccessor.CreateNewCardSheet(EmployeeID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void CloseCardSheet(ConsultationSheet oldSheet, ConsultationSheet newSheet)
+        {
+            try
+            {
+                ConsultationAccessor.CloseCardSheet(oldSheet, newSheet);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void InsertCard(SheetCard newCard)
+        {
+            try
+            {
+                ConsultationAccessor.InsertCard(newCard);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void RemoveCard(int sheetID, string cardName)
+        {
+            try
+            {
+                ConsultationAccessor.RemoveCard(sheetID, cardName);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

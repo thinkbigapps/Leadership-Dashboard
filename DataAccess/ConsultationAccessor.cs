@@ -268,6 +268,144 @@ namespace DataAccess
 
             return rowsAffected;
         }
+
+        public static int CreateNewCardSheet(int EmployeeID)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spCreateNewCardSheet";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@employee_id", EmployeeID);
+            
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Card Creation Failed. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
+
+        public static int InsertCard(SheetCard newCard)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spInsertCard";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@sheet_id", newCard.sheetID);
+            cmd.Parameters.AddWithValue("@card_slot", newCard.cardSlot);
+            cmd.Parameters.AddWithValue("@card_name", newCard.cardName);
+            cmd.Parameters.AddWithValue("@requested_date", newCard.requestedDate);
+            cmd.Parameters.AddWithValue("@award_date", newCard.awardDate);
+            cmd.Parameters.AddWithValue("@awarded_by", newCard.awardedBy);
+            cmd.Parameters.AddWithValue("@award_method", newCard.awardMethod);
+            cmd.Parameters.AddWithValue("@award_note", newCard.awardNote);
+            
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Card Insert Failed. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
+
+        public static int CloseCardSheet(ConsultationSheet oldSheet, ConsultationSheet newSheet)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spCloseCardSheet";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@sheet_id", newSheet.sheetID);
+            cmd.Parameters.AddWithValue("@employee_id", newSheet.employeeID);
+            cmd.Parameters.AddWithValue("@completed_date", newSheet.completedDate);
+
+            cmd.Parameters.AddWithValue("@original_sheet_id", oldSheet.sheetID);
+            cmd.Parameters.AddWithValue("@original_employee_id", oldSheet.employeeID);
+            cmd.Parameters.AddWithValue("@original_completed_date", oldSheet.completedDate);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Card Close Failed. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
+
+        public static int RemoveCard(int sheetID, string cardName)
+        {
+            int rowsAffected = 0;
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var cmdText = "spRemoveCard";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@sheet_id", sheetID);
+            cmd.Parameters.AddWithValue("@card_name", cardName);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    throw new ApplicationException("Card Delete Failed. Please refresh and try again.");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rowsAffected;
+        }
     }
 }
 
