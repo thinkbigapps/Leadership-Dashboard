@@ -698,6 +698,109 @@ namespace ExceptionDashboard
             {
                 lblCard.Text = c;
                 lblAgent.Text = empID.ToString();
+                switch (c)
+                {
+                    case "Communication":
+                        if (oldCard.CommunicationRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Competitors":
+                        if (oldCard.CompetitorsRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Goals":
+                        if (oldCard.GoalsRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Growth":
+                        if (oldCard.GrowthRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Headcount":
+                        if (oldCard.HeadcountRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Market":
+                        if (oldCard.MarketRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Rapport":
+                        if (oldCard.RapportRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Recommended":
+                        if (oldCard.RecommendedRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Term":
+                        if (oldCard.TermRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                    case "Website":
+                        if (oldCard.WebsiteRequestDate != "1/1/1900 12:00:00 PM")
+                        {
+                            lblRequested.Text = "true";
+                        }
+                        else
+                        {
+                            lblRequested.Text = "false";
+                        }
+                        break;
+                }
                 //updatedCard.RequestDate = "1/1/1900 12:00:00";
                 //_myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
                 //Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);

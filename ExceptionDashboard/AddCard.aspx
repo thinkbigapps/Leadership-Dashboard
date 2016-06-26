@@ -15,12 +15,18 @@
             //document.getElementById('<% = lblNote.ClientID %>').value = document.getElementById('<% = txtNote.ClientID %>').value;
         }
     </script>
+    <script>
+        function OnClose() {
+            window.opener.HideModalDiv();
+        }
+        window.onunload = OnClose;
+    </script>
 </head>
 <body>
     <form id="formAddCard" runat="server">
     <div id="addDetails">
         <asp:Label runat="server">Add Card: </asp:Label><br /><br />
-        Method: <asp:DropDownList runat="server" ID="ddlMethod"></asp:DropDownList><br />
+        Method: <asp:DropDownList runat="server" ID="ddlMethod" EnableViewState="true"></asp:DropDownList><br />
         Include note in email? <asp:CheckBox runat="server" AutoPostBack="true" ID="emailNote" OnCheckedChanged="emailNote_CheckedChanged" /><br />
         Note: <br />
         <asp:TextBox runat="server" id="txtNote" onkeyup="document.getElementById('lblNote').innerHTML=this.value;" ></asp:TextBox>

@@ -25,6 +25,7 @@ namespace ExceptionDashboard
 
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             string cardName = Convert.ToString(Request.QueryString["cardName"]);
+            string requested = Convert.ToString(Request.QueryString["requested"]);
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             Employee currentEmployee = _myEmployeeManager.FindSingleEmployee(consultantID);
             List<CardMethod> currentMethods = _myConsultationCardManager.SelectCardMethods();
@@ -36,7 +37,11 @@ namespace ExceptionDashboard
                 ddlMethod.DataBind();
                 lblCongrats.Text += currentEmployee.FirstName + "!";
                 lblAwarded.Text = "You have just been awarded a new consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".";
-                
+                if(requested == "true")
+                {
+                    ddlMethod.SelectedValue = "Requested";
+                    ddlMethod.Enabled = false;
+                }
             }
             Image myImg = new Image();
             myImg.ImageUrl = "/images/full-" + cardName + "1.png";
@@ -134,6 +139,16 @@ namespace ExceptionDashboard
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             string cardName = Convert.ToString(Request.QueryString["cardName"]);
             updateCard(cardName, consultantID);
+
+            //updatedCard.RequestDate = "1/1/1900 12:00:00";
+            //_myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+            //Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);
+            //SendMail(currentEmp.FirstName, c, currentEmp.EmailAddress);
+            //if (updatedCard.Communication == 1 && updatedCard.Competitors == 1 && updatedCard.Goals == 1 && updatedCard.Growth == 1 && updatedCard.Headcount == 1 && updatedCard.Market == 1 && updatedCard.Rapport == 1 && updatedCard.Recommended == 1 && updatedCard.Term == 1 && updatedCard.Website == 1)
+            //{
+            //   int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
+            //    addEntry(consultantID);
+            //    SendEntryMail(currentEmp.FirstName, currentEmp.EmailAddress);
         }
 
         public void updateCard(string c, int empID)

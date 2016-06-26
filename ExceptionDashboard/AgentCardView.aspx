@@ -6,9 +6,10 @@
     <script type = "text/javascript">
         var popUpObj;
         function showModalPopUp() {
-            var agent = document.getElementById('lblAgent').value;
-            var cardName = document.getElementById('lblCardName'),value;
-            popUpObj = window.open("AddCard.aspx?agent=" + agent + "&cardName=" + cardName,
+        var agent = $('#<%= lblAgent.ClientID %>').text();
+        var cardName = $('#<%= lblCard.ClientID %>').text();
+        var requested = $('#<%= lblRequested.ClientID %>').text();
+            popUpObj = window.open("AddCard.aspx?agent=" + agent + "&cardName=" + cardName + "&requested=" + requested,
             "ModalPopUp",
             "toolbar=no," +
             "scrollbars=no," +
@@ -17,9 +18,9 @@
             "titlebar=no," +
             "menubar=no," +
             "resizable=0," +
-            "width=430," +
+            "width=700," +
             "left=20," +
-            "height=550,"
+            "height=750,"
             );
             popUpObj.focus();
             LoadModalDiv();
@@ -42,8 +43,9 @@
 <asp:Content runat="server" ContentPlaceHolderID="main">
     <div id = "divBackground" style="position: fixed; z-index: 999; height: 100%; width: 100%; top: 0; left:0; background-color: Black; filter: alpha(opacity=60); opacity: 0.6; -moz-opacity: 0.8;display:none"></div>
     <div id="mainConsultContent">
-        <asp:Label ID="lblAgent" runat="server" Visible="false"></asp:Label>
-        <asp:Label ID="lblCard" runat="server" Visible="false"></asp:Label>
+        <asp:Label ID="lblAgent" runat="server" ></asp:Label>
+        <asp:Label ID="lblCard" runat="server" ></asp:Label>
+        <asp:Label ID="lblRequested" runat="server" text="false"/>
         <asp:Label ID="lblConsultantName" runat="server" Text=""></asp:Label>
         <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/ConsultationView.aspx" CssClass="btnBack"/>
         <asp:Table runat="server" ID="agentCardViewTable"></asp:Table>
