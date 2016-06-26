@@ -279,6 +279,7 @@ namespace DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@employee_id", EmployeeID);
+            cmd.Parameters.AddWithValue("@created_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             
             try
             {
@@ -441,6 +442,74 @@ namespace DataAccess
                 conn.Close();
             }
             return myList;
+        }
+
+        public static ConsultationSheet SelectCurrentConsultationSheet(int employeeID)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT sheet_id, employee_id, created_date FROM card_sheets WHERE employee_id = @employeeID AND completed_date IS NULL";
+            var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@employeeID", employeeID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Consultation Card not found.");
+                }
+
+                var retrievedSheet = new ConsultationSheet();
+                reader.Read();
+                retrievedSheet.sheetID = reader.GetInt32(0);
+                retrievedSheet.employeeID = reader.GetInt32(1);
+                retrievedSheet.createdDate = reader.GetSqlDateTime(2).ToString();
+
+
+                return retrievedSheet;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static int SelectCurrentSheetCardCount(int sheetID)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT COUNT(card_slot) FROM cards WHERE sheet_id = @sheetID";
+            var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@sheetID", sheetID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Consultation Card not found.");
+                }
+
+                var numCards = 0;
+                reader.Read();
+                numCards = reader.GetInt32(0);
+
+
+                return numCards;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

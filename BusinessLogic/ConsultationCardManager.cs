@@ -125,5 +125,31 @@ namespace BusinessLogic
                 throw;
             }
         }
+
+        public ConsultationSheet SelectCurrentConsultationSheet(int employeeID)
+        {
+            try
+            {
+                ConsultationSheet currentConsultationSheet = ConsultationAccessor.SelectCurrentConsultationSheet(employeeID);
+                return currentConsultationSheet;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int SelectCurrentCardSheetCount(int sheetID)
+        {
+            try
+            {
+                int currentCardCount = ConsultationAccessor.SelectCurrentSheetCardCount(sheetID);
+                return currentCardCount;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

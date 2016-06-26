@@ -860,6 +860,11 @@ namespace ExceptionDashboard
                         break;
                 }
                 _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
+                if(a == "Remove")
+                {
+                    ConsultationSheet currentSheet = _myConsultationCardManager.SelectCurrentConsultationSheet(empID);
+                    _myConsultationCardManager.RemoveCard(currentSheet.sheetID, c);
+                }
                 Response.Redirect(Request.RawUrl);
             }
             else if (a == "Request")

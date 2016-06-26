@@ -15,11 +15,30 @@
             //document.getElementById('<% = lblNote.ClientID %>').value = document.getElementById('<% = txtNote.ClientID %>').value;
         }
     </script>
-    <script>
-        function OnClose() {
+<script type = "text/javascript">
+        function OnClose()
+        {
+        if(window.opener != null && !window.opener.closed) 
+        {
+            opener.location.href = './AgentCardView.aspx?agent=' + <% = Request.QueryString["agent"] %>;
             window.opener.HideModalDiv();
+            window.close();
+        }
         }
         window.onunload = OnClose;
+    </script>
+        <script type = "text/javascript">
+        function LoadModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "block";
+            
+        }
+    </script>
+    <script type = "text/javascript">
+        function HideModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "none";
+        }
     </script>
 </head>
 <body>
@@ -27,7 +46,7 @@
     <div id="addDetails">
         <asp:Label runat="server">Add Card: </asp:Label><br /><br />
         Method: <asp:DropDownList runat="server" ID="ddlMethod" EnableViewState="true"></asp:DropDownList><br />
-        Include note in email? <asp:CheckBox runat="server" AutoPostBack="true" ID="emailNote" OnCheckedChanged="emailNote_CheckedChanged" /><br />
+        Include note in email? <asp:CheckBox runat="server" ID="emailNote" OnCheckedChanged="emailNote_CheckedChanged" /><br />
         Note: <br />
         <asp:TextBox runat="server" id="txtNote" onkeyup="document.getElementById('lblNote').innerHTML=this.value;" ></asp:TextBox>
         <asp:Button runat="server" ID="btnAddCard" Text="Add Card" OnClick="btnAddCard_Click"/><br />

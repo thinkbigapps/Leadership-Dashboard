@@ -85,8 +85,7 @@ namespace ExceptionDashboard
             mailMessage.To.Add(email);
             mailMessage.Subject = "You have just completed a full consultation card sheet!";
 
-            mailMessage.Body = "Hey " + fname + "!" + "<br/><br/>"
-                 + "Congratulations!<br/>"
+            mailMessage.Body = "Congratulations " + fname + "!" + "<br/><br/>"
                  + "You have just completed a full consultation card sheet, and earned an entry into the monthly custom swag drawing.<br /><br />"
                  + "Keep up the great work!";
             mailMessage.IsBodyHtml = true;
@@ -108,10 +107,22 @@ namespace ExceptionDashboard
             LinkedResource inline = new LinkedResource(filePath);
             inline.ContentId = Guid.NewGuid().ToString();
             //string htmlBody = @"<img src='cid:" + inline.ContentId + @"'/>";
-            string htmlBody = "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
+            string htmlBody;
+            if(emailNote.Checked == true)
+            {
+                htmlBody = "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
                  + "You have just been awarded a consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".<br /><br />" + @"<img src='cid:" + inline.ContentId + @"'/>"
                  + "<br /><br />"
+                 + txtNote.Text + "<br /><br />"
                  + "This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />Keep up the great work!</body></html>";
+            }
+            else
+            {
+                htmlBody = "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
+                     + "You have just been awarded a consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".<br /><br />" + @"<img src='cid:" + inline.ContentId + @"'/>"
+                     + "<br /><br />"
+                     + "This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />Keep up the great work!</body></html>";
+            }
             AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
             alternateView.LinkedResources.Add(inline);
             return alternateView;
@@ -139,7 +150,7 @@ namespace ExceptionDashboard
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             string cardName = Convert.ToString(Request.QueryString["cardName"]);
             updateCard(cardName, consultantID);
-
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "myCloseScript", "window.close()", true);
             //updatedCard.RequestDate = "1/1/1900 12:00:00";
             //_myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
             //Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);
@@ -153,50 +164,81 @@ namespace ExceptionDashboard
 
         public void updateCard(string c, int empID)
         {
+            Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             ConsultationCard oldCard = _myConsultationCardManager.FindCard(empID);
             ConsultationCard updatedCard = oldCard;
+
+            int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
+            ConsultationSheet currentSheet = _myConsultationCardManager.SelectCurrentConsultationSheet(consultantID);
+            SheetCard newSheetCard = new SheetCard();
+            newSheetCard.sheetID = currentSheet.sheetID;
+
+            int cardCount = _myConsultationCardManager.SelectCurrentCardSheetCount(currentSheet.sheetID);
+            int newCount = cardCount + 1;
+            newSheetCard.cardSlot = newCount;
+            newSheetCard.cardName = c;
 
             switch (c)
             {
                 case "Communication":
                     updatedCard.Communication = 1;
+                    newSheetCard.requestedDate = updatedCard.CommunicationRequestDate;
                     break;
                 case "Competitors":
                     updatedCard.Competitors = 1;
+                    newSheetCard.requestedDate = updatedCard.CompetitorsRequestDate;
                     break;
                 case "Goals":
                     updatedCard.Goals = 1;
+                    newSheetCard.requestedDate = updatedCard.GoalsRequestDate;
                     break;
                 case "Growth":
                     updatedCard.Growth = 1;
+                    newSheetCard.requestedDate = updatedCard.GrowthRequestDate;
                     break;
                 case "Headcount":
                     updatedCard.Headcount = 1;
+                    newSheetCard.requestedDate = updatedCard.HeadcountRequestDate;
                     break;
                 case "Market":
                     updatedCard.Market = 1;
+                    newSheetCard.requestedDate = updatedCard.MarketRequestDate;
                     break;
                 case "Rapport":
                     updatedCard.Rapport = 1;
+                    newSheetCard.requestedDate = updatedCard.RapportRequestDate;
                     break;
                 case "Recommended":
                     updatedCard.Recommended = 1;
+                    newSheetCard.requestedDate = updatedCard.RecommendedRequestDate;
                     break;
                 case "Term":
                     updatedCard.Term = 1;
+                    newSheetCard.requestedDate = updatedCard.TermRequestDate;
                     break;
                 case "Website":
                     updatedCard.Website = 1;
+                    newSheetCard.requestedDate = updatedCard.WebsiteRequestDate;
                     break;
             }
-
+            newSheetCard.awardDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            newSheetCard.awardedBy = loggedInEmployee.FirstName + " " + loggedInEmployee.LastName;
+            newSheetCard.awardMethod = ddlMethod.SelectedValue;
+            newSheetCard.awardNote = txtNote.Text;
             //updatedCard.RequestDate = "1/1/1900 12:00:00";
+
+            _myConsultationCardManager.InsertCard(newSheetCard);
+            
+
             _myConsultationCardManager.UpdateConsultationCard(oldCard, updatedCard);
             Employee currentEmp = _myEmployeeManager.FindSingleEmployee(updatedCard.EmployeeID);
             SendMail(currentEmp.FirstName, c, currentEmp.EmailAddress);
             if (updatedCard.Communication == 1 && updatedCard.Competitors == 1 && updatedCard.Goals == 1 && updatedCard.Growth == 1 && updatedCard.Headcount == 1 && updatedCard.Market == 1 && updatedCard.Rapport == 1 && updatedCard.Recommended == 1 && updatedCard.Term == 1 && updatedCard.Website == 1)
             {
-                int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
+                ConsultationSheet newSheet = currentSheet;
+                newSheet.completedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                _myConsultationCardManager.CloseCardSheet(currentSheet, newSheet);
+                _myConsultationCardManager.CreateNewCardSheet(consultantID);
                 addEntry(consultantID);
                 SendEntryMail(currentEmp.FirstName, currentEmp.EmailAddress);
             }

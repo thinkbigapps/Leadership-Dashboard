@@ -260,7 +260,7 @@ namespace ExceptionDashboard
                                     newCard.TermRequestDate = "1/1/1900 12:00:00";
                                     newCard.WebsiteRequestDate = "1/1/1900 12:00:00";
                                     _myConsultationCardManager.CreateConsultationCard(newCard);
-
+                                    _myConsultationCardManager.CreateNewCardSheet(newEmp.EmployeeID);
                                 try
                                 {
                                     //attempt to auto log in new user account
