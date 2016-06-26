@@ -337,3 +337,43 @@ th {
     display: table;
     margin-top: 50px;
 }
+
+#emailPreview {
+    background-color: #eee;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px solid #888;
+    margin-top: 8px;
+}
+
+#lblAddCard {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#addDetails {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#lblEmailPreview {
+    font-weight: bold;
+}
+
+#btnAddCard {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#txtNote {
+    background-color: #ff7c3a;
+    color: #fff;
+}
+
+.txtActive {
+    background-color: #eee;
+    color: #000;
+}

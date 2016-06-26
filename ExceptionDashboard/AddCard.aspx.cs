@@ -21,8 +21,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblNote.Visible = false;
-
+            //lblNote.Visible = false;
             int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
             string cardName = Convert.ToString(Request.QueryString["cardName"]);
             string requested = Convert.ToString(Request.QueryString["requested"]);
@@ -108,7 +107,7 @@ namespace ExceptionDashboard
             inline.ContentId = Guid.NewGuid().ToString();
             //string htmlBody = @"<img src='cid:" + inline.ContentId + @"'/>";
             string htmlBody;
-            if(emailNote.Checked == true)
+            if(txtNote.Text != "Add a custom note to email.." && txtNote.Text != "")
             {
                 htmlBody = "<html><body>Congratulations " + fname + "!" + "<br/><br/>"
                  + "You have just been awarded a consultation card by " + loggedInEmployee.FirstName + " " + loggedInEmployee.LastName + ".<br /><br />" + @"<img src='cid:" + inline.ContentId + @"'/>"
@@ -128,17 +127,17 @@ namespace ExceptionDashboard
             return alternateView;
         }
 
-        protected void emailNote_CheckedChanged(object sender, EventArgs e)
-        {
-            if (emailNote.Checked == true)
-            {
-                lblNote.Visible = true;
-            }
-            else
-            {
-                lblNote.Visible = false;
-            }
-        }
+        //protected void emailNote_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (emailNote.Checked == true)
+        //    {
+        //        lblNote.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        lblNote.Visible = false;
+        //    }
+        //}
 
         protected void txtNote_TextChanged(object sender, EventArgs e)
         {

@@ -18,9 +18,9 @@
             "titlebar=no," +
             "menubar=no," +
             "resizable=0," +
-            "width=700," +
+            "width=780," +
             "left=20," +
-            "height=750,"
+            "height=680,"
             );
             popUpObj.focus();
             LoadModalDiv();

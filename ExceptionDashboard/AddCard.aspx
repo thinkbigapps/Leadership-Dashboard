@@ -12,7 +12,11 @@
     <script>
         function Changed(textControl) {
             document.getElementById('lblNote').value = textControl.value;
-            //document.getElementById('<% = lblNote.ClientID %>').value = document.getElementById('<% = txtNote.ClientID %>').value;
+            <%--document.getElementById('<% = lblNote.ClientID %>').value = document.getElementById('<% = txtNote.ClientID %>').value;--%>
+        }
+        function setTextNoteFocus() {
+            document.getElementById('txtNote').removeAttribute("background-color");
+            document.getElementById('txtNote').value = "";
         }
     </script>
 <script type = "text/javascript">
@@ -44,16 +48,16 @@
 <body>
     <form id="formAddCard" runat="server">
     <div id="addDetails">
-        <asp:Label runat="server">Add Card: </asp:Label><br /><br />
-        Method: <asp:DropDownList runat="server" ID="ddlMethod" EnableViewState="true"></asp:DropDownList><br />
-        Include note in email? <asp:CheckBox runat="server" ID="emailNote" OnCheckedChanged="emailNote_CheckedChanged" /><br />
-        Note: <br />
-        <asp:TextBox runat="server" id="txtNote" onkeyup="document.getElementById('lblNote').innerHTML=this.value;" ></asp:TextBox>
-        <asp:Button runat="server" ID="btnAddCard" Text="Add Card" OnClick="btnAddCard_Click"/><br />
+        <asp:Label runat="server" ID="lblAddCard" Text="Add Card"></asp:Label><br /><br />
+        <asp:Label runat="server" ID="lblAwardMethod" Text="Award Method: "></asp:Label> <asp:DropDownList runat="server" ID="ddlMethod" EnableViewState="true"></asp:DropDownList><br />
+        <%--Include note in email? <asp:CheckBox runat="server" ID="emailNote" OnCheckedChanged="emailNote_CheckedChanged" /><br />--%>
+        <%--Note: <br />--%>
+        
+        
     </div>
-    </form>
+    <asp:Label runat="server" ID="lblEmailPreview" Text="Preview email to agent:"></asp:Label><br />
     <div id="emailPreview">
-        Email to agent:<br />
+        
         <asp:Label runat="server" ID="lblCongrats" Text="Congratulations "></asp:Label>
         <br />
         <br />
@@ -64,11 +68,18 @@
         <asp:Label id="imgCard" runat="server"></asp:Label>
         <br />
         <br />
-        <asp:Label runat="server" ClientIDMode="AutoID" id="lblNote" ></asp:Label>
+        <asp:TextBox runat="server" id="txtNote" Height="50px" Width="315px" TextMode="MultiLine" Text="Add a custom note to email.." onfocus="setTextNoteFocus()" ></asp:TextBox>
         <br />
         <br />
+        <%--<asp:Label runat="server" ClientIDMode="AutoID" id="lblNote" ></asp:Label>
+        <br />
+        <br />--%>
         This puts you one step closer to earning an entry into the monthly custom swag drawing.<br /><br />
         Keep up the great work!
     </div>
+        <div id="btnAddDiv">
+        <asp:Button runat="server" ID="btnAddCard" Text="Add Card" OnClick="btnAddCard_Click"/><br />
+        </div>
+        </form>
 </body>
 </html>

@@ -22,6 +22,24 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.HtmlControls.HtmlForm formAddCard;
         
         /// <summary>
+        /// lblAddCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddCard;
+        
+        /// <summary>
+        /// lblAwardMethod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAwardMethod;
+        
+        /// <summary>
         /// ddlMethod control.
         /// </summary>
         /// <remarks>
@@ -31,31 +49,13 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.WebControls.DropDownList ddlMethod;
         
         /// <summary>
-        /// emailNote control.
+        /// lblEmailPreview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox emailNote;
-        
-        /// <summary>
-        /// txtNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNote;
-        
-        /// <summary>
-        /// btnAddCard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddCard;
+        protected global::System.Web.UI.WebControls.Label lblEmailPreview;
         
         /// <summary>
         /// lblCongrats control.
@@ -85,12 +85,21 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.WebControls.Label imgCard;
         
         /// <summary>
-        /// lblNote control.
+        /// txtNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNote;
+        protected global::System.Web.UI.WebControls.TextBox txtNote;
+        
+        /// <summary>
+        /// btnAddCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddCard;
     }
 }
