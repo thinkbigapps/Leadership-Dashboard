@@ -511,6 +511,224 @@ namespace DataAccess
                 conn.Close();
             }
         }
+
+        public static string SelectMostAwardedCard(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT TOP 1 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart GROUP BY card_name ORDER BY COUNT(*) DESC";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Consultation Card not found.");
+                }
+
+                string cardName = "";
+                reader.Read();
+                cardName = reader.GetString(0);
+
+
+                return cardName;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static string SelectLeastAwardedCard(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT TOP 1 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart GROUP BY card_name ORDER BY COUNT(*) ASC";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Consultation Card not found.");
+                }
+
+                string cardName = "";
+                reader.Read();
+                cardName = reader.GetString(0);
+
+
+                return cardName;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static List<string> SelectMostTargetedCards(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT TOP 3 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND card_slot = '1' OR card_slot = '2' OR card_slot = '3' GROUP BY card_name ORDER BY COUNT(*) DESC";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            List<string> cardList = new List<string>();
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No methods found!");
+                }
+                while (reader.Read())
+                {
+                    string item = "";
+
+                    item = reader.GetString(0);
+                    cardList.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return cardList;
+        }
+
+        public static List<string> SelectLeastTargetedCards(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT TOP 3 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND card_slot = '7' OR card_slot = '8' OR card_slot = '9' GROUP BY card_name ORDER BY COUNT(*) ASC";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            List<string> cardList = new List<string>();
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No methods found!");
+                }
+                while (reader.Read())
+                {
+                    string item = "";
+
+                    item = reader.GetString(0);
+                    cardList.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return cardList;
+        }
+
+        public static List<ConsultationSheet> SelectConsultationSheetDates(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT created_date, completed_date FROM card_sheets WHERE created_date > @monthStart AND completed_date != '1/1/2000 12:00:00 PM' AND completed_date IS NOT NULL";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            List<ConsultationSheet> sheetList = new List<ConsultationSheet>();
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No methods found!");
+                }
+                while (reader.Read())
+                {
+                    ConsultationSheet currentSheet = new ConsultationSheet();
+
+                    currentSheet.createdDate = reader.GetSqlDateTime(0).ToString();
+                    currentSheet.completedDate = reader.GetSqlDateTime(1).ToString();
+                    sheetList.Add(currentSheet);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return sheetList;
+        }
+
+        public static int SelectCountByMethod(int month, string method)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT COUNT(award_method) FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND cards.award_method = @awardMethod";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+            cmd.Parameters.AddWithValue("@awardMethod", method);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("Consultation Card not found.");
+                }
+
+                var numCards = 0;
+                reader.Read();
+                numCards = reader.GetInt32(0);
+
+
+                return numCards;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }
 

@@ -53,6 +53,7 @@
                         <asp:MenuItem NavigateUrl="~/AgentView.aspx" Text="View Exceptions" value="btnViewExceptions"/>
                         <asp:MenuItem Text="Request New Exception" Value="btnRequestNewException"/>
                         <asp:MenuItem NavigateUrl="~/ConsultationView.aspx" Text="Consultation Cards (BETA)" Value="btnConsultationView" />
+                        <asp:MenuItem NavigateUrl="~/ConsultationCardReport.aspx" Text="Consultation Card Report (BETA)" Value="btnConsultationCardReport" />
                         <%--<asp:MenuItem Text="Manage Employees" Value="btnManageEmployees" NavigateUrl="~/ManageEmployees.aspx"/>--%>
                         
                     </Items>

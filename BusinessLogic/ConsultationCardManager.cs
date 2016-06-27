@@ -151,5 +151,48 @@ namespace BusinessLogic
                 throw;
             }
         }
+
+        public string SelectMostAwardedCard(int month)
+        {
+            string cardName = ConsultationAccessor.SelectMostAwardedCard(month);
+            return cardName;
+        }
+
+        public string SelectLeastAwardedCard(int month)
+        {
+            string cardName = ConsultationAccessor.SelectLeastAwardedCard(month);
+            return cardName;
+        }
+
+        public List<string> SelectMostTargetedCards(int month)
+        {
+            List<string> cardList = ConsultationAccessor.SelectMostTargetedCards(month);
+            return cardList;
+        }
+
+        public List<string> SelectLeastTargetedCards(int month)
+        {
+            List<string> cardList = ConsultationAccessor.SelectLeastTargetedCards(month);
+            return cardList;
+        }
+
+        public List<ConsultationSheet> SelectConsultationSheetDates(int month)
+        {
+            List<ConsultationSheet> sheetList = ConsultationAccessor.SelectConsultationSheetDates(month);
+            return sheetList;
+        }
+
+        public int SelectCountByMethod(int month, string method)
+        {
+            try
+            {
+                int currentMethodCount = ConsultationAccessor.SelectCountByMethod(month, method);
+                return currentMethodCount;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
