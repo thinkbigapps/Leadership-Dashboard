@@ -94,6 +94,7 @@
   <ItemGroup>
     <Content Include="AddCard.aspx" />
     <Content Include="AgentCardView.aspx" />
+    <Content Include="ConsultationCardReport.aspx" />
     <Content Include="ConsultationView.aspx" />
     <Content Include="CreateAccount.aspx" />
     <Content Include="ExEvent.Master" />
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="AgentView.aspx.designer.cs">
       <DependentUpon>AgentView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultationCardReport.aspx.cs">
+      <DependentUpon>ConsultationCardReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultationCardReport.aspx.designer.cs">
+      <DependentUpon>ConsultationCardReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ConsultationView.aspx.cs">
       <DependentUpon>ConsultationView.aspx</DependentUpon>

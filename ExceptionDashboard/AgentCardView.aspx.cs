@@ -14,6 +14,7 @@ using System.Web.UI.HtmlControls;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.IO;
+using System.Globalization;
 
 namespace ExceptionDashboard
 {
@@ -31,6 +32,7 @@ namespace ExceptionDashboard
 
                 int consultantID = Convert.ToInt32(Request.QueryString["agent"]);
                 ConsultationCard currentConsultantCard = _myConsultationCardManager.FindCard(consultantID);
+
 
                 Employee currentConsultant = _myEmployeeManager.FindSingleEmployee(consultantID);
 
@@ -497,6 +499,7 @@ namespace ExceptionDashboard
 
                 if (loggedInEmployee.RoleName == "Agent")
                 {
+                    btnClear.Visible = false;
                     if (loggedInEmployee.EmployeeID != consultantID)
                     {
                         tRow1b.Visible = false;
@@ -504,6 +507,50 @@ namespace ExceptionDashboard
                         tRow1c.Visible = false;
                         tRow2c.Visible = false;
                     }
+                }
+
+                ConsultationSheet currentSheet = _myConsultationCardManager.SelectCurrentConsultationSheet(consultantID);
+                int currentMonth = DateTime.Now.Month;
+                string[] currentSheetMonthSplit = currentSheet.createdDate.Split('/');
+                int currentSheetMonth = Convert.ToInt32(currentSheetMonthSplit[0]);
+
+                
+                if (currentMonth != currentSheetMonth)
+                {
+                    if (loggedInEmployee.RoleName == "Agent")
+                    {
+                        lblCardExpired.Text = "This sheet was started last month. Please ask your supervisor to submit your earned entries for last month, and reset your sheet.";
+                    }
+                    lblCardExpired.Visible = true;
+                    communicationButton.Visible = false;
+                    communicationRequestButton.Visible = false;
+
+                    competitorsButton.Visible = false;
+                    competitorsRequestButton.Visible = false;
+
+                    goalsButton.Visible = false;
+                    goalsRequestButton.Visible = false;
+
+                    growthButton.Visible = false;
+                    growthRequestButton.Visible = false;
+
+                    headcountButton.Visible = false;
+                    headcountRequestButton.Visible = false;
+
+                    marketButton.Visible = false;
+                    marketRequestButton.Visible = false;
+
+                    rapportButton.Visible = false;
+                    rapportRequestButton.Visible = false;
+
+                    recommendedButton.Visible = false;
+                    recommendedRequestButton.Visible = false;
+
+                    termButton.Visible = false;
+                    termRequestButton.Visible = false;
+
+                    websiteButton.Visible = false;
+                    websiteRequestButton.Visible = false;
                 }
             }
             else
@@ -1000,7 +1047,15 @@ namespace ExceptionDashboard
             currentCard.Recommended = 0;
             currentCard.Term = 0;
             currentCard.Website = 0;
+            currentCard.TotalEntries = 0;
             _myConsultationCardManager.UpdateConsultationCard(oldCard, currentCard);
+
+            ConsultationSheet currentSheet = _myConsultationCardManager.SelectCurrentConsultationSheet(consultantID);
+            ConsultationSheet updatedSheet = currentSheet;
+            updatedSheet.completedDate = "1/1/2000 12:00:00";
+            _myConsultationCardManager.CloseCardSheet(currentSheet, updatedSheet);
+            _myConsultationCardManager.CreateNewCardSheet(consultantID);
+
             Response.Redirect(Request.RawUrl);
         }
 

@@ -43,13 +43,14 @@
 <asp:Content runat="server" ContentPlaceHolderID="main">
     <div id = "divBackground" style="position: fixed; z-index: 999; height: 100%; width: 100%; top: 0; left:0; background-color: Black; filter: alpha(opacity=60); opacity: 0.6; -moz-opacity: 0.8;display:none"></div>
     <div id="mainConsultContent">
-        <asp:Label ID="lblAgent" runat="server" ></asp:Label>
-        <asp:Label ID="lblCard" runat="server" ></asp:Label>
-        <asp:Label ID="lblRequested" runat="server" text="false"/>
+        <asp:Label ID="lblAgent" runat="server" class="infoLabel"></asp:Label>
+        <asp:Label ID="lblCard" runat="server" class="infoLabel"></asp:Label>
+        <asp:Label ID="lblRequested" runat="server" text="false" class="infoLabel"/>
         <asp:Label ID="lblConsultantName" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblCardExpired" class="cardExpired" runat="server" Text="This sheet was started last month. Please click Reset - New Month to generate a new sheet for this month." Visible="false" ForeColor="Red"></asp:Label>
         <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/ConsultationView.aspx" CssClass="btnBack"/>
         <asp:Table runat="server" ID="agentCardViewTable"></asp:Table>
-        <asp:Button ID="btnClear" runat="server" Text="Reset All" OnClick="btnClear_Click" />
+        <asp:Button ID="btnClear" runat="server" Text="Reset - New Month" OnClick="btnClear_Click" />
     </div>
     </asp:Content>
 

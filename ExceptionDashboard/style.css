@@ -368,7 +368,7 @@ th {
     margin-top: 20px;
 }
 
-#txtNote {
+.txtDefault {
     background-color: #ff7c3a;
     color: #fff;
 }
@@ -376,4 +376,15 @@ th {
 .txtActive {
     background-color: #eee;
     color: #000;
+}
+
+.infoLabel {
+    color: #e4efc7;
+}
+
+.cardExpired {
+    display: table;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 15px;
 }

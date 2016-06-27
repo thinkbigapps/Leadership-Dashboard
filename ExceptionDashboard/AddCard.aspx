@@ -15,8 +15,9 @@
             <%--document.getElementById('<% = lblNote.ClientID %>').value = document.getElementById('<% = txtNote.ClientID %>').value;--%>
         }
         function setTextNoteFocus() {
-            document.getElementById('txtNote').removeAttribute("background-color");
+            document.getElementById('txtNote').className = "";
             document.getElementById('txtNote').value = "";
+            document.getElementById('txtNote').className = "txtActive";
         }
     </script>
 <script type = "text/javascript">
@@ -68,7 +69,7 @@
         <asp:Label id="imgCard" runat="server"></asp:Label>
         <br />
         <br />
-        <asp:TextBox runat="server" id="txtNote" Height="50px" Width="315px" TextMode="MultiLine" Text="Add a custom note to email.." onfocus="setTextNoteFocus()" ></asp:TextBox>
+        <asp:TextBox runat="server" id="txtNote" class="txtDefault" Height="50px" Width="315px" TextMode="MultiLine" Text="Add a custom note to email.." onfocus="setTextNoteFocus()" ></asp:TextBox>
         <br />
         <br />
         <%--<asp:Label runat="server" ClientIDMode="AutoID" id="lblNote" ></asp:Label>
