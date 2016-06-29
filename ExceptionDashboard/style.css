@@ -339,7 +339,7 @@ th {
 }
 
 #emailPreview {
-    background-color: #eee;
+    background-color: #fff;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 10px;
@@ -387,4 +387,46 @@ th {
     margin: auto;
     text-align: center;
     margin-bottom: 15px;
+}
+
+#reportMain {
+    width: 600px;
+    margin: auto;
+    background-color: #fff;
+    overflow: auto;
+    margin-top: 15px;
+}
+
+#reportLeft {
+    width: 275px;
+    float: left;
+    margin-left: 20px;
+    text-align: center;
+}
+
+#main_lblMostAwarded, #main_lblLeastAwarded, #main_lblTargetedFirst, #main_lblTargetedLast {
+    vertical-align: super;
+}
+
+#main_lblReportMonth, #main_ddlReportMonth {
+    margin: auto;
+    display: table;
+}
+
+#reportRight {
+    float: right;
+    text-align: center;
+    width: 300px;
+}
+
+#main_lblReportMonth {
+    margin-top: 20px;
+}
+
+#main_ddlReportMonth {
+    margin-top: 10px;
+}
+
+#main_lblMostAwardedImage, #main_lblLeastAwardedImage {
+    
 }

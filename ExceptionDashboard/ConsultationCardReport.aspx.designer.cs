@@ -31,40 +31,13 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.WebControls.DropDownList ddlReportMonth;
         
         /// <summary>
-        /// lblMostAwarded control.
+        /// lblCompletionTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMostAwarded;
-        
-        /// <summary>
-        /// lblMostAwardedImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMostAwardedImage;
-        
-        /// <summary>
-        /// lblLeastAwarded control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeastAwarded;
-        
-        /// <summary>
-        /// lblLeastAwardedImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeastAwardedImage;
+        protected global::System.Web.UI.WebControls.Label lblCompletionTime;
         
         /// <summary>
         /// lblTargetedFirst control.
@@ -103,49 +76,40 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.WebControls.Label lblTargetedLastImages;
         
         /// <summary>
-        /// lblCompletionTime control.
+        /// lblMostAwarded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompletionTime;
+        protected global::System.Web.UI.WebControls.Label lblMostAwarded;
         
         /// <summary>
-        /// lblAwardMethod control.
+        /// lblMostAwardedImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAwardMethod;
+        protected global::System.Web.UI.WebControls.Label lblMostAwardedImage;
         
         /// <summary>
-        /// awardMethodTable control.
+        /// lblLeastAwarded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table awardMethodTable;
+        protected global::System.Web.UI.WebControls.Label lblLeastAwarded;
         
         /// <summary>
-        /// lblEntriesByDept control.
+        /// lblLeastAwardedImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEntriesByDept;
-        
-        /// <summary>
-        /// entriesByDeptTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table entriesByDeptTable;
+        protected global::System.Web.UI.WebControls.Label lblLeastAwardedImage;
         
         /// <summary>
         /// lblTopTeamsByDept control.
@@ -157,12 +121,21 @@ namespace ExceptionDashboard {
         protected global::System.Web.UI.WebControls.Label lblTopTeamsByDept;
         
         /// <summary>
-        /// topTeamsByDeptTable control.
+        /// lblEntriesByDept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table topTeamsByDeptTable;
+        protected global::System.Web.UI.WebControls.Label lblEntriesByDept;
+        
+        /// <summary>
+        /// lblAwardMethod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAwardMethod;
     }
 }

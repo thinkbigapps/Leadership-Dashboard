@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using BusinessObjects;
 using System.Globalization;
+using System.Collections.Specialized;
 
 namespace ExceptionDashboard
 {
@@ -17,6 +18,8 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblCompletionTime.Text += string.Format("<br />");
+            ddlReportMonth.Enabled = false;
             DateTime month = Convert.ToDateTime("1/1/2000");
             for (int i = 0; i < 12; i++)
             {
@@ -116,6 +119,77 @@ namespace ExceptionDashboard
                 string countFormat = string.Format(currentMethods[i].methodName + ": " + currentCount + "<br />");
                 lblAwardMethod.Text += countFormat;
             }
+
+            //NameValueCollection countByDept = _myConsultationCardManager.SelectTotalEntriesByDept(currentReportMonth);
+            //lblEntriesByDept.Text += string.Format("<br />");
+            //for(int i=0; i<countByDept.Count; i++)
+            //{
+            //    lblEntriesByDept.Text += string.Format(countByDept.GetKey(i) + " " + countByDept.GetValues(i) + "<br />");
+            //}
+            lblEntriesByDept.Text += string.Format("<br />");
+            lblTopTeamsByDept.Text += string.Format("<br />");
+            List<Department> deptList = _myEmployeeManager.FetchDepartmentList();
+            NameValueCollection deptEntries = new NameValueCollection();
+
+            for(int i=0; i<deptList.Count; i++)
+            {
+                int deptCount = _myConsultationCardManager.SelectTotalEntriesByDepartment(currentReportMonth, deptList[i].departmentName);
+
+                deptEntries.Add(deptList[i].departmentName, deptCount.ToString());
+            }
+            var sorted = deptEntries.AllKeys.OrderByDescending(key => deptEntries[key]).Select(key => new KeyValuePair<string, string>(key, deptEntries[key]));
+
+            var charsToRemove = new string[] { "[", "]" };
+            for (int i = 0; i < deptList.Count; i++)
+            {
+                string topTeams = sorted.ElementAt(i).ToString() + "<br />";
+                foreach(var c in charsToRemove)
+                {
+                    topTeams = topTeams.Replace(c, string.Empty);
+                    
+                }
+                topTeams = topTeams.Replace(",", ":");
+                lblEntriesByDept.Text += string.Format(topTeams);
+            }
+
+            
+
+
+            for(int i=0; i<deptList.Count; i++)
+            {
+                NameValueCollection supEntries = new NameValueCollection();
+                List<Employee> supList = _myEmployeeManager.SelectSupsByDept(deptList[i].departmentName);
+                for(int x=0; x<supList.Count; x++)
+                {
+                    
+                        int totalEntries = _myConsultationCardManager.SelectTotalEntriesBySup(currentReportMonth, supList[x]);
+                        string supName = supList[x].FirstName + " " + supList[x].LastName;
+                        supEntries.Add(supName, totalEntries.ToString());
+                    
+
+                }
+                var sortedSups = supEntries.AllKeys.OrderByDescending(key => supEntries[key]).Select(key => new KeyValuePair<string, string>(key, supEntries[key]));
+                if (sortedSups.Count() > 0)
+                {
+                    string topSup = sortedSups.ElementAt(0).ToString() + "<br />";
+                    foreach (var q in charsToRemove)
+                    {
+                        topSup = topSup.Replace(q, string.Empty);
+                    }
+                    if (topSup.Contains("Sup") || topSup.Contains("Supervisor") || topSup.Contains("0"))
+                    {
+                        lblTopTeamsByDept.Text += deptList[i].departmentName + ": No Entries Yet" + "<br />";
+                    }
+                    else
+                    {
+                        topSup = topSup.Replace(",", " -");
+                        lblTopTeamsByDept.Text += deptList[i].departmentName + ": ";
+                        lblTopTeamsByDept.Text += string.Format(topSup);
+                    }
+                }
+            }
+            
+
         }
     }
 }

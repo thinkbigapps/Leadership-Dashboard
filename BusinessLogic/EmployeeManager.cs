@@ -92,6 +92,18 @@ namespace BusinessLogic
             }
         }
 
+        public List<Employee> SelectSupsByDept(string department)
+        {
+            try
+            {
+                return EmployeeAccessor.SelectSupsByDept(department);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<Employee> FindLeadReports(string supFirstName, string supLastName)
         {
             try

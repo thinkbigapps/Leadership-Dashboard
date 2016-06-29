@@ -679,5 +679,60 @@ namespace DataAccess
 
             return rowsAffected;
         }
+
+        public static List<Employee> SelectSupsByDept(string department)
+        {
+            var ListToDisplay = new List<Employee>();
+
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT employee_id, role_name, department_name, supervisor_fname, supervisor_lname, first_name, last_name, username, password, email_address FROM employee WHERE role_name = 'Supervisor' AND department_name = @department";
+
+            var cmd = new SqlCommand(query, conn);
+            
+            cmd.Parameters.AddWithValue("@department", department);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows == true)
+                {
+                    while (reader.Read())
+                    {
+                        var newEmployee = new Employee();
+
+                        newEmployee.EmployeeID = reader.GetInt32(0);
+                        newEmployee.RoleName = reader.GetString(1);
+                        newEmployee.DepartmentName = reader.GetString(2);
+                        newEmployee.SupervisorFirstName = reader.GetString(3);
+                        newEmployee.SupervisorLastName = reader.GetString(4);
+                        newEmployee.FirstName = reader.GetString(5);
+                        newEmployee.LastName = reader.GetString(6);
+                        newEmployee.Username = reader.GetString(7);
+                        newEmployee.Password = reader.GetString(8);
+                        newEmployee.EmailAddress = reader.GetString(9);
+                        newEmployee.FullName = reader.GetString(6) + ", " + reader.GetString(5);
+
+                        ListToDisplay.Add(newEmployee);
+                    }
+                }
+                else
+                {
+                    var ax = new ApplicationException("No records were found in the database with the information submitted");
+                    throw ax;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return ListToDisplay;
+        }
     }
 }

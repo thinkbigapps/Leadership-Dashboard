@@ -201,5 +201,31 @@ namespace BusinessLogic
             NameValueCollection sheetList = ConsultationAccessor.SelectTotalEntriesByDept(month);
             return sheetList;
         }
+
+        public int SelectTotalEntriesByDepartment(int month, string department)
+        {
+            try
+            {
+                int SelectTotalEntriesByDepartment = ConsultationAccessor.SelectTotalEntriesByDepartment(month, department);
+                return SelectTotalEntriesByDepartment;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int SelectTotalEntriesBySup(int month, Employee sup)
+        {
+            try
+            {
+                int SelectTotalEntriesBySup = ConsultationAccessor.SelectTotalEntriesBySup(month, sup);
+                return SelectTotalEntriesBySup;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
