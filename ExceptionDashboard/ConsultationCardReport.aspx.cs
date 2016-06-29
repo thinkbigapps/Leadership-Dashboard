@@ -149,6 +149,7 @@ namespace ExceptionDashboard
                     
                 }
                 topTeams = topTeams.Replace(",", ":");
+                topTeams = topTeams.Replace(" Support", string.Empty);
                 lblEntriesByDept.Text += string.Format(topTeams);
             }
 
@@ -178,12 +179,14 @@ namespace ExceptionDashboard
                     }
                     if (topSup.Contains("Sup") || topSup.Contains("Supervisor") || topSup.Contains("0"))
                     {
-                        lblTopTeamsByDept.Text += deptList[i].departmentName + ": No Entries Yet" + "<br />";
+                        lblTopTeamsByDept.Text += deptList[i].departmentName + ": No Entries" + "<br />";
                     }
                     else
                     {
                         topSup = topSup.Replace(",", " -");
-                        lblTopTeamsByDept.Text += deptList[i].departmentName + ": ";
+                        string dept = deptList[i].departmentName;
+                        dept = dept.Replace(" Support", string.Empty);
+                        lblTopTeamsByDept.Text += dept + ": ";
                         lblTopTeamsByDept.Text += string.Format(topSup);
                     }
                 }

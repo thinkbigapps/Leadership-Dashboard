@@ -430,3 +430,13 @@ th {
 #main_lblMostAwardedImage, #main_lblLeastAwardedImage {
     
 }
+
+#Menu1 ul li ul {
+    display:none;
+}
+
+#Menu1 ul li {
+    position: relative;
+    float: left;
+    list-style: none;
+}
