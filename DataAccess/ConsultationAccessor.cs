@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessObjects;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Specialized;
 
 namespace DataAccess
 {
@@ -728,6 +729,44 @@ namespace DataAccess
             {
                 conn.Close();
             }
+        }
+
+        public static NameValueCollection SelectTotalEntriesByDept(int month)
+        {
+            var conn = DatabaseConnection.GetExEventDatabaseConnection();
+            var query = @"SELECT employee.department_name, COUNT(sheet_id) from employee, card_sheets WHERE card_sheets.employee_id = employee.employee_id AND created_date > @monthStart AND completed_date != '1/1/2000' AND completed_date IS NOT NULL ORDER BY COUNT(*) DESC";
+            var cmd = new SqlCommand(query, conn);
+            string monthStart = month + "/1/2016";
+            cmd.Parameters.AddWithValue("@monthStart", monthStart);
+
+            NameValueCollection sheetList = new NameValueCollection();
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    throw new ApplicationException("No methods found!");
+                }
+                while (reader.Read())
+                {
+                    string dept = reader.GetString(0);
+                    int sheetCount = reader.GetInt32(1);
+
+                    sheetList[dept] = sheetCount.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return sheetList;
         }
     }
 }

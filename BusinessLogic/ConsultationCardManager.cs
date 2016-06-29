@@ -7,6 +7,7 @@ using BusinessObjects;
 using DataAccess;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Collections.Specialized;
 
 namespace BusinessLogic
 {
@@ -193,6 +194,12 @@ namespace BusinessLogic
             {
                 throw;
             }
+        }
+
+        public NameValueCollection SelectTotalEntriesByDept(int month)
+        {
+            NameValueCollection sheetList = ConsultationAccessor.SelectTotalEntriesByDept(month);
+            return sheetList;
         }
     }
 }
