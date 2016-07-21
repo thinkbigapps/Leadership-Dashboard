@@ -18,6 +18,7 @@ namespace ExceptionDashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblTopTeamsByDept.Visible = false;
             lblCompletionTime.Text += string.Format("<br />");
             ddlReportMonth.Enabled = false;
             DateTime month = Convert.ToDateTime("1/1/2000");

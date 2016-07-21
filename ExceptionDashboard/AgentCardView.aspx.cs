@@ -45,23 +45,23 @@ namespace ExceptionDashboard
                 agentCardViewTable.Rows.Add(tRow1);
 
                 TableCell communication = new TableCell();
-                communication.Text = string.Format("<img src=./images/full-communication" + currentConsultantCard.Communication + ".png />");
+                communication.Text = string.Format("<img src=./images/full-communication" + currentConsultantCard.Communication + ".png title='How are they communicating in the office?&#10;How do they communicate with customers?&#10;How do customers communicate with them?'/>");
                 tRow1.Controls.Add(communication);
 
                 TableCell competitors = new TableCell();
-                competitors.Text = string.Format("<img src=./images/full-competitors" + currentConsultantCard.Competitors + ".png />");
+                competitors.Text = string.Format("<img src=./images/full-competitors" + currentConsultantCard.Competitors + ".png title='Who is the local competition?&#10;Who is the national competition?&#10;What are their competitors doing right?&#10;What makes them better than the competitors?'/>");
                 tRow1.Controls.Add(competitors);
 
                 TableCell goals = new TableCell();
-                goals.Text = string.Format("<img src=./images/full-goals" + currentConsultantCard.Goals + ".png />");
+                goals.Text = string.Format("<img src=./images/full-goals" + currentConsultantCard.Goals + ".png title='What is their goal for this year?&#10;What is their 5 year goal?&#10;What are they trying to do with the business currently?'/>");
                 tRow1.Controls.Add(goals);
 
                 TableCell growth = new TableCell();
-                growth.Text = string.Format("<img src=./images/full-growth" + currentConsultantCard.Growth + ".png />");
+                growth.Text = string.Format("<img src=./images/full-growth" + currentConsultantCard.Growth + ".png title='How big would they like the company to be?&#10;Are they currently hiring?&#10;How quickly are they growing?'/>");
                 tRow1.Controls.Add(growth);
 
                 TableCell headcount = new TableCell();
-                headcount.Text = string.Format("<img src=./images/full-headcount" + currentConsultantCard.Headcount + ".png />");
+                headcount.Text = string.Format("<img src=./images/full-headcount" + currentConsultantCard.Headcount + ".png title='How many employee are their?&#10;How many customers do they work with daily?&#10;How many customers would they like to have?'/>");
                 tRow1.Controls.Add(headcount);
 
                 TableRow tRow1c = new TableRow();
@@ -273,23 +273,23 @@ namespace ExceptionDashboard
                 agentCardViewTable.Rows.Add(tRow2);
 
                 TableCell market = new TableCell();
-                market.Text = string.Format("<img src=./images/full-market" + currentConsultantCard.Market + ".png />");
+                market.Text = string.Format("<img src=./images/full-market" + currentConsultantCard.Market + ".png title='What is the current customer base?&#10;How do they stay in touch with customers?&#10;How do they reach potential new customers?'/>");
                 tRow2.Controls.Add(market);
 
                 TableCell rapport = new TableCell();
-                rapport.Text = string.Format("<img src=./images/full-rapport" + currentConsultantCard.Rapport + ".png />");
+                rapport.Text = string.Format("<img src=./images/full-rapport" + currentConsultantCard.Rapport + ".png title='How did they get started in their business?&#10;What is their favorite thing about what they do?&#10;Other than [issue that initiated call], how are they doing today?'/>");
                 tRow2.Controls.Add(rapport);
 
                 TableCell recommended = new TableCell();
-                recommended.Text = string.Format("<img src=./images/full-recommended" + currentConsultantCard.Recommended + ".png />");
+                recommended.Text = string.Format("<img src=./images/full-recommended" + currentConsultantCard.Recommended + ".png title='Based on what you said, I’d recommend…&#10;Because the rest of your account is out [term], I’d recommend doing the same term.&#10;Needs based suggestion'/>");
                 tRow2.Controls.Add(recommended);
 
                 TableCell term = new TableCell();
-                term.Text = string.Format("<img src=./images/full-term" + currentConsultantCard.Term + ".png />");
+                term.Text = string.Format("<img src=./images/full-term" + currentConsultantCard.Term + ".png title='How long have they been in business?&#10;How long are they planning to be in business?&#10;What are they doing to ensure they stick around?'/>");
                 tRow2.Controls.Add(term);
 
                 TableCell website = new TableCell();
-                website.Text = string.Format("<img src=./images/full-website" + currentConsultantCard.Website + ".png />");
+                website.Text = string.Format("<img src=./images/full-website" + currentConsultantCard.Website + ".png title='Who built it?&#10;When was it last updated?&#10;Who maintains it?&#10;What are their goals for it?'/>");
                 tRow2.Controls.Add(website);
 
                 TableRow tRow2c = new TableRow();

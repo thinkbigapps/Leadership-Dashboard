@@ -1,5 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ExEvent.Master" AutoEventWireup="true" CodeBehind="ManageEmployees.aspx.cs" Inherits="ExceptionDashboard.ManageEmployees" %>
 <asp:Content ID ="Content1" ContentPlaceHolderID="main" runat ="server">
+    <script type = "text/javascript">
+        var popUpObj;
+        
+        function showModalPopUp() {
+            popUpObj = window.open("EditEmployee.aspx",
+            "ModalPopUp",
+            "toolbar=no," +
+            "scrollbars=no," +
+            "location=no," +
+            "statusbar=no," +
+            "titlebar=no," +
+            "menubar=no," +
+            "resizable=0," +
+            "width=430," +
+            "left=20," +
+            "height=315,"
+            );
+            popUpObj.focus();
+            LoadModalDiv();
+        }
+    </script>
+    <script type = "text/javascript">
+        function LoadModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "block";
+            
+        }
+    </script>
+    <script type = "text/javascript">
+        function HideModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "none";
+            
+            document.getElementById('<%=btnViewReport %>').dispatchEvent(onclick);
+        }
+    </script>
     <div id = "divBackground" style="position: fixed; z-index: 999; height: 100%; width: 100%; top: 0; left:0; background-color: Black; filter: alpha(opacity=60); opacity: 0.6; -moz-opacity: 0.8;display:none"></div>
     <asp:Panel runat="server" BackColor="#ffffff">
         <div id="searchFields">
@@ -66,6 +102,12 @@
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblfSupervisor" Text='<%# Bind("FullSupName") %>' HeaderText="Supervisor" SortExpression="FullSupName" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField ShowHeader="true">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbEdit" runat="server" CausesValidation="false" CSSClass="btn" HeaderText="Edit" CommandName="EditEmployee" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>">Edit</asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
 

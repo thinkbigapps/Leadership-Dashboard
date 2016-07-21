@@ -198,7 +198,7 @@ input[type="submit"] {
 	padding-bottom: 50px;
 }
 
-#main_listRepresentative, #main_listTopLevel, #main_listDepartment, #main_listStatus, #main_txtStartDate, #main_txtEndDate {
+#main_listRepresentative, #main_listTopLevel, #main_listDepartment, #main_listStatus, #main_txtStartDate, #main_txtEndDate, #ddlDepartment, ddlSupervisor {
 	width: 100%;
 	height: 100%;
 	display: block;
@@ -439,4 +439,30 @@ th {
     position: relative;
     float: left;
     list-style: none;
+}
+
+#editEmployeeMain {
+    width: 90%;
+    margin: auto;
+    background-color: #fff;
+}
+
+#headerText {
+    display:table;
+    margin:auto;
+    margin-bottom: 25px;
+    padding-top: 25px;
+}
+
+#EditEmployeeTable {
+    margin:auto;
+}
+
+#EditEmployeeTable td {
+    padding: 5px 10px;
+}
+
+#editEmployeeButtons, #deactivateEmployee {
+    text-align:center;
+    padding-bottom: 18px !important;
 }

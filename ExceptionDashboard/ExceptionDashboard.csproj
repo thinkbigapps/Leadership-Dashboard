@@ -97,6 +97,7 @@
     <Content Include="ConsultationCardReport.aspx" />
     <Content Include="ConsultationView.aspx" />
     <Content Include="CreateAccount.aspx" />
+    <Content Include="EditEmployee.aspx" />
     <Content Include="ExEvent.Master" />
     <Content Include="jquery-1.10.2.js" />
     <Content Include="jquery-ui.css" />
@@ -173,6 +174,13 @@
     </Compile>
     <Compile Include="CreateAccount.aspx.designer.cs">
       <DependentUpon>CreateAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditEmployee.aspx.cs">
+      <DependentUpon>EditEmployee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditEmployee.aspx.designer.cs">
+      <DependentUpon>EditEmployee.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditSubmission.aspx.cs">
       <DependentUpon>EditSubmission.aspx</DependentUpon>

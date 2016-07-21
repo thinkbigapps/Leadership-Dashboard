@@ -25,7 +25,7 @@ namespace ExceptionDashboard
             checkLogin();
             if (!IsPostBack)
             {
-
+                btnViewReport_Click(sender, null);
             }
 
             //Check to see if user is logged in
@@ -157,6 +157,13 @@ namespace ExceptionDashboard
 
                 _employeeList = _myEmployeeManager.FindLeadReports(supFirstName, supLastName);
             }
+            else if (listTopLevel.SelectedValue == "Agent")
+            {
+                int empID = Convert.ToInt32(listRepresentative.SelectedValue);
+                Employee selectedEmployee = _myEmployeeManager.FindSingleEmployee(empID);
+                selectedEmployee.FullSupName = selectedEmployee.SupervisorLastName + ", " + selectedEmployee.SupervisorFirstName;
+                _employeeList.Add(selectedEmployee);
+            }
 
             if (_employeeList.Count() != 0)
             {
@@ -204,7 +211,16 @@ namespace ExceptionDashboard
 
         protected void gvExEvent_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            checkLogin();
+            
+            if (e.CommandName == "EditEmployee")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvExEvent.Rows[index];
+                int id = (int)gvExEvent.DataKeys[index].Value;
+                Session["selectedEmployeeID"] = id;
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModalPopUp", "showModalPopUp();", true);
+            }
         }
 
         protected void gvExEvent_RowCreated(object sender, GridViewRowEventArgs e)

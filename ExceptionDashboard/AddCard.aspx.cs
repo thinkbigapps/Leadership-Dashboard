@@ -39,7 +39,7 @@ namespace ExceptionDashboard
                 if(requested == "true")
                 {
                     ddlMethod.SelectedValue = "Requested";
-                    ddlMethod.Enabled = false;
+                    //ddlMethod.Enabled = false;
                 }
             }
             Image myImg = new Image();
