@@ -16,7 +16,7 @@ namespace DataAccess
             var myList = new List<ManagerExEvent>();
 
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
-            var query = "SELECT event_id, ex_event.employee_id, employee.department_name, employee.employee_id, event_date, submission_date, activity_name, start_time, end_time, status_name, activity_note, employee.supervisor_lname, event_date, employee.first_name, employee.last_name FROM ex_event, employee WHERE ex_event.employee_id = employee.employee_id AND employee.department_name = @department AND status_name = 'Pending' AND event_date < DATEADD(day,-4,GETDATE())";
+            var query = "SELECT event_id, ex_event.employee_id, employee.department_name, employee.employee_id, event_date, submission_date, activity_name, start_time, end_time, status_name, activity_note, employee.supervisor_lname, event_date, employee.first_name, employee.last_name FROM ex_event, employee WHERE ex_event.employee_id = employee.employee_id AND employee.department_name = @department AND status_name = 'Pending' AND event_date < DATEADD(day,-3,GETDATE())";
             var cmd = new SqlCommand(query, conn);
 
             cmd.Parameters.AddWithValue("@department", dept);
@@ -44,6 +44,8 @@ namespace DataAccess
                     myMgrExEvent.activityName = reader.GetString(6);
                     myMgrExEvent.startTime = reader.GetString(7);
                     myMgrExEvent.endTime = reader.GetString(8);
+                    string duration = (Convert.ToDateTime(myMgrExEvent.endTime) - Convert.ToDateTime(myMgrExEvent.startTime)).ToString("hh\\:mm");
+                    myMgrExEvent.duration = duration;
                     myMgrExEvent.statusName = reader.GetString(9);
                     myMgrExEvent.activityNote = reader.GetString(10);
                     myMgrExEvent.supLastName = reader.GetString(11);
@@ -94,6 +96,7 @@ namespace DataAccess
                     item.activityName = reader.GetString(5);
                     item.startTime = reader.GetString(6);
                     item.endTime = reader.GetString(7);
+                    item.duration = (Convert.ToDateTime(item.endTime) - Convert.ToDateTime(item.startTime)).ToString("hh\\:mm");
                     item.statusName = reader.GetString(8);
                     item.activityNote = reader.GetString(9);
                     if (!reader.IsDBNull(10))
@@ -143,6 +146,7 @@ namespace DataAccess
                     myExEvent.activityName = reader.GetString(3);
                     myExEvent.startTime = reader.GetString(4);
                     myExEvent.endTime = reader.GetString(5);
+                    myExEvent.duration = (Convert.ToDateTime(myExEvent.endTime) - Convert.ToDateTime(myExEvent.startTime)).ToString("hh\\:mm");
                     myExEvent.statusName = reader.GetString(6);
                     myExEvent.activityNote = reader.GetString(7);
                     if (!reader.IsDBNull(8))
@@ -205,6 +209,7 @@ namespace DataAccess
                     item.activityName = reader.GetString(5);
                     item.startTime = reader.GetString(6);
                     item.endTime = reader.GetString(7);
+                    item.duration = (Convert.ToDateTime(item.endTime) - Convert.ToDateTime(item.startTime)).ToString("hh\\:mm");
                     item.statusName = reader.GetString(8);
                     item.activityNote = reader.GetString(9);
                     if (!reader.IsDBNull(10))

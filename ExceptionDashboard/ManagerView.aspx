@@ -87,6 +87,7 @@
 
                 <asp:BoundField DataField="startTime" HeaderText="Start Time" SortExpression="startTime" />
                 <asp:BoundField DataField="endTime" HeaderText="End Time" SortExpression="endTime" />
+                <asp:BoundField DataField="duration" HeaderText="Duration" SortExpression="duration" />
                 <asp:BoundField DataField="statusName" HeaderText="Status" SortExpression="statusName" />
                 <asp:TemplateField ShowHeader="true">
                     <ItemTemplate>

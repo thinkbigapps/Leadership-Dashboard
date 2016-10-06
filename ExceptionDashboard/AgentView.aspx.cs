@@ -406,7 +406,7 @@ namespace ExceptionDashboard
             //detect if event status is completed
             //if so, remove button to complete event
             //clear session variable for edit/submit changes for next page load
-            LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
+            LinkButton lbComplete = (LinkButton)e.Row.Cells[8].FindControl("lbComplete");
 
             if(e.Row.Cells[5].Text=="Completed")
             {
@@ -432,8 +432,8 @@ namespace ExceptionDashboard
 
             ////insert edit and complete buttons into each row
             ////***ADDING 'Edit' button as some users were reporting that they weren't aware they could click the row to edit***
-            LinkButton lbComplete = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
-            LinkButton lbEdit = (LinkButton)e.Row.Cells[6].FindControl("lbEdit");
+            LinkButton lbComplete = (LinkButton)e.Row.Cells[8].FindControl("lbComplete");
+            LinkButton lbEdit = (LinkButton)e.Row.Cells[7].FindControl("lbEdit");
 
             //check to see if event is already completed or rejected, change edit button text to 'View'
             if (e.Row.Cells[5].Text == "Completed" || e.Row.Cells[5].Text == "Rejected")
@@ -449,7 +449,7 @@ namespace ExceptionDashboard
             {
                 if (loggedInAgent.RoleName == "Agent")
                 {
-                    LinkButton lbComplete2 = (LinkButton)e.Row.Cells[7].FindControl("lbComplete");
+                    LinkButton lbComplete2 = (LinkButton)e.Row.Cells[8].FindControl("lbComplete");
                     lbComplete2.Visible = false;
                 }
             }

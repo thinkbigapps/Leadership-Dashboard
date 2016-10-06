@@ -88,7 +88,7 @@ input[type="submit"] {
 }
 
 .grid {
-	min-width: 50%;
+	min-width: 40%;
 	text-align: center;
 }
 
@@ -465,4 +465,10 @@ th {
 #editEmployeeButtons, #deactivateEmployee {
     text-align:center;
     padding-bottom: 18px !important;
+}
+
+#main_lblEntryLink {
+    font-size: 18px;
+    font-style: italic;
+    padding-left: 4px;
 }

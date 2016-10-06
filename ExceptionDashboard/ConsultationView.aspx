@@ -36,6 +36,7 @@
         <br /> 
         </div>
         <div id="mainContent">
+            <asp:Label ID="lblEntryLink" runat="server" Text="Remember to submit completed entries at x.co/bizconsult!"></asp:Label>
             <asp:Table ID="consultTable" CssClass="grid" runat="server" >
                 <asp:TableHeaderRow BackColor="#8cb529" ForeColor="white" Height="40px">
                     <asp:TableHeaderCell>

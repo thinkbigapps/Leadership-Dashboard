@@ -16,6 +16,7 @@ namespace BusinessObjects
         public string activityName { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
+        public string duration { get; set; }
         public string statusName { get; set; }
         public string activityNote { get; set; }
         public DateTime completedDate { get; set; }
