@@ -518,7 +518,9 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT TOP 1 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart GROUP BY card_name ORDER BY COUNT(*) DESC";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
+            
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             try
@@ -552,7 +554,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT TOP 1 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart GROUP BY card_name ORDER BY COUNT(*) ASC";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             try
@@ -586,7 +589,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT TOP 3 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND card_slot = '1' OR card_slot = '2' OR card_slot = '3' GROUP BY card_name ORDER BY COUNT(*) DESC";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             List<string> cardList = new List<string>();
@@ -624,7 +628,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT TOP 3 card_name FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND card_slot = '7' OR card_slot = '8' OR card_slot = '9' GROUP BY card_name ORDER BY COUNT(*) ASC";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             List<string> cardList = new List<string>();
@@ -662,7 +667,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT created_date, completed_date FROM card_sheets WHERE created_date > @monthStart AND completed_date != '1/1/2000 12:00:00 PM' AND completed_date IS NOT NULL";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             List<ConsultationSheet> sheetList = new List<ConsultationSheet>();
@@ -701,7 +707,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT COUNT(award_method) FROM cards, card_sheets WHERE cards.sheet_id = card_sheets.sheet_id AND card_sheets.created_date > @monthStart AND cards.award_method = @awardMethod";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
             cmd.Parameters.AddWithValue("@awardMethod", method);
 
@@ -736,7 +743,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT department_name, COUNT(sheet_id) from employee, card_sheets WHERE card_sheets.employee_id = employee.employee_id AND created_date > @monthStart AND completed_date != '1/1/2000' AND completed_date IS NOT NULL ORDER BY COUNT(*) DESC";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
 
             NameValueCollection sheetList = new NameValueCollection();
@@ -774,7 +782,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT COUNT(sheet_id) from employee, card_sheets WHERE card_sheets.employee_id = employee.employee_id AND employee.department_name = @department AND created_date > @monthStart AND completed_date != '1/1/2000' AND completed_date IS NOT NULL";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
             cmd.Parameters.AddWithValue("@department", department);
 
@@ -809,7 +818,8 @@ namespace DataAccess
             var conn = DatabaseConnection.GetExEventDatabaseConnection();
             var query = @"SELECT COUNT(sheet_id) from employee, card_sheets WHERE card_sheets.employee_id = employee.employee_id AND employee.supervisor_fname = @supFirstName AND employee.supervisor_lname = @supLastName AND created_date > @monthStart AND completed_date != '1/1/2000' AND completed_date IS NOT NULL";
             var cmd = new SqlCommand(query, conn);
-            string monthStart = month + "/1/2016";
+            string currentYear = DateTime.Now.Year.ToString();
+            string monthStart = month + "/1/" + currentYear;
             cmd.Parameters.AddWithValue("@monthStart", monthStart);
             cmd.Parameters.AddWithValue("@supFirstName", sup.FirstName);
             cmd.Parameters.AddWithValue("@supLastName", sup.LastName);
