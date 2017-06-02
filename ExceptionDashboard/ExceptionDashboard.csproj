@@ -102,12 +102,14 @@
     <Content Include="jquery-1.10.2.js" />
     <Content Include="jquery-ui.css" />
     <Content Include="jquery-ui.js" />
+    <Content Include="konami.js" />
     <Content Include="ManageEmployees.aspx" />
     <Content Include="ManagerView.aspx" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\dev.domainmason.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dev2.pubxml" />
     <None Include="Properties\PublishProfiles\GD.pubxml" />
+    <None Include="Properties\PublishProfiles\nimbusguild.com - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

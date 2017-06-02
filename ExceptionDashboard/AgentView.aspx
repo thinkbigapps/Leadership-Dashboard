@@ -1,6 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="ExEvent.Master" CodeBehind="AgentView.aspx.cs" EnableEventValidation="false" Inherits="ExceptionDashboard.AgentView" %>
 
 <asp:Content ID ="Content1" ContentPlaceHolderID="main" runat ="server">
+    <script>
+        (function ($) {
+            "use strict";
+            $(function () {
+                $(window).konami({
+                    cheat: function () {
+                        window.location = "https://youtu.be/yu_HxA3KO_k";
+                    } // end cheat
+                });
+            });
+        }(jQuery));
+    </script>
     <script type = "text/javascript">
         var popUpObj;
         var startDate = window.opener.document.getElementById('txtStartDate').value;

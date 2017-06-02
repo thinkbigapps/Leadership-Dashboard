@@ -53,7 +53,7 @@ namespace ExceptionDashboard
             MailMessage mailMessage = new MailMessage();
             Employee loggedInEmployee = (Employee)Session["loggedInUser"];
             mailMessage.IsBodyHtml = true;
-            mailMessage.From = new MailAddress("donotreply@dev.domainmason.com");
+            mailMessage.From = new MailAddress("donotreply@nimbusguild.com");
             mailMessage.To.Add(email);
             mailMessage.Subject = "You have been awarded a new consultation card!";
             string imageCard = card.ToLower();
@@ -80,7 +80,7 @@ namespace ExceptionDashboard
         {
             MailMessage mailMessage = new MailMessage();
 
-            mailMessage.From = new MailAddress("donotreply@dev.domainmason.com");
+            mailMessage.From = new MailAddress("donotreply@nimbusguild.com");
             mailMessage.To.Add(email);
             mailMessage.Subject = "You have just completed a full consultation card sheet!";
 

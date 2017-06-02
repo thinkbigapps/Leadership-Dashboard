@@ -98,7 +98,7 @@ namespace ExceptionDashboard
                             throw;
                         }
                         //create reset password with random hash included in query string
-                        string resetLink = "http://dev.domainmason.com/ResetPassword.aspx?resetid=" + resetLinkHash;
+                        string resetLink = "http://nimbusguild.com/ResetPassword.aspx?resetid=" + resetLinkHash;
                         //send reset email
                         SendMail(checkUsername.FirstName, checkUsername.LastName, resetLink);
                     }
@@ -114,7 +114,7 @@ namespace ExceptionDashboard
         {
             MailMessage mailMessage = new MailMessage();
             
-            mailMessage.From = new MailAddress("donotreply@dev.domainmason.com");
+            mailMessage.From = new MailAddress("donotreply@nimbusguild.com");
             mailMessage.To.Add(txtEmailAddress.Text);
             mailMessage.Subject = "Exception Dashboard Password Reset Request";
 

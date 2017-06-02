@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="jquery-ui.css" />
     <script src="jquery-1.10.2.js"></script>
     <script src="jquery-ui.js"></script>
+    <script src="konami.js"></script>
     <script>
         $(function () {
             $(".txtDate").datepicker({
@@ -85,7 +86,7 @@
             </div>
         </div>
         <div id="welcome" runat="server">
-            <asp:Label ID="lblAlert" runat="server" Text="  Session will time out after 5 mins of inactivity | THIS TOOL DOES NOT SUBMIT TO WEBSTATION  |  Send feedback to mgallen@" CssClass="lblAlert"></asp:Label>
+            <asp:Label ID="lblAlert" runat="server" Text="  Session will time out after 5 mins of inactivity | THIS TOOL DOES NOT SUBMIT TO WEBSTATION  |  Send feedback to blester@" CssClass="lblAlert"></asp:Label>
             <asp:Label runat="server" ID="lblNewUser" CssClass="newUser">
                 <a href="./CreateAccount.aspx">Create Account</a>
             </asp:Label>
