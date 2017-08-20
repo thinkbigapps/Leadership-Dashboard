@@ -58,7 +58,7 @@ namespace ExceptionDashboard
                         }
                         catch (Exception)
                         {
-                            throw;
+                            
                         }
                         //obtain info for logged in user
                         //populate remaining form fields with user/event info
@@ -118,7 +118,7 @@ namespace ExceptionDashboard
                     }
                     catch (Exception)
                     {
-                        throw;
+                        
                     }
                 }
             }
@@ -184,7 +184,7 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    throw;
+                    
                 }
 
                 //resubmit updated event as a new event
@@ -194,12 +194,12 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    throw;
+                    
                 }
             }
             catch (Exception)
             {
-                throw;
+                
             }
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myCloseScript", "window.close()", true);
             //System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('Exception resubmitted as a new pending event.');", true);
@@ -223,12 +223,12 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    throw;
+                    
                 }
             }
             catch (Exception)
             {
-                throw;
+                
             }
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myCloseScript", "window.close()", true);
             //System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('Event deleted successfully');", true);
@@ -274,7 +274,7 @@ namespace ExceptionDashboard
             }
             catch (Exception)
             {
-                throw;
+                
             }
         }
 
@@ -295,7 +295,7 @@ namespace ExceptionDashboard
             }
             catch (Exception)
             {
-                throw;
+                
             }
         }
 

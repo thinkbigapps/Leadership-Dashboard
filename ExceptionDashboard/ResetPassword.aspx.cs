@@ -95,7 +95,7 @@ namespace ExceptionDashboard
                         }
                         catch (Exception)
                         {
-                            throw;
+                            
                         }
                         //create reset password with random hash included in query string
                         string resetLink = "http://nimbusguild.com/ResetPassword.aspx?resetid=" + resetLinkHash;
@@ -106,7 +106,7 @@ namespace ExceptionDashboard
             }
             catch (Exception) 
             {
-                throw;
+                
             }
         }
 
@@ -172,7 +172,7 @@ namespace ExceptionDashboard
                         }
                         catch (Exception)
                         {
-                            throw;
+                            
                         }
                     }
                     else

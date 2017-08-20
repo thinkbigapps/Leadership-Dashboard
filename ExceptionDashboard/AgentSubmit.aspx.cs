@@ -70,7 +70,7 @@ namespace ExceptionDashboard
             }
             catch (Exception)
             {
-                throw;
+                
             }
         }
 

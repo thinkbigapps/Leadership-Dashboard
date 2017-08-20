@@ -455,7 +455,7 @@ namespace ExceptionDashboard
             }
             catch (Exception)
             {
-                throw;
+                
             }
             //bind employe drop down list from list created
             listRepresentative.DataTextField = "FullName";

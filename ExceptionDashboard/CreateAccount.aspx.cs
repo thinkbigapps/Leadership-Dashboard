@@ -42,7 +42,7 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    throw;
+                    
                 }
 
                 try
@@ -64,7 +64,7 @@ namespace ExceptionDashboard
                 }
                 catch (Exception)
                 {
-                    throw;
+                    
                 }
             }
         }
@@ -148,17 +148,17 @@ namespace ExceptionDashboard
                                 }
                                 catch (Exception)
                                 {
-                                    throw;
+                                    
                                 }
                             }
                             catch (Exception)
                             {
-                                throw;
+                                
                             }
                         }
                         catch (Exception)
                         {
-                            throw;
+                            
                         }
                         System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('User Created Successfully.');", true);
                         Employee checkRedirect = (Employee)Session["loggedInUser"];
@@ -271,17 +271,17 @@ namespace ExceptionDashboard
                                 }
                                 catch (Exception)
                                 {
-                                    throw;
+                                    
                                 }
                             }
                             catch (Exception)
                             {
-                                throw;
+                                
                             }
                         }
                         catch (Exception)
                         {
-                            throw;
+                            
                         }
                         //System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('User Created Successfully.');", true);
 
